@@ -1,3 +1,11 @@
+# Server files gitignore
+server/dist/
+server/data/
+server/*.toml
+server/!config.template.toml
+server/.vscode/
+
+
 # Logs
 logs
 *.log
