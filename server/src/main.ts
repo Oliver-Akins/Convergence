@@ -6,6 +6,7 @@ import { JSONDatabase } from "./utils/database/json";
 import { loadConfig } from "./utils/config";
 import { Server } from "@hapi/hapi";
 import inert from "@hapi/inert";
+import { Logger } from "tslog";
 import path from "path";
 import glob from "glob";
 
@@ -13,6 +14,11 @@ import glob from "glob";
 export const isDev = process.env.NODE_ENV?.startsWith(`dev`);
 export const config = loadConfig();
 export const database = new JSONDatabase(config.database);
+export const log = new Logger({
+	displayFunctionName: false,
+	displayFilePath: "hidden",
+	minLevel: isDev ? `silly` : `info`,
+});
 
 // Handle the system exiting so we can cleanup before shutting down
 import { cleanExit } from "./utils/cleanExit";
