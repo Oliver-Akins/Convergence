@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hapi/boom': ^10.0.0
+  '@hapi/cryptiles': ^6.0.0
   '@hapi/hapi': ^20.2.2
   '@hapi/inert': ^7.0.0
   '@iarna/toml': ^2.2.5
@@ -8,33 +10,37 @@ specifiers:
   '@types/hapi__hapi': ^20.0.12
   '@types/hapi__inert': ^5.2.3
   '@types/module-alias': ^2.0.1
-  '@types/node': ^18.6.4
+  '@types/node': ^18.8.2
   glob: ^8.0.3
-  joi: ^17.6.0
-  joi-to-typescript: ^4.0.5
+  joi: ^17.6.2
+  joi-to-typescript: ^4.0.6
   module-alias: ^2.2.2
   path: ^0.12.7
   ts-node: ^10.9.1
-  typescript: ^4.7.4
+  tslog: ^3.3.4
+  typescript: ^4.8.4
 
 dependencies:
+  '@hapi/boom': 10.0.0
+  '@hapi/cryptiles': 6.0.0
   '@hapi/hapi': 20.2.2
   '@hapi/inert': 7.0.0
   '@iarna/toml': 2.2.5
   glob: 8.0.3
-  joi: 17.6.0
+  joi: 17.6.2
   module-alias: 2.2.2
   path: 0.12.7
-  typescript: 4.7.4
+  tslog: 3.3.4
+  typescript: 4.8.4
 
 devDependencies:
   '@types/glob': 7.2.0
   '@types/hapi__hapi': 20.0.12
   '@types/hapi__inert': 5.2.3
   '@types/module-alias': 2.0.1
-  '@types/node': 18.6.4
-  joi-to-typescript: 4.0.5_joi@17.6.0
-  ts-node: 10.9.1_hn66opzbaneygq52jmwjxha6su
+  '@types/node': 18.8.2
+  joi-to-typescript: 4.0.6_joi@17.6.2
+  ts-node: 10.9.1_p2zphemn5bk5inasc666rmprwi
 
 packages:
 
@@ -132,6 +138,13 @@ packages:
     dependencies:
       '@hapi/boom': 9.1.4
 
+  /@hapi/cryptiles/6.0.0:
+    resolution: {integrity: sha512-CUypQJI2F3HaKZjwlky3KyLu7p0O4WJXNJj+2AZ0czqwkwQIz8j+btOkzA3OMar8WTntnCrDx0f92PzxEK+JlA==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      '@hapi/boom': 10.0.0
+    dev: false
+
   /@hapi/file/2.0.0:
     resolution: {integrity: sha512-WSrlgpvEqgPWkI18kkGELEZfXr0bYLtr16iIN4Krh9sRnzBZN6nnWxHFxtsnP684wueEySBbXPDg/WfA9xJdBQ==}
     dev: false
@@ -183,7 +196,7 @@ packages:
       '@hapi/bounce': 3.0.0
       '@hapi/hoek': 10.0.1
       '@hapi/validate': 2.0.0
-      lru-cache: 7.13.2
+      lru-cache: 7.14.0
     dev: false
 
   /@hapi/iron/6.0.0:
@@ -357,8 +370,8 @@ packages:
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
-      '@types/minimatch': 3.0.5
-      '@types/node': 18.6.4
+      '@types/minimatch': 5.1.2
+      '@types/node': 18.8.2
     dev: true
 
   /@types/hapi__catbox/10.2.4:
@@ -374,8 +387,8 @@ packages:
       '@types/hapi__catbox': 10.2.4
       '@types/hapi__mimos': 4.1.4
       '@types/hapi__shot': 4.1.2
-      '@types/node': 18.6.4
-      joi: 17.6.0
+      '@types/node': 18.8.2
+      joi: 17.6.2
     dev: true
 
   /@types/hapi__inert/5.2.3:
@@ -393,23 +406,23 @@ packages:
   /@types/hapi__shot/4.1.2:
     resolution: {integrity: sha512-8wWgLVP1TeGqgzZtCdt+F+k15DWQvLG1Yv6ZzPfb3D5WIo5/S+GGKtJBVo2uNEcqabP5Ifc71QnJTDnTmw1axA==}
     dependencies:
-      '@types/node': 18.6.4
+      '@types/node': 18.8.2
     dev: true
 
   /@types/mime-db/1.43.1:
     resolution: {integrity: sha512-kGZJY+R+WnR5Rk+RPHUMERtb2qBRViIHCBdtUrY+NmwuGb8pQdfTqQiCKPrxpdoycl8KWm2DLdkpoSdt479XoQ==}
     dev: true
 
-  /@types/minimatch/3.0.5:
-    resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
+  /@types/minimatch/5.1.2:
+    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
     dev: true
 
   /@types/module-alias/2.0.1:
     resolution: {integrity: sha512-DN/CCT1HQG6HquBNJdLkvV+4v5l/oEuwOHUPLxI+Eub0NED+lk0YUfba04WGH90EINiUrNgClkNnwGmbICeWMQ==}
     dev: true
 
-  /@types/node/18.6.4:
-    resolution: {integrity: sha512-I4BD3L+6AWiUobfxZ49DlU43gtI+FTHSv9pE2Zekg6KjMpre4ByusaljW3vYSLJrvQ1ck1hUaeVu8HVlY3vzHg==}
+  /@types/node/18.8.2:
+    resolution: {integrity: sha512-cRMwIgdDN43GO4xMWAfJAecYn8wV4JbsOGHNfNUIDiuYkUYAR5ec4Rj7IO2SAhFPEfpPtLtUTbbny/TCT7aDwA==}
     dev: true
 
   /acorn-walk/8.2.0:
@@ -435,6 +448,10 @@ packages:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
     dependencies:
       balanced-match: 1.0.2
+    dev: false
+
+  /buffer-from/1.1.2:
+    resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
     dev: false
 
   /create-require/1.1.1:
@@ -476,17 +493,17 @@ packages:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: false
 
-  /joi-to-typescript/4.0.5_joi@17.6.0:
-    resolution: {integrity: sha512-VzI4ILDblFJFx9HfGXHZOdT6K729mKzhcvGSNTd2uJxfBOWKWonh5YdabttWdvHmiDzPfdJwzB2/zH8xRgV3EQ==}
+  /joi-to-typescript/4.0.6_joi@17.6.2:
+    resolution: {integrity: sha512-quxDpmiyhDemI1rUWktz4/sRdYiiRG9ZjVCfozeAeTsskpSbift/UWTv7UDTNnqi3WcHIGg7ifd6Ox34Ib4xzg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       joi: 17.x
     dependencies:
-      joi: 17.6.0
+      joi: 17.6.2
     dev: true
 
-  /joi/17.6.0:
-    resolution: {integrity: sha512-OX5dG6DTbcr/kbMFj0KGYxuew69HPcAE3K/sZpEV2nP6e/j/C0HV+HNiBPCASxdx5T7DMoa0s8UeHWMnb6n2zw==}
+  /joi/17.6.2:
+    resolution: {integrity: sha512-+gqqdh1xc1wb+Lor0J9toqgeReyDOCqOdG8QSdRcEvwrcRiFQZneUCGKjFjuyBWUb3uaFOgY56yMaZ5FIc+H4w==}
     dependencies:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
@@ -494,8 +511,8 @@ packages:
       '@sideway/formula': 3.0.0
       '@sideway/pinpoint': 2.0.0
 
-  /lru-cache/7.13.2:
-    resolution: {integrity: sha512-VJL3nIpA79TodY/ctmZEfhASgqekbT574/c4j3jn4bKXbSCnTTCH/KltZyvL2GlV+tGSMtsWyem8DCX7qKTMBA==}
+  /lru-cache/7.14.0:
+    resolution: {integrity: sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==}
     engines: {node: '>=12'}
     dev: false
 
@@ -537,7 +554,19 @@ packages:
     engines: {node: '>= 0.6.0'}
     dev: false
 
-  /ts-node/10.9.1_hn66opzbaneygq52jmwjxha6su:
+  /source-map-support/0.5.21:
+    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
+    dependencies:
+      buffer-from: 1.1.2
+      source-map: 0.6.1
+    dev: false
+
+  /source-map/0.6.1:
+    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /ts-node/10.9.1_p2zphemn5bk5inasc666rmprwi:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -556,20 +585,27 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.6.4
+      '@types/node': 18.8.2
       acorn: 8.8.0
       acorn-walk: 8.2.0
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 4.7.4
+      typescript: 4.8.4
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
 
-  /typescript/4.7.4:
-    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+  /tslog/3.3.4:
+    resolution: {integrity: sha512-N0HHuHE0e/o75ALfkioFObknHR5dVchUad4F0XyFf3gXJYB++DewEzwGI/uIOM216E5a43ovnRNEeQIq9qgm4Q==}
+    engines: {node: '>=10'}
+    dependencies:
+      source-map-support: 0.5.21
+    dev: false
+
+  /typescript/4.8.4:
+    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
 
