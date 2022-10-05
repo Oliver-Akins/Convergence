@@ -33,3 +33,6 @@ run:
 
 rund:
 	NODE_ENV=development $(NODE) $(OUT_DIR)/main.js
+
+clean:
+	rm -rf dist db.json
