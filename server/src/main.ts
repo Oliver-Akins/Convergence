@@ -41,11 +41,21 @@ async function init() {
 	});
 
 	await server.register([inert, cookie]);
+
+	/*
+	This allows for authenticating with the API through the use of cookies, this
+	is most recommended for browser purposes since the API also accepts BASIC
+	authentication which is simpler for most programmatic systems to utilize,
+	though if a non-browser based request does utilize the cookie authentication
+	the API won't reject the request and fulfill it anyway.
+	*/
 	server.auth.strategy(`session`, `cookie`, {
 		cookie: {
 			password: await database.getCookiePassword(),
 			isSecure: !isDev,
 			clearInvalid: true,
+			path: `/`,
+			isHttpOnly: !isDev,
 		},
 		validateFunc: async (_req: Request, session: any) => {
 			const { username, discriminator } = session;
@@ -53,10 +63,11 @@ async function init() {
 				username,
 				discriminator
 			);
+
 			if (!account) {
-				return { isValid: false };
+				return { valid: false };
 			};
-			return { isValid: true };
+			return { valid: true, credentials: account };
 		},
 	});
 
