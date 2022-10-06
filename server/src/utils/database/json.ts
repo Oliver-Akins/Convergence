@@ -35,7 +35,7 @@ export class JSONDatabase {
 		if (!fs.existsSync(conf.uri)) {
 			console.error(`Can't find database file, creating default`);
 			try {
-				fs.writeFileSync(conf.uri, `{}`);
+				fs.writeFileSync(conf.uri, JSON.stringify(this.data));
 			} catch (_) {
 				console.log(`Couldn't create database file, ensure the uri is a valid filepath`);
 			};
