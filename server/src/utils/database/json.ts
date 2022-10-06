@@ -1,8 +1,32 @@
 import { databaseOptions } from "$/types/config";
+import { Account } from "$/types/data";
 import fs from "fs";
 
+interface data {
+	users: {[index: string]: Account};
+	games: any;
+	platforms: any;
+	meta: {
+		"hash-secret"?: string;
+		users: {
+			count: number;
+			index: number;
+		};
+	};
+};
+
 export class JSONDatabase {
-	private data = {};
+	private data: data = {
+		users: {},
+		games: {},
+		platforms: {},
+		meta: {
+			users: {
+				count: 0,
+				index: 0,
+			},
+		},
+	};
 	private conf: databaseOptions;
 
 	constructor(conf: databaseOptions) {
