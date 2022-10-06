@@ -21,7 +21,7 @@ const route: ServerRoute = {
 		let { username, password} = req.payload as any;
 		log.silly(`Registration with username: ${username}`);
 
-		const accounts = database.getAccountsByUsername(username);
+		const accounts = await database.getAccountsByUsername(username);
 
 		if (accounts.length >= config.service.same_name_account_limit) {
 			throw boom.conflict(`Too many accounts with that username`);
@@ -30,7 +30,7 @@ const route: ServerRoute = {
 		const discriminator = accounts.length + 1;
 		const salt = randomString(15);
 		const hashedPass = crypto
-			.createHmac(`sha256`, database.getHashSecret())
+			.createHmac(`sha256`, await database.getHashSecret())
 			.update(password + `$` + salt)
 			.digest(`hex`);
 		log.silly(`hashed length: ${hashedPass.length}`);
