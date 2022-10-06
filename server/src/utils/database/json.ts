@@ -51,7 +51,7 @@ export class JSONDatabase {
 	/**
 	 * Retrieves the secret used for hashing passwords
 	 */
-	public getHashSecret(): string {
+	public async getHashSecret(): Promise<string> {
 		if (!this.data.meta[`hash-secret`]) {
 			this.data.meta[`hash-secret`] = randomString(15);
 		};
@@ -64,7 +64,7 @@ export class JSONDatabase {
 	 * @param username The username of the account
 	 * @returns The accounts that have that username
 	 */
-	public getAccountsByUsername(username: string): Account[] {
+	public async getAccountsByUsername(username: string): Promise<Account[]> {
 		let users: Account[] = [];
 		for (const aid in this.data.users) {
 			const account = this.data.users[aid];
@@ -75,10 +75,10 @@ export class JSONDatabase {
 		return users;
 	};
 
-	public getAccountByUsernameDiscriminator(
+	public async getAccountByUsernameDiscriminator(
 		username: string,
 		discriminator: number
-	): Account | undefined {
+	): Promise<Account | undefined> {
 		for (const aid in this.data.users) {
 			const account = this.data.users[aid];
 			if (
@@ -93,7 +93,7 @@ export class JSONDatabase {
 	/**
 	 * Adds the user into the database.
 	 */
-	public addUser(user: Account) {
+	public async addUser(user: Account) {
 		this.data.users[++this.data.meta.users.index] = user;
 		this.data.meta.users.count++;
 	};
