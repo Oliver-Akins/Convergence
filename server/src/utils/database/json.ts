@@ -43,7 +43,7 @@ export class JSONDatabase {
 		this.data = JSON.parse(fs.readFileSync(conf.uri, `utf-8`));
 	};
 
-	public shutdown() {
+	public async shutdown() {
 		fs.writeFileSync(this.conf.uri, JSON.stringify(this.data));
 	};
 };
