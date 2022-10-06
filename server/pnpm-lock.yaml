@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@hapi/boom': ^10.0.0
+  '@hapi/cookie': ^11.0.2
   '@hapi/cryptiles': ^6.0.0
   '@hapi/hapi': ^20.2.2
   '@hapi/inert': ^7.0.0
@@ -22,6 +23,7 @@ specifiers:
 
 dependencies:
   '@hapi/boom': 10.0.0
+  '@hapi/cookie': 11.0.2
   '@hapi/cryptiles': 6.0.0
   '@hapi/hapi': 20.2.2
   '@hapi/inert': 7.0.0
@@ -130,6 +132,15 @@ packages:
     resolution: {integrity: sha512-mre4dl1ygd4ZyOH3tiYBrOUBzV7Pu/EOs8VLGf58vtOEECWed8Uuw6B4iR9AN/8uQt42tB04qpVaMyoMQh0oMw==}
     dependencies:
       '@hapi/boom': 9.1.4
+    dev: false
+
+  /@hapi/cookie/11.0.2:
+    resolution: {integrity: sha512-LRpSuHC53urzml83c5eUHSPPt7YtK1CaaPZU9KmnhZlacVVojrWJzOUIcwOADDvCZjDxowCO3zPMaOqzEm9kgg==}
+    dependencies:
+      '@hapi/boom': 9.1.4
+      '@hapi/bounce': 2.0.0
+      '@hapi/hoek': 9.3.0
+      '@hapi/validate': 1.1.3
     dev: false
 
   /@hapi/cryptiles/5.1.0:
