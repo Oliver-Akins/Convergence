@@ -87,6 +87,14 @@ export class JSONDatabase {
 		return users;
 	};
 
+	/**
+	 * Finds a specific account based on the username and the unique discriminator
+	 * of the account.
+	 *
+	 * @param username The username of the account
+	 * @param discriminator The discriminator of the account
+	 * @returns The account data, if it was found.
+	 */
 	public async getAccountByUsernameDiscriminator(
 		username: string,
 		discriminator: number
