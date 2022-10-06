@@ -4,7 +4,8 @@ import "module-alias/register";
 
 import { JSONDatabase } from "./utils/database/json";
 import { loadConfig } from "./utils/config";
-import { Server } from "@hapi/hapi";
+import { Request, Server } from "@hapi/hapi";
+import cookie from "@hapi/cookie";
 import inert from "@hapi/inert";
 import { Logger } from "tslog";
 import path from "path";
@@ -39,7 +40,27 @@ async function init() {
 		},
 	});
 
-	await server.register(inert);
+	await server.register([inert, cookie]);
+	server.auth.strategy(`session`, `cookie`, {
+		cookie: {
+			password: await database.getCookiePassword(),
+			isSecure: !isDev,
+			clearInvalid: true,
+		},
+		validateFunc: async (_req: Request, session: any) => {
+			const { username, discriminator } = session;
+			const account = await database.getAccountByUsernameDiscriminator(
+				username,
+				discriminator
+			);
+			if (!account) {
+				return { isValid: false };
+			};
+			return { isValid: true };
+		},
+	});
+
+	server.auth.default({ strategies: [ `session` ] });
 
 	// Register all the routes
 	let files = glob.sync(
