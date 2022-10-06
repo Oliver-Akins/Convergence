@@ -5,6 +5,7 @@ server/*.toml
 !server/config.template.toml
 server/.vscode/
 server/db.json
+server/site
 
 
 # Logs
