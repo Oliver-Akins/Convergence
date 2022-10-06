@@ -102,8 +102,8 @@ export class JSONDatabase {
 		for (const aid in this.data.users) {
 			const account = this.data.users[aid];
 			if (
-				username == account.username
-				&& discriminator == account.discriminator
+				username === account.username
+				&& discriminator === account.discriminator
 			) {
 				return account;
 			};
