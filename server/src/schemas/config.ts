@@ -22,9 +22,20 @@ export const databaseOptionsSchema = Joi.object({
 .description(`The database specific options`);
 
 
+export const serviceOptionsSchema = Joi.object({
+	same_name_account_limit: Joi
+		.number()
+		.min(1)
+		.default(1_000),
+})
+.meta({ className: `serviceOptions` })
+.description(`The options relating specifically to the service and it's operations`);
+
+
 export const configSchema = Joi.object({
 	server: serverOptionsSchema.required(),
 	database: databaseOptionsSchema.required(),
+	service: serviceOptionsSchema.required(),
 })
 .meta({ className: `config` })
 .description(`The configuration format for the server`);
