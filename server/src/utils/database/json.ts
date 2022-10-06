@@ -9,6 +9,7 @@ interface data {
 	platforms: any;
 	meta: {
 		"hash-secret"?: string;
+		"cookie-password"?: string;
 		users: {
 			count: number;
 			index: number;
@@ -46,6 +47,17 @@ export class JSONDatabase {
 
 	public async shutdown() {
 		fs.writeFileSync(this.conf.uri, JSON.stringify(this.data));
+	};
+
+	/**
+	 * Retrieves the cookie password from the database, if it exists, if it
+	 * doesn't exist, it creates one then returns that instead.
+	 */
+	public async getCookiePassword(): Promise<string> {
+		if (!this.data.meta[`cookie-password`]) {
+			this.data.meta[`cookie-password`] = randomString(64);
+		};
+		return this.data.meta[`cookie-password`];
 	};
 
 	/**
