@@ -19,7 +19,7 @@ const route: ServerRoute = {
 	},
 	async handler(req, h) {
 		let { username, password} = req.payload as any;
-		log.silly(`Registration with username: ${username}`);
+		log.silly(`Attempting registeration with username: ${username}`);
 
 		const accounts = await database.getAccountsByUsername(username);
 
@@ -33,7 +33,6 @@ const route: ServerRoute = {
 			.createHmac(`sha256`, await database.getHashSecret())
 			.update(password + `$` + salt)
 			.digest(`hex`);
-		log.silly(`hashed length: ${hashedPass.length}`);
 
 		database.addUser({
 			username,
