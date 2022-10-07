@@ -1,6 +1,7 @@
 import { databaseOptions } from "$/types/config";
 import { randomString } from "@hapi/cryptiles";
 import { Account } from "$/types/data";
+import crypto from "crypto";
 import fs from "fs";
 
 interface data {
@@ -108,6 +109,24 @@ export class JSONDatabase {
 				return account;
 			};
 		};
+	};
+
+	public async compareUserPassword(
+		username: string, discrim: number,
+		password: string
+	) {
+		const account = await this.getAccountByUsernameDiscriminator(username, discrim);
+		if (!account) {
+			throw "No account found with that error"
+		};
+
+		const hashedPass = crypto
+			.createHmac(`sha256`, await this.getHashSecret())
+			.update(password + `$` + account.salt)
+			.digest();
+		const storedPass = Buffer.from(account.password, `hex`);
+
+		return crypto.timingSafeEqual(hashedPass, storedPass);
 	};
 
 	/**
