@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hapi/basic': ^7.0.0
   '@hapi/boom': ^10.0.0
   '@hapi/cookie': ^11.0.2
   '@hapi/cryptiles': ^6.0.0
@@ -8,6 +9,7 @@ specifiers:
   '@hapi/inert': ^7.0.0
   '@iarna/toml': ^2.2.5
   '@types/glob': ^7.2.0
+  '@types/hapi__basic': ^5.1.2
   '@types/hapi__cookie': ^10.1.4
   '@types/hapi__hapi': ^20.0.12
   '@types/hapi__inert': ^5.2.3
@@ -23,6 +25,7 @@ specifiers:
   typescript: ^4.8.4
 
 dependencies:
+  '@hapi/basic': 7.0.0
   '@hapi/boom': 10.0.0
   '@hapi/cookie': 11.0.2
   '@hapi/cryptiles': 6.0.0
@@ -38,6 +41,7 @@ dependencies:
 
 devDependencies:
   '@types/glob': 7.2.0
+  '@types/hapi__basic': 5.1.2
   '@types/hapi__cookie': 10.1.4
   '@types/hapi__hapi': 20.0.12
   '@types/hapi__inert': 5.2.3
@@ -78,6 +82,13 @@ packages:
     resolution: {integrity: sha512-ngu0tSEmrezoiIaNGG6rRvKOUkUuDdf4XTPnONHGYfSGRmDqPZX5oJL6HAdKTo1UQHECbdB4OzhWrfgVppjHUw==}
     dependencies:
       '@hapi/hoek': 9.3.0
+
+  /@hapi/basic/7.0.0:
+    resolution: {integrity: sha512-5DkM9a0c4PVLUPeM/d1OyMoVGo6Qix76gQJj3kfSOZH95yJDtY+yWKzvqTD27HXys5elrNMg3+v/z784Te1Uaw==}
+    dependencies:
+      '@hapi/boom': 10.0.0
+      '@hapi/hoek': 10.0.1
+    dev: false
 
   /@hapi/boom/10.0.0:
     resolution: {integrity: sha512-1YVs9tLHhypBqqinKQRqh7FUERIolarQApO37OWkzD+z6y6USi871Sv746zBPKcIOBuI6g6y4FrwX87mmJ90Gg==}
@@ -385,6 +396,13 @@ packages:
     dependencies:
       '@types/minimatch': 5.1.2
       '@types/node': 18.8.2
+    dev: true
+
+  /@types/hapi__basic/5.1.2:
+    resolution: {integrity: sha512-sqoQ34nwmRlNgQ5fdHHnghyVzs23aC2d30l9G1sKvdrh4PDV22bnQ+8fBCjoItT+0gGSuXIoG4qdoVZGBjH5EQ==}
+    dependencies:
+      '@types/hapi__hapi': 20.0.12
+      joi: 17.6.2
     dev: true
 
   /@types/hapi__catbox/10.2.4:
