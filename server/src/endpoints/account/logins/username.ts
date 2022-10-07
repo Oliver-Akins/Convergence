@@ -2,7 +2,6 @@ import { passwordSchema, usernameDiscrimComboSchema } from "$/schemas/accounts";
 import { ServerRoute } from "@hapi/hapi";
 import { database, log } from "$/main";
 import boom from "@hapi/boom";
-import crypto from "crypto";
 import Joi from "joi";
 
 const route: ServerRoute = {
