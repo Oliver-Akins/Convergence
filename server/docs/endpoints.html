@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+	<link rel="stylesheet" href="/docs/custom-style.css">
+	<title>Convergence API Documentation</title>
+</head>
+<body>
+	<h1>API Endpoints</h1>
+	<div class="flex-row">
+		<a href="/docs">Home</a>
+		<a href="/docs/models.html">Data Models</a>
+	</div>
+	<hr>
+	<h1>Preface</h1>
+	<p>
+		All of the endpoints require authentication <b>except</b> those indicated.
+	</p>
+	<hr>
+	<h1>Table of Contents</h1>
+	<ul>
+		<li>
+			<a href="#registration">Registration Endpoints</a>
+			<ul>
+				<li><a href="#register-via-username"><code>POST /register/username</code></a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="#login">Login Endpoints</a>
+			<ul>
+				<li><a href="#login-via-username"><code>POST /login/username</code></a></li>
+			</ul>
+		</li>
+	</ul>
+	<hr>
+	<h1 id="registration">Registration Endpoints</h1>
+	<p>
+		These are the endpoints that allow creating accounts. All of the
+		registration endpoints are <b>unauthenticated</b>, so they can be
+		accessed without an account.
+	</p>
+	<h2 id="register-via-username"><code>POST /register/username</code></h2>
+	<h3>Payload</h3>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>username</code></td>
+				<td>String</td>
+				<td>
+					The user's username, this <b>cannot</b> contain a
+					discriminator in it. The valid characters are alpha-numeric,
+					no other characters are allowed.
+				</td>
+			</tr>
+			<tr>
+				<td><code>password</code></td>
+				<td>String</td>
+				<td>The user's password to create the account with</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Response</h3>
+	This endpoint doesn't return any data on success (200) or failure (4XX).
+	<hr>
+	<h1 id="login">Login Endpoints</h1>
+	<p>
+		These endpoints are used to retrieve an authentication cookie for the
+		user. All of the login endpoints are <b>unauthenticated</b>, so they can
+		be accessed without an account.
+	</p>
+	<h2 id="login-via-username"><code>POST /login/username</code></h2>
+	<h3>Payload</h3>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>username</code></td>
+				<td>String</td>
+				<td>
+					The user's username and discriminator in the format
+					<code>username#discriminator</code>. If the discriminator
+					isn't provided the request will always fail.
+				</td>
+			</tr>
+			<tr>
+				<td><code>password</code></td>
+				<td>String</td>
+				<td>The user's password to create the account with</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Response</h3>
+	This endpoint doesn't return any data on success (200) or failure (4XX),
+	however upon success, a <code>Set-Cookie</code> header is present on the
+	response which can be used in future requests to authenticate them.
+</body>
+</html>

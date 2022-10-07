@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+	<link rel="stylesheet" href="/docs/custom-style.css">
+	<title>Convergence API Documentation</title>
+</head>
+<body>
+	<h1>API Data Models</h1>
+	<div class="flex-row">
+		<a href="/docs">Home</a>
+		<a href="/docs/endpoints.html">Endpoints</a>
+	</div>
+	<hr>
+	<h2>Preface</h2>
+	<p>
+		All of the data models follow similar syntax for types and information:
+	</p>
+	<ul>
+		<li>
+			A <code>?</code> after the "Type" of a property means that it is a
+			nullable field. Though it will always be returned (if it is set to
+			be returned even if it were not nullable).
+		</li>
+		<li>
+			A <code>?</code> after the "Property" name means that the property
+			may not always be returned, but when it is, it will always the type
+			indicated.
+		</li>
+		<li>
+			Each property can have a number of superscript note indicators after
+			it, these indicators correspond to a note(s) at the bottom of the
+			table.
+		</li>
+	</ul>
+	<hr>
+	<h2 id="account">Account</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>username</code></td>
+				<td>String</td>
+				<td>The account's username</td>
+			</tr>
+			<tr>
+				<td><code>discriminator</code></td>
+				<td>Number</td>
+				<td>The account's unique number that allows there to me multiple accounts with the same username.</td>
+			</tr>
+			<tr>
+				<td><code>password</code><sup>[1]</sup></td>
+				<td>String?</td>
+				<td>The account's password after it has been salted and hashed.</td>
+			</tr>
+			<tr>
+				<td><code>salt</code><sup>[1]</sup></td>
+				<td>String?</td>
+				<td>The salt that is unique to the account when they have password auth enabled.</td>
+			</tr>
+			<tr>
+				<td><code>accounts</code><sup>[1]</sup></td>
+				<td>Object</td>
+				<td>The third party accounts that are linked to the user account.</td>
+			</tr>
+			<tr>
+				<td><code>games</code><sup>[2]</sup></td>
+				<td>Number[]</td>
+				<td>The games that the user has registered that they own.</td>
+			</tr>
+			<tr>
+				<td><code>friends</code>?</td>
+				<td>String[]</td>
+				<td>The IDs of the users that this account is friends with.</td>
+			</tr>
+			<tr>
+				<td><code>requests</code>?</td>
+				<td>String[]</td>
+				<td>The IDs of users that are wanting to become friends with this account.</td>
+			</tr>
+		</tbody>
+	</table>
+	<sup>[1]</sup>: This property is not returned from API calls
+	<br>
+	<sup>[2]</sup>: This is not expanded to contain the full object from the account endpoints.
+</body>
+</html>
