@@ -114,6 +114,26 @@ async function init() {
 		server.route(route);
 	};
 
+	if (isDev) {
+		server.route({
+			method: `GET`, path: `/docs/{path*}`,
+			options: {
+				auth: false,
+				files: {
+					relativeTo: path.join(__dirname, `../docs`)
+				},
+			},
+			handler: {
+				directory: {
+					path: `.`,
+					index: true,
+					redirectToSlash: true,
+				}
+			}
+		});
+		console.log(`Documentation available on /docs`);
+	};
+
 	server.start().then(() => {
 		console.log(`Server listening on ${server.info.uri}`);
 	});
