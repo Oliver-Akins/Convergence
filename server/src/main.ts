@@ -7,7 +7,9 @@ import { loadConfig } from "./utils/config";
 import { Request, Server } from "@hapi/hapi";
 import cookie from "@hapi/cookie";
 import inert from "@hapi/inert";
+import basic from "@hapi/basic";
 import { Logger } from "tslog";
+import boom from "@hapi/boom";
 import path from "path";
 import glob from "glob";
 
@@ -40,7 +42,7 @@ async function init() {
 		},
 	});
 
-	await server.register([inert, cookie]);
+	await server.register([inert, cookie, basic]);
 
 	/*
 	This allows for authenticating with the API through the use of cookies, this
@@ -71,7 +73,35 @@ async function init() {
 		},
 	});
 
-	server.auth.default({ strategies: [ `session` ] });
+	/*
+	This authentication strategy is primarily for easier script writing that
+	uses the API, it allows requests using BASIC auth to be authenticated
+	properly. The username for the authentication MUST contain both the username
+	and the discriminator of the user, in the format "username#discriminator",
+	if either of the values are not provided, authorization will fail.
+	*/
+	server.auth.strategy(`basic`, `basic`, {
+		async validate(_request: Request, username: string, password: string) {
+			let [user, discrim] = username.split(`#`) as [string, any];
+
+			if (!discrim) {
+				throw boom.unauthorized();
+			};
+
+			try {
+				discrim = parseInt(discrim);
+			} catch (_) {
+				throw boom.unauthorized();
+			};
+
+			return {
+				isValid: await database.compareUserPassword(user, discrim, password),
+				credentials: await database.getAccountByUsernameDiscriminator(user, discrim),
+			};
+		},
+	});
+
+	server.auth.default({ strategies: [ `session`, `basic` ] });
 
 	// Register all the routes
 	let files = glob.sync(
