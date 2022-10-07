@@ -28,17 +28,12 @@ const route: ServerRoute = {
 			throw boom.badRequest(`Provided discriminator is not a number`);
 		};
 
-		const account = await database.getAccountByUsernameDiscriminator(username, discriminator);
-		if (!account) {
-			throw boom.badRequest(`No account found with that username`);
+		let valid: boolean = false;
+		try {
+			valid = await database.compareUserPassword(username, discriminator, pass);
+		} catch (_) {
+			throw boom.badRequest();
 		};
-
-		const hashedPass = crypto
-			.createHmac(`sha256`, await database.getHashSecret())
-			.update(pass + `$` + account.salt)
-			.digest();
-		const storedPass = Buffer.from(account.password, `hex`);
-		const valid = crypto.timingSafeEqual(hashedPass, storedPass);
 
 		if (!valid) {
 			log.debug(`Login attempt failed for: ${user}`);
@@ -46,10 +41,7 @@ const route: ServerRoute = {
 		};
 
 		log.debug(`Login successful for: ${user}`);
-		req.cookieAuth.set({
-			username: username,
-			discriminator: account.discriminator,
-		});
+		req.cookieAuth.set({ username, discriminator, });
 		return h.response().code(200);
 	},
 };
