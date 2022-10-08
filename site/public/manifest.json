@@ -1,0 +1,14 @@
+{
+  "short_name": "Convergence",
+  "name": "Convergence",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff"
+}
