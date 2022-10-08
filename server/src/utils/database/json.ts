@@ -111,15 +111,37 @@ export class JSONDatabase {
 		};
 	};
 
+	/**
+	 * Compares a provided password against the user's account, given their
+	 * username, discriminator, and the password to validate.
+	 *
+	 * @param username The username of the account
+	 * @param discrim The discriminator of the account
+	 * @param password The provided password to validate
+	 * @returns Whether or not the password matches the data for the account
+	 */
 	public async compareUserPassword(
 		username: string, discrim: number,
 		password: string
 	) {
 		const account = await this.getAccountByUsernameDiscriminator(username, discrim);
 		if (!account) {
-			throw "No account found with that error"
+			throw new Error("No account found with that username/discriminator");
 		};
+		return this.comparePasswords(account, password);
+	};
 
+	/**
+	 * Compares a provided password against the user's account data.
+	 *
+	 * @param account The account data of the user
+	 * @param password The provided password of the user
+	 * @returns Whether or not the passwords match
+	 */
+	public async comparePasswords(
+		account: Account,
+		password: string
+	) {
 		const hashedPass = crypto
 			.createHmac(`sha256`, await this.getHashSecret())
 			.update(password + `$` + account.salt)
