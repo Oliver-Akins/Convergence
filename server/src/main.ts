@@ -94,9 +94,14 @@ async function init() {
 				throw boom.unauthorized();
 			};
 
+			const account = await database.getAccountByUsernameDiscriminator(user, discrim);
+			if (!account) {
+				throw boom.unauthorized();
+			};
+
 			return {
-				isValid: await database.compareUserPassword(user, discrim, password),
-				credentials: await database.getAccountByUsernameDiscriminator(user, discrim),
+				isValid: await database.comparePasswords(account, password),
+				credentials: account,
 			};
 		},
 	});
