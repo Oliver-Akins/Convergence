@@ -1,7 +1,9 @@
 import { passwordSchema, usernameSchema } from "$/schemas/accounts";
+import { cleanAccount } from "$/utils/data_cleaner";
 import { randomString } from "@hapi/cryptiles";
-import { ServerRoute } from "@hapi/hapi";
 import { config, database, log } from "$/main";
+import { ServerRoute } from "@hapi/hapi";
+import { Account } from "$/types/data";
 import boom from "@hapi/boom";
 import crypto from "crypto";
 import Joi from "joi";
@@ -34,7 +36,7 @@ const route: ServerRoute = {
 			.update(password + `$` + salt)
 			.digest(`hex`);
 
-		database.addUser({
+		const user: Account = {
 			username,
 			password: hashedPass,
 			discriminator,
@@ -42,10 +44,11 @@ const route: ServerRoute = {
 			salt,
 			accounts: {},
 			games: [],
-		});
+		}
+		await database.addUser(user);
 
 		log.debug(`Registration successful for: ${username}#${discriminator}`);
-		return h.response().code(200);
+		return h.response(cleanAccount(user, false)).code(200);
 	},
 };
 export default route;

@@ -1,5 +1,8 @@
 import Joi from "joi";
 
+export const usernameRegEx = `[A-Za-z0-9]{1,50}`;
+export const discriminatorRegEx = `[0-9]+`;
+
 /* Username/Password Information */
 export const usernameSchema = Joi
 	.string()
@@ -12,4 +15,4 @@ export const passwordSchema = Joi
 	.min(6);
 export const usernameDiscrimComboSchema = Joi
 	.string()
-	.pattern(/^[A-Za-z0-9#]{1,50}$/);
+	.pattern(new RegExp(`^${usernameRegEx}#${discriminatorRegEx}$`));

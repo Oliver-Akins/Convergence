@@ -68,9 +68,11 @@
 				<td>The salt that is unique to the account when they have password auth enabled.</td>
 			</tr>
 			<tr>
-				<td><code>accounts</code><sup>[1]</sup></td>
+				<td><code>accounts</code>?<sup>[3]</sup></td>
 				<td>Object</td>
-				<td>The third party accounts that are linked to the user account.</td>
+				<td>
+					The third party accounts that are linked to the user account.
+				</td>
 			</tr>
 			<tr>
 				<td><code>games</code><sup>[2]</sup></td>
@@ -78,12 +80,12 @@
 				<td>The games that the user has registered that they own.</td>
 			</tr>
 			<tr>
-				<td><code>friends</code>?</td>
+				<td><code>friends</code>?<sup>[3]</sup></td>
 				<td>String[]</td>
 				<td>The IDs of the users that this account is friends with.</td>
 			</tr>
 			<tr>
-				<td><code>requests</code>?</td>
+				<td><code>requests</code>?<sup>[3]</sup></td>
 				<td>String[]</td>
 				<td>The IDs of users that are wanting to become friends with this account.</td>
 			</tr>
@@ -91,6 +93,11 @@
 	</table>
 	<sup>[1]</sup>: This property is not returned from API calls
 	<br>
-	<sup>[2]</sup>: This is not expanded to contain the full object from the account endpoints.
+	<sup>[2]</sup>: This is not expanded to contain the full object from the
+	account endpoints.
+	<br>
+	<sup>[3]</sup>: This is only returned from the <code>/users/{user}</code>
+	endpoints when the user that is being requested is also the authenticated
+	user.
 </body>
 </html>

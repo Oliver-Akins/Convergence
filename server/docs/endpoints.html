@@ -112,6 +112,37 @@
 		This endpoint doesn't return any data on success (200) or failure (4XX),
 		however upon success, a <code>Set-Cookie</code> header is present on the
 		response which can be used in future requests to authenticate them.
+		<h1 id="user">User Endpoints</h1>
+		<p>
+			These endpoints are for retrieving and managing specific user accounts.
+		</p>
+		<h2 id="user-info"><code>GET /users/{user}</code></h2>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>user</code></td>
+					<td>User</td>
+					<td>
+						What user to retrieve the information about. This can be
+						used to retrieve the currently authenticated account's
+						information by setting the parameter to <code>@me</code>.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		This returns an <a href="/docs/models.html#account">Account</a> object. If
+		the requested user is also the user that is authenticating the request, it
+		will include the <code>accounts</code> property on the object, otherwise it
+		won't be present.
 	</div>
 </body>
 </html>
