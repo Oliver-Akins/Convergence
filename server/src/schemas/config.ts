@@ -35,7 +35,7 @@ export const serviceOptionsSchema = Joi.object({
 export const configSchema = Joi.object({
 	server: serverOptionsSchema.required(),
 	database: databaseOptionsSchema.required(),
-	service: serviceOptionsSchema.required(),
+	service: serviceOptionsSchema.default({}),
 })
 .meta({ className: `config` })
 .description(`The configuration format for the server`);
