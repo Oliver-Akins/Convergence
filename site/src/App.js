@@ -1,13 +1,15 @@
+import { Routes, Route, Link } from "react-router-dom";
 import './styles/App.scss';
+
+import Home from '../src/pages/Home.jsx';
 
 function App() {
   return (
     <div className="App">
-      <header>
-      </header>
-      <main>
-        <h1 className="heading">Convergence</h1>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="home" element={<Home />} />
+      </Routes>
     </div>
   );
 }
