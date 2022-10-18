@@ -132,6 +132,17 @@ export class JSONDatabase {
 				return account;
 			};
 		};
+		return undefined;
+	};
+
+	/**
+	 * Retrieves a user's account from the database if it exists
+	 *
+	 * @param id The user's ID
+	 * @returns The account if it was found
+	 */
+	public async getAccountByID(id: string): Promise<Account | undefined> {
+		return this.data.users[id];
 	};
 
 	/**
