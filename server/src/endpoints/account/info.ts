@@ -22,23 +22,20 @@ const route: ServerRoute = {
 			user === `@me`
 			|| user === authed.id
 		) {
-			return h.response(cleanAccount(authed, false)).code(200);
+			return h.response(cleanAccount(authed, false, false)).code(200);
 		};
 
-		let [ name, discrim ] = user.split(`.`) as [string, any];
-		try {
-			discrim = parseInt(discrim);
-		} catch (_) {
-			throw boom.badRequest(`Invalid discriminator`);
-		};
-
-		let account = await database.getAccountByUsernameDiscriminator(name, discrim);
+		let account = await database.getAccountByID(user);
 
 		if (!account) {
 			throw boom.notFound(`No account found with that username/discrim`);
 		};
 
-		return h.response(cleanAccount(account)).code(206);
+		return h.response(cleanAccount(
+			account,
+			true,
+			!authed.relations.friends.includes(user))
+		).code(206);
 	},
 };
 export default route;
