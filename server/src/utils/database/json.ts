@@ -15,7 +15,6 @@ interface data {
 		used_uuids: string[],
 		users: {
 			count: number;
-			index: number;
 		};
 		games: {
 			count: number;
@@ -33,7 +32,6 @@ export class JSONDatabase {
 			used_uuids: [],
 			users: {
 				count: 0,
-				index: 0,
 			},
 			games: {
 				count: 0,
@@ -180,7 +178,7 @@ export class JSONDatabase {
 	 * Adds the user into the database.
 	 */
 	public async addUser(user: Account) {
-		this.data.users[this.data.meta.users.index++] = user;
+		this.data.users[user.id] = user;
 		this.data.meta.users.count++;
 	};
 
