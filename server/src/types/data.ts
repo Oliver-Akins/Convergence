@@ -7,3 +7,12 @@ export interface Account {
 	accounts: {[index: string]: any};
 	profile_picture: string | null;
 }
+
+export interface Game {
+	slug: string;
+	name: string;
+	publisher?: string;
+	cover: string | null;
+	platforms: string[];
+	crossplays?: number[][];
+}
