@@ -35,7 +35,7 @@ export function loadConfig() {
 		process.exit(1);
 	};
 
-	let { error, value } = configSchema.validate(data)
+	let { error, value } = configSchema.validate(data, { abortEarly: false })
 	if (error) {
 		console.error(`Config failed to validate, see below for details:`)
 		for (const err of error.details) {
