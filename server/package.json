@@ -17,6 +17,7 @@
     "@hapi/hapi": "^20.2.2",
     "@hapi/inert": "^7.0.0",
     "@iarna/toml": "^2.2.5",
+    "axios": "^1.1.2",
     "glob": "^8.0.3",
     "joi": "^17.6.2",
     "module-alias": "^2.2.2",

@@ -12,6 +12,10 @@ export interface config {
 	 */
 	database: databaseOptions;
 	/**
+	 * The API-specific configuration for RAWG
+	 */
+	rawg: rawgOptions;
+	/**
 	 * The web server options
 	 */
 	server: serverOptions;
@@ -29,6 +33,13 @@ export interface databaseOptions {
 	 * The location indicator where the database is. This can be a filepath or a socket URI, depending on what database is being used.
 	 */
 	uri: string;
+}
+
+/**
+ * The API-specific configuration for RAWG
+ */
+export interface rawgOptions {
+	token: string;
 }
 
 /**

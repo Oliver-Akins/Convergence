@@ -32,10 +32,18 @@ export const serviceOptionsSchema = Joi.object({
 .description(`The options relating specifically to the service and it's operations`);
 
 
+export const rawgOptionsSchema = Joi.object({
+	token: Joi.string().min(1).required(),
+})
+.meta({ className: `rawgOptions` })
+.description(`The API-specific configuration for RAWG`);
+
+
 export const configSchema = Joi.object({
 	server: serverOptionsSchema.required(),
 	database: databaseOptionsSchema.required(),
 	service: serviceOptionsSchema.default({}),
+	rawg: rawgOptionsSchema.required(),
 })
 .meta({ className: `config` })
 .description(`The configuration format for the server`);

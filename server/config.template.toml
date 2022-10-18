@@ -1,5 +1,9 @@
 [server]
-port=6969
+port = 6969
 
 [database]
-uri="db.json"
+uri = "db.json"
+
+# This is the token for accessing RAWG's API to power the game search fallback.
+[rawg]
+token = ""
