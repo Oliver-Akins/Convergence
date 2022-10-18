@@ -6,6 +6,7 @@ server/*.toml
 server/.vscode/
 server/db.json
 server/site
+temp
 
 
 # Logs
