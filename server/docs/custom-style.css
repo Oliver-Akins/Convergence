@@ -12,4 +12,5 @@ table {
 table tr > :nth-child(1),
 table tr > :nth-child(2) {
 	padding-right: 15px;
+	white-space: nowrap;
 }
