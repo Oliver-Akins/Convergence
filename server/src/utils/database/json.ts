@@ -82,6 +82,11 @@ export class JSONDatabase {
 		return this.data.meta[`hash-secret`];
 	};
 
+	/**
+	 * Retrieves a UUID that hasn't been used yet and marks it as used, this is
+	 * to help prevent accidental UUID collisions (even if they're incredibly
+	 * unlikely).
+	 */
 	public async getUnusedUUID(): Promise<string> {
 		let id: string;
 		do {
