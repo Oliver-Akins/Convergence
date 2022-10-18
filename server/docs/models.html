@@ -68,7 +68,7 @@
 				<td>The account's password after it has been salted and hashed.</td>
 			</tr>
 			<tr>
-				<td><code>salt</code><sup>[1]</sup></td>
+				<td><code>salt</code><sup>[0][1]</sup></td>
 				<td>String?</td>
 				<td>The salt that is unique to the account when they have password auth enabled.</td>
 			</tr>
@@ -96,8 +96,7 @@
 	<br>
 	<sup>[1]</sup>: This property is not returned from API calls
 	<br>
-	<sup>[2]</sup>: This is not expanded to contain the full object from the
-	account endpoints.
+	<sup>[2]</sup>: This is not expanded to contain the full object.
 	<br>
 	<sup>[3]</sup>: This is only returned from the <code>/users/{user}</code>
 	endpoints when the user that is being requested is also the authenticated
