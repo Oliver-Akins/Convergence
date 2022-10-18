@@ -1,17 +1,21 @@
 import { databaseOptions } from "$/types/config";
 import { randomString } from "@hapi/cryptiles";
-import { Account } from "$/types/data";
+import { Account, Game } from "$/types/data";
 import crypto from "crypto";
 import fs from "fs";
 
 interface data {
 	users: {[index: string]: Account};
-	games: any;
+	games: {[index: string]: Game};
 	platforms: any;
 	meta: {
 		"hash-secret"?: string;
 		"cookie-password"?: string;
 		users: {
+			count: number;
+			index: number;
+		};
+		games: {
 			count: number;
 			index: number;
 		};
@@ -25,6 +29,10 @@ export class JSONDatabase {
 		platforms: {},
 		meta: {
 			users: {
+				count: 0,
+				index: 0,
+			},
+			games: {
 				count: 0,
 				index: 0,
 			},
@@ -155,7 +163,34 @@ export class JSONDatabase {
 	 * Adds the user into the database.
 	 */
 	public async addUser(user: Account) {
-		this.data.users[++this.data.meta.users.index] = user;
+		this.data.users[this.data.meta.users.index++] = user;
 		this.data.meta.users.count++;
+	};
+
+	/**
+	 * Searches the database for games that have the query in their name.
+	 *
+	 * @param query The string to search the names for
+	 * @returns The games that were found to contain the query
+	 */
+	public async searchGames(query: string): Promise<Game[]> {
+		let results: Game[] = [];
+		for (const gameId in this.data.games) {
+			const game = this.data.games[gameId];
+			if (game.name.toLowerCase().includes(query.toLowerCase())) {
+				results.push(game);
+			};
+		};
+		return results;
+	};
+
+	/**
+	 * Saves a game to the database.
+	 *
+	 * @param game The game to save.
+	 */
+	public async addGame(game: Game) {
+		this.data.games[this.data.meta.games.index++] = game;
+		this.data.meta.games.count++;
 	};
 };
