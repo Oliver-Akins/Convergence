@@ -170,5 +170,37 @@
 	will result in an HTTP 400 response.
 	<br>
 	<sup>[2]</sup>: This is currently unused.
+
+
+	<h2 id="relation">Relations</h2>
+	<p>
+		This object represents the user's relationships within the site.
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>friends</code></td>
+				<td>String[]</td>
+				<td>
+					The list of the users that the user has friended.
+				</td>
+			</tr>
+			<tr>
+				<td><code>requests</code></td>
+				<td>String[]</td>
+				<td>
+					The list of user IDs that are asking this user to be their
+					friend.
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
