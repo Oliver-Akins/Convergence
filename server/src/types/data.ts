@@ -1,4 +1,5 @@
 export interface Account {
+	id: string;
 	username: string;
 	discriminator: number;
 	password: string;

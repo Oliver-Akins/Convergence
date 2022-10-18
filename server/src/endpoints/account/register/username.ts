@@ -37,6 +37,7 @@ const route: ServerRoute = {
 			.digest(`hex`);
 
 		const user: Account = {
+			id: await database.getUnusedUUID(),
 			username,
 			password: hashedPass,
 			discriminator,
