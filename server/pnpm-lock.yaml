@@ -15,6 +15,7 @@ specifiers:
   '@types/hapi__inert': ^5.2.3
   '@types/module-alias': ^2.0.1
   '@types/node': ^18.8.2
+  '@types/uuid': ^8.3.4
   axios: ^1.1.2
   glob: ^8.0.3
   joi: ^17.6.2
@@ -25,6 +26,7 @@ specifiers:
   ts-node: ^10.9.1
   tslog: ^3.3.4
   typescript: ^4.8.4
+  uuid: ^9.0.0
 
 dependencies:
   '@hapi/basic': 7.0.0
@@ -42,6 +44,7 @@ dependencies:
   rfdc: 1.3.0
   tslog: 3.3.4
   typescript: 4.8.4
+  uuid: 9.0.0
 
 devDependencies:
   '@types/glob': 7.2.0
@@ -51,6 +54,7 @@ devDependencies:
   '@types/hapi__inert': 5.2.3
   '@types/module-alias': 2.0.1
   '@types/node': 18.8.2
+  '@types/uuid': 8.3.4
   joi-to-typescript: 4.0.6_joi@17.6.2
   ts-node: 10.9.1_p2zphemn5bk5inasc666rmprwi
 
@@ -467,6 +471,10 @@ packages:
     resolution: {integrity: sha512-cRMwIgdDN43GO4xMWAfJAecYn8wV4JbsOGHNfNUIDiuYkUYAR5ec4Rj7IO2SAhFPEfpPtLtUTbbny/TCT7aDwA==}
     dev: true
 
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+    dev: true
+
   /acorn-walk/8.2.0:
     resolution: {integrity: sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==}
     engines: {node: '>=0.4.0'}
@@ -715,6 +723,11 @@ packages:
     resolution: {integrity: sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==}
     dependencies:
       inherits: 2.0.3
+    dev: false
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
     dev: false
 
   /v8-compile-cache-lib/3.0.1:

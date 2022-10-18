@@ -2,6 +2,7 @@ import { databaseOptions } from "$/types/config";
 import { randomString } from "@hapi/cryptiles";
 import { Account, Game } from "$/types/data";
 import crypto from "crypto";
+import { v4 } from "uuid";
 import fs from "fs";
 
 interface data {
@@ -11,6 +12,7 @@ interface data {
 	meta: {
 		"hash-secret"?: string;
 		"cookie-password"?: string;
+		used_uuids: string[],
 		users: {
 			count: number;
 			index: number;
@@ -28,6 +30,7 @@ export class JSONDatabase {
 		games: {},
 		platforms: {},
 		meta: {
+			used_uuids: [],
 			users: {
 				count: 0,
 				index: 0,
@@ -77,6 +80,15 @@ export class JSONDatabase {
 			this.data.meta[`hash-secret`] = randomString(15);
 		};
 		return this.data.meta[`hash-secret`];
+	};
+
+	public async getUnusedUUID(): Promise<string> {
+		let id: string;
+		do {
+			id = v4();
+		} while (this.data.meta.used_uuids.includes(id));
+		this.data.meta.used_uuids.push(id);
+		return id;
 	};
 
 	/**
