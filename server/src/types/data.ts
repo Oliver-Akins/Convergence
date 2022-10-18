@@ -6,6 +6,11 @@ export interface Account {
 	games: number[];
 	accounts: {[index: string]: any};
 	profile_picture: string | null;
+	relations: {
+		friends: string[];
+		requests: string[];
+		blocked: string[];
+	};
 }
 
 export interface Game {

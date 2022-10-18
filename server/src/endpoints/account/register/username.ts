@@ -44,6 +44,11 @@ const route: ServerRoute = {
 			salt,
 			accounts: {},
 			games: [],
+			relations: {
+				friends: [],
+				requests: [],
+				blocked: []
+			}
 		}
 		await database.addUser(user);
 
