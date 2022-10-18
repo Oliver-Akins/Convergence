@@ -1,4 +1,3 @@
-import { usernameRegEx, discriminatorRegEx } from "$/schemas/accounts";
 import { cleanAccount } from "$/utils/data_cleaner";
 import { ServerRoute } from "@hapi/hapi";
 import { Account } from "$/types/data";
@@ -11,10 +10,7 @@ const route: ServerRoute = {
 	options: {
 		validate: {
 			params: Joi.object({
-				user: Joi
-					.string()
-					.pattern(new RegExp(`^${usernameRegEx}\.${discriminatorRegEx}$`))
-					.allow(`@me`),
+				user: Joi.string().uuid().allow(`@me`),
 			}),
 		},
 	},
@@ -23,8 +19,8 @@ const route: ServerRoute = {
 		const authed = req.auth.credentials as unknown as Account;
 
 		if (
-			user == `@me`
-			|| user == `${authed.username}.${authed.discriminator}`
+			user === `@me`
+			|| user === authed.id
 		) {
 			return h.response(cleanAccount(authed, false)).code(200);
 		};
