@@ -10,11 +10,17 @@ const clone = rfdc({ proto: true });
  * @param user The user data to clean up
  * @returns The cleaned up account object
  */
-export function cleanAccount(user: Account, accounts=true): Partial<Account> {
+export function cleanAccount(
+	user: Account,
+	accounts = true,
+	games = true
+): Partial<Account> {
 	let cloned: Partial<Account> = clone(user);
 	delete cloned.password;
 	delete cloned.salt;
 	if (accounts)
 		delete cloned.accounts;
+	if (games)
+		delete cloned.games;
 	return cloned;
 };
