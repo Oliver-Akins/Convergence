@@ -56,5 +56,8 @@ export interface serverOptions {
  * The options relating specifically to the service and it's operations
  */
 export interface serviceOptions {
+	/**
+	 * The maximum number of accounts that are allowed to have the same username
+	 */
 	same_name_account_limit: number;
 }

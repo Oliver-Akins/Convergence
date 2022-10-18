@@ -26,7 +26,8 @@ export const serviceOptionsSchema = Joi.object({
 	same_name_account_limit: Joi
 		.number()
 		.min(1)
-		.default(1_000),
+		.default(1_000)
+		.description(`The maximum number of accounts that are allowed to have the same username`),
 })
 .meta({ className: `serviceOptions` })
 .description(`The options relating specifically to the service and it's operations`);
