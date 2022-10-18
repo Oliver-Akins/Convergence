@@ -48,6 +48,11 @@
 		</thead>
 		<tbody>
 			<tr>
+				<td><code>id</code><sup>[0]</sup></td>
+				<td>String</td>
+				<td>The UUID for the user.</td>
+			</tr>
+			<tr>
 				<td><code>username</code></td>
 				<td>String</td>
 				<td>The account's username</td>
@@ -86,6 +91,9 @@
 			</tr>
 		</tbody>
 	</table>
+	<sup>[0]</sup>: This is a read-only property, attempting to modify it will
+	result in an HTTP 400 error.
+	<br>
 	<sup>[1]</sup>: This property is not returned from API calls
 	<br>
 	<sup>[2]</sup>: This is not expanded to contain the full object from the
