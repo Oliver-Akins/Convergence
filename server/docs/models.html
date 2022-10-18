@@ -99,5 +99,76 @@
 	<sup>[3]</sup>: This is only returned from the <code>/users/{user}</code>
 	endpoints when the user that is being requested is also the authenticated
 	user.
+	<h2 id="game">Game</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>slug</code><sup>[1]</sup></td>
+				<td>String</td>
+				<td>
+					A URL-safe version of the name.
+					Example: <code>minecraft-java-edition</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>name</code></td>
+				<td>String</td>
+				<td>
+					The formatted name of the game.
+					Example: <code>Minecraft: Java Edition</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>publisher</code>?<sup>[2]</sup></td>
+				<td>String</td>
+				<td>The publisher/developer of the game.</td>
+			</tr>
+			<tr>
+				<td><code>cover</code></td>
+				<td>String?</td>
+				<td>
+					A URL pointing to an image that represents the game. This
+					is automatically pulled from
+					<a href="https://rawg.io" target="_blank">RAWG.io</a>
+					during the search request.
+				</td>
+			</tr>
+			<tr>
+				<td><code>platforms</code></td>
+				<td>String[]</td>
+				<td>
+					The platforms that the game supports. The specificity of the
+					platform depends on
+					<a href="https://rawg.io" target="_blank">RAWG.io</a>
+					as the data is pulled directly from their API.
+				</td>
+			</tr>
+			<tr>
+				<td><code>crossplays</code>?<sup>[2]</sup></td>
+				<td>String[][]</td>
+				<td>
+					An array of arrays that indicate what platforms are capable
+					of cross-playing with each other.
+					<br>
+					So if the game has support for 3 platforms (A, B, and C),
+					and platforms A and B can play together, and B and C can play
+					together, but platforms A and C cannot play together, this
+					would lead to the following value:
+					<code>[ [ "A", "B" ], [ "B", "C" ] ]</code>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<sup>[1]</sup>: This is a read-only property. Any attempted modifications
+	will result in an HTTP 400 response.
+	<br>
+	<sup>[2]</sup>: This is currently unused.
 </body>
 </html>
