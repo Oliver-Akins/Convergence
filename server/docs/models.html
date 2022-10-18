@@ -80,14 +80,9 @@
 				<td>The games that the user has registered that they own.</td>
 			</tr>
 			<tr>
-				<td><code>friends</code>?<sup>[3]</sup></td>
-				<td>String[]</td>
-				<td>The IDs of the users that this account is friends with.</td>
-			</tr>
-			<tr>
-				<td><code>requests</code>?<sup>[3]</sup></td>
-				<td>String[]</td>
-				<td>The IDs of users that are wanting to become friends with this account.</td>
+				<td><code>relations</code><sup>[4]</sup></td>
+				<td><a href="#relations">Relations</a></td>
+				<td>The relationship connections for the account.</td>
 			</tr>
 		</tbody>
 	</table>
@@ -99,6 +94,12 @@
 	<sup>[3]</sup>: This is only returned from the <code>/users/{user}</code>
 	endpoints when the user that is being requested is also the authenticated
 	user.
+	<br>
+	<sup>[4]</sup>: This property is only returned in the object when the
+	authenticated user is requesting for themselves, or they are friends with
+	the user that they are requesting for.
+
+
 	<h2 id="game">Game</h2>
 	<table>
 		<thead>
