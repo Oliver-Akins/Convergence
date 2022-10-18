@@ -25,6 +25,12 @@
 					<li><a href="#login-via-username"><code>POST /login/username</code></a></li>
 				</ul>
 			</li>
+			<li>
+				<a href="#games">Game Endpoints</a>
+				<ul>
+					<li><a href="#search-games"><code>GET /games/search</code></a></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	<div id="content">
@@ -73,7 +79,9 @@
 			</tbody>
 		</table>
 		<h3>Response</h3>
-		This endpoint doesn't return any data on success (200) or failure (4XX).
+		<p>
+			This endpoint doesn't return any data on success (200) or failure (4XX).
+		</p>
 		<hr>
 		<h1 id="login">Login Endpoints</h1>
 		<p>
@@ -109,9 +117,12 @@
 			</tbody>
 		</table>
 		<h3>Response</h3>
-		This endpoint doesn't return any data on success (200) or failure (4XX),
-		however upon success, a <code>Set-Cookie</code> header is present on the
-		response which can be used in future requests to authenticate them.
+		<p>
+			This endpoint doesn't return any data on success (200) or failure (4XX),
+			however upon success, a <code>Set-Cookie</code> header is present on the
+			response which can be used in future requests to authenticate them.
+		</p>
+		<hr>
 		<h1 id="user">User Endpoints</h1>
 		<p>
 			These endpoints are for retrieving and managing specific user accounts.
@@ -139,10 +150,50 @@
 			</tbody>
 		</table>
 		<h3>Response</h3>
-		This returns an <a href="/docs/models.html#account">Account</a> object. If
-		the requested user is also the user that is authenticating the request, it
-		will include the <code>accounts</code> property on the object, otherwise it
-		won't be present.
+		<p>
+			This returns an <a href="/docs/models.html#account">Account</a> object. If
+			the requested user is also the user that is authenticating the request, it
+			will include the <code>accounts</code> property on the object, otherwise it
+			won't be present.
+		</p>
+		<hr>
+		<h1 id="games">Game Endpoints</h1>
+		<p>
+			These endpoints are specifically for interacting with
+			<a href="/docs/models.html#game">Game</a> objects, that are not
+			associated with a user.
+		</p>
+		<h2 id="search-games"><code>GET /games/search</code></h2>
+		<p>
+			This endpoint utilizes a mix of the Convergence database and the
+			RAWG API to provide search results, if the Convergence database can
+			provide &gt;= 15 results, the RAWG API will not be called, however if
+			the Convergence database returns &lt;15 results, it will populate
+			the response from information from RAWG's API.
+		</p>
+		<h3>Query Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>query</code></td>
+					<td>String</td>
+					<td>
+						The URL-encoded string to search for in the name of games.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			A list of <a href="/docs/models.html#game">Game</a> objects.
+		</p>
 	</div>
 </body>
 </html>
