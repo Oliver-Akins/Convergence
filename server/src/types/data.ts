@@ -14,5 +14,5 @@ export interface Game {
 	publisher?: string;
 	cover: string | null;
 	platforms: string[];
-	crossplays?: number[][];
+	crossplays?: string[][];
 }
