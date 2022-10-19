@@ -8,6 +8,8 @@ const clone = rfdc({ proto: true });
  * clones the object before cleaning it to prevent unintentional data removal.
  *
  * @param user The user data to clean up
+ * @param accounts Whether or not to remove the linked account data
+ * @param games Whether or not to remove the games data
  * @returns The cleaned up account object
  */
 export function cleanAccount(
