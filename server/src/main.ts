@@ -60,11 +60,8 @@ export async function init() {
 			isHttpOnly: !isDev,
 		},
 		validateFunc: async (_req: Request, session: any) => {
-			const { username, discriminator } = session;
-			const account = await database.getAccountByUsernameDiscriminator(
-				username,
-				discriminator
-			);
+			const { id } = session;
+			const account = await database.getAccountByID(id);
 
 			if (!account) {
 				return { valid: false };
@@ -81,20 +78,8 @@ export async function init() {
 	if either of the values are not provided, authorization will fail.
 	*/
 	server.auth.strategy(`basic`, `basic`, {
-		async validate(_request: Request, username: string, password: string) {
-			let [user, discrim] = username.split(`#`) as [string, any];
-
-			if (!discrim) {
-				throw boom.unauthorized();
-			};
-
-			try {
-				discrim = parseInt(discrim);
-			} catch (_) {
-				throw boom.unauthorized();
-			};
-
-			const account = await database.getAccountByUsernameDiscriminator(user, discrim);
+		async validate(_request: Request, id: string, password: string) {
+			const account = await database.getAccountByID(id);
 			if (!account) {
 				throw boom.unauthorized();
 			};
