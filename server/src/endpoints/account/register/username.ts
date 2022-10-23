@@ -54,7 +54,7 @@ const route: ServerRoute = {
 		await database.addUser(user);
 
 		log.debug(`Registration successful for: ${username}#${discriminator}`);
-		return h.response(cleanAccount(user, false)).code(200);
+		return h.response(cleanAccount(user, false, false)).code(200);
 	},
 };
 export default route;
