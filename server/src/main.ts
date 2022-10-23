@@ -3,8 +3,8 @@
 import "module-alias/register";
 
 import { JSONDatabase } from "./utils/database/json";
-import { loadConfig } from "./utils/config";
 import { Request, Server } from "@hapi/hapi";
+import { loadConfig } from "./utils/config";
 import cookie from "@hapi/cookie";
 import inert from "@hapi/inert";
 import basic from "@hapi/basic";
@@ -30,7 +30,7 @@ process.on(`SIGTERM`, cleanExit);
 process.on(`SIGINT`, cleanExit);
 
 
-async function init() {
+export async function init() {
 
 	const server = new Server({
 		port: config.server.port,
@@ -139,9 +139,16 @@ async function init() {
 		console.log(`Documentation available on /docs`);
 	};
 
+	return server;
+};
+
+async function start() {
+	const server = await init();
 	server.start().then(() => {
 		console.log(`Server listening on ${server.info.uri}`);
 	});
 };
 
-init();
+if (require.main == module) {
+	start();
+};
