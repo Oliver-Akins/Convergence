@@ -219,4 +219,16 @@ export class JSONDatabase {
 		this.data.games[this.data.meta.games.index++] = game;
 		this.data.meta.games.count++;
 	};
+
+	/**
+	 * Retrieve a list of Game objects from the database given their slugs
+	 *
+	 * @param slugs The slugs for the games to get
+	 * @returns An array of the game objects for the slugs that could be found
+	 */
+	public async getGamesBySlugs(slugs: string[]): Promise<Game[]> {
+		return slugs
+			.map(s => this.data.games[s])
+			.filter(g => g != undefined);
+	};
 };
