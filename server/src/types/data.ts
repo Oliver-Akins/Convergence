@@ -4,7 +4,7 @@ export interface Account {
 	discriminator: number;
 	password: string;
 	salt: string;
-	games: number[];
+	games: {[index: string]: string[]};
 	accounts: {[index: string]: any};
 	profile_picture: string | null;
 	relations: {

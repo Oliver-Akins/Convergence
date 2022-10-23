@@ -44,7 +44,7 @@ const route: ServerRoute = {
 			profile_picture: null,
 			salt,
 			accounts: {},
-			games: [],
+			games: {},
 			relations: {
 				friends: [],
 				requests: [],

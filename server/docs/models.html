@@ -81,7 +81,7 @@
 			</tr>
 			<tr>
 				<td><code>games</code><sup>[2][4]</sup></td>
-				<td>Number[]</td>
+				<td><a href="#owned-games">Owned Games</a></td>
 				<td>The games that the user has registered that they own.</td>
 			</tr>
 			<tr>
@@ -210,5 +210,25 @@
 			</tr>
 		</tbody>
 	</table>
+
+
+	<h2 id="owned-games">Owned Games</h2>
+	<p>
+		This represents the games that the user owns, and on what platforms
+		that they own them on. It is an object with keys corresponding to the
+		game's slug, and the value identifying what platforms that they own the
+		game on. The platform strings should correlate to a string within the
+		<a href="#game">Game.platforms</a> property.
+	</p>
+<pre><code lang="json">{
+	"minecraft": [
+		"Linux",
+		"Nintendo Switch",
+		"Windows"
+	],
+	"mario-kart-8-deluxe": [
+		"Nintendo Switch"
+	]
+}</code></pre>
 </body>
 </html>
