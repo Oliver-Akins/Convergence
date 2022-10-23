@@ -1,4 +1,5 @@
 import { passwordSchema, usernameDiscrimComboSchema } from "$/schemas/accounts";
+import { cleanAccount } from "$/utils/data_cleaner";
 import { ServerRoute } from "@hapi/hapi";
 import { database, log } from "$/main";
 import boom from "@hapi/boom";
@@ -27,9 +28,15 @@ const route: ServerRoute = {
 			throw boom.badRequest(`Provided discriminator is not a number`);
 		};
 
+		let account = await database.getAccountByUsernameDiscriminator(username, discriminator);
+
+		if (!account) {
+			throw boom.badRequest(`Couldn't find user`);
+		};
+
 		let valid: boolean = false;
 		try {
-			valid = await database.compareUserPassword(username, discriminator, pass);
+			valid = await database.comparePasswords(account, pass);
 		} catch (_) {
 			throw boom.badRequest();
 		};
@@ -40,8 +47,8 @@ const route: ServerRoute = {
 		};
 
 		log.debug(`Login successful for: ${user}`);
-		req.cookieAuth.set({ username, discriminator, });
-		return h.response().code(200);
+		req.cookieAuth.set({ id: account.id, username, discriminator, });
+		return h.response(cleanAccount(account, false, true)).code(200);
 	},
 };
 export default route;
