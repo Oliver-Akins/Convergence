@@ -48,7 +48,7 @@ const route: ServerRoute = {
 
 		log.debug(`Login successful for: ${user}`);
 		req.cookieAuth.set({ id: account.id, username, discriminator, });
-		return h.response(cleanAccount(account, false, true)).code(200);
+		return h.response(cleanAccount(account, false, false)).code(200);
 	},
 };
 export default route;
