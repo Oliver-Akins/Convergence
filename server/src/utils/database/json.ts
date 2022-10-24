@@ -18,7 +18,6 @@ interface data {
 		};
 		games: {
 			count: number;
-			index: number;
 		};
 	};
 };
@@ -35,7 +34,6 @@ export class JSONDatabase {
 			},
 			games: {
 				count: 0,
-				index: 0,
 			},
 		},
 	};
@@ -236,7 +234,7 @@ export class JSONDatabase {
 	 * @param game The game to save.
 	 */
 	public async addGame(game: Game) {
-		this.data.games[this.data.meta.games.index++] = game;
+		this.data.games[game.slug] = game;
 		this.data.meta.games.count++;
 	};
 
