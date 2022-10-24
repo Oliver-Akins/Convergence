@@ -14,7 +14,7 @@ BIN := $(shell $(PACKAGE_MANAGER) bin)
 .PHONY: $(OUT_DIR) dev prod run interfaces
 
 
-$(OUT_DIR): interfaces
+$(OUT_DIR):
 	tsc --outDir $(OUT_DIR)
 
 interfaces:
