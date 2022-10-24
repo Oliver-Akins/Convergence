@@ -29,6 +29,7 @@
 				<a href="#games">Game Endpoints</a>
 				<ul>
 					<li><a href="#search-games"><code>GET /games/search</code></a></li>
+					<li><a href="#compare-games"><code>GET /intersection</code></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -195,6 +196,73 @@
 		<p>
 			A list of <a href="/docs/models.html#game">Game</a> objects.
 		</p>
+		<h2 id="compare-games"><code>GET /intersection</code></h2>
+		<p>
+			Allows comparing the games that users own to see which ones all of
+			them own.
+		</p>
+		<h3>Query Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>@me</code>?</td>
+					<td>Boolean</td>
+					<td>
+						Whether or not to include the authenticated user in the
+						list of users having the game compared.
+					</td>
+				</tr>
+				<tr>
+					<td><code>users</code></td>
+					<td>UUID[]</td>
+					<td>
+						A comma-separated list of user IDs to compare to. This
+						shouldn't include the authenticated user's ID, for that
+						use the <code>@me</code> parameter, however providing
+						the authenticated user's ID in this array won't cause
+						any errors to be thrown. If this array contains any IDs
+						of users that are <b>not</b> friends with the authenticated
+						user, they will be removed and not included in the comparion.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>users</code></td>
+					<td>UUID[]</td>
+					<td>
+						The IDs of the users that were included in the comparison.
+						This may be different than the list provided in the query
+						parameters of the request.
+					</td>
+				</tr>
+				<tr>
+					<td><code>games</code></td>
+					<td><a href="/docs/models.html#game">Game</a>[]</td>
+					<td>
+						A list of games that all of the users in the <code>users</code>
+						property own.
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
