@@ -13,6 +13,10 @@ body {
 	max-width: unset;
 }
 
+h2 {
+	margin-top: 2em;
+}
+
 #toc {
 	margin-left: 15px;
 	margin-right: 7px;
