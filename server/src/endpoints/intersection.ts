@@ -31,13 +31,13 @@ const route: ServerRoute = {
 
 		// 0
 		const account = request.auth.credentials as unknown as Account;
-		let userIDs: string[] = request.query.users.split(`,`);
-		let users: Account[] = await database.getAccountsByIDs(
-			userIDs.filter(u => account.relations.friends.includes(u))
-		);
+		let userIDs: string[] = request.query.users.split(`,`)
+			.filter((u: string) => account.relations.friends.includes(u));
+		let users: Account[] = await database.getAccountsByIDs(userIDs);
 		if (request.query["@me"]) {
 			log.silly(`Adding the authenticated user to the comparison list`);
 			users.push(account);
+			userIDs.push(account.id);
 		};
 		log.debug(`Comparing libraries of ${users.length} users`);
 
@@ -69,7 +69,12 @@ const route: ServerRoute = {
 		};
 
 		log.debug(`Found ${ownedGames.length} shared games`);
-		return h.response(ownedGames).code(ownedGames.length > 0 ? 200 : 204);
+		return h
+			.response({
+				users: userIDs,
+				games: ownedGames,
+			})
+			.code(ownedGames.length > 0 ? 200 : 204);
 	},
 };
 export default route;
