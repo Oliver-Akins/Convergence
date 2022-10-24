@@ -146,6 +146,26 @@ export class JSONDatabase {
 	};
 
 	/**
+	 * Get all users that exist with the provided IDs, if one does not exist it
+	 * isn't included in the result. So in order to check for completeness of
+	 * the result the returned array length will need to be compared to the ID
+	 * list input.
+	 *
+	 * @param ids The list of user IDs
+	 * @returns All of the accounts that were found from the list of IDs
+	 */
+	public async getAccountsByIDs(ids: string[]): Promise<Account[]> {
+		let accounts: Account[] = [];
+		for (const id of ids) {
+			const user = this.data.users[id];
+			if (user) {
+				accounts.push(user);
+			};
+		};
+		return accounts;
+	};
+
+	/**
 	 * Compares a provided password against the user's account, given their
 	 * username, discriminator, and the password to validate.
 	 *
