@@ -1,4 +1,4 @@
-import { database } from "$/main";
+import { database, log } from "$/main";
 import { Account } from "$/types/data";
 import { ServerRoute } from "@hapi/hapi";
 import Joi from "joi";
@@ -9,6 +9,7 @@ const route: ServerRoute = {
 		validate: {
 			query: Joi.object({
 				users: Joi.string(),
+				"@me": Joi.boolean().default(true),
 			}),
 		},
 	},
@@ -26,26 +27,28 @@ const route: ServerRoute = {
 					platform data from the previous users, add it to the platform data
 		3. Return the "shared_games"
 		*/
+		log.debug(`Comparing user game libraries`);
 
 		// 0
-		let userIDs = request.query.users.split(`,`);
-		let users: Account[] = userIDs
-			.map(async (u: string) => {
-				if (u === `@me`) {
-					return request.auth.credentials as unknown as Account;
-				};
-				return await database.getAccountByID(u);
-			})
-			.filter((x: Account|undefined) => x != undefined);
+		const account = request.auth.credentials as unknown as Account;
+		let userIDs: string[] = request.query.users.split(`,`);
+		let users: Account[] = await database.getAccountsByIDs(
+			userIDs.filter(u => account.relations.friends.includes(u))
+		);
+		if (request.query["@me"]) {
+			log.silly(`Adding the authenticated user to the comparison list`);
+			users.push(account);
+		};
+		log.debug(`Comparing libraries of ${users.length} users`);
 
 		// 1
 		let leastOwned: Account|null = null;
 		let lowestCount = -1;
 		for (const user of users) {
-			let count: number = -1;
+			let count: number = Object.keys(user.games).length;
 			if (
-				!leastOwned
-				|| Object.keys(user.games).length > (count = Object.keys(leastOwned.games).length)
+				leastOwned == null
+				|| count < lowestCount
 			) {
 				leastOwned = user;
 				lowestCount = count;
@@ -53,6 +56,7 @@ const route: ServerRoute = {
 		};
 
 		if (leastOwned == null || lowestCount <= 0) {
+			log.debug(`Smallest library doesn't exist, so shortcut the algorithm`);
 			return h.response([]).code(204);
 		};
 
@@ -64,7 +68,8 @@ const route: ServerRoute = {
 			ownedGames = ownedGames.filter(g => user.games[g.slug] != undefined);
 		};
 
-		return h.response(ownedGames);
+		log.debug(`Found ${ownedGames.length} shared games`);
+		return h.response(ownedGames).code(ownedGames.length > 0 ? 200 : 204);
 	},
 };
 export default route;
