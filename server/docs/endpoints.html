@@ -81,7 +81,8 @@
 		</table>
 		<h3>Response</h3>
 		<p>
-			This endpoint doesn't return any data on success (200) or failure (4XX).
+			This endpoint returns the newly created <a href="/docs/models.html#account">Account</a>
+			for the user.
 		</p>
 		<hr>
 		<h1 id="login">Login Endpoints</h1>
@@ -119,9 +120,10 @@
 		</table>
 		<h3>Response</h3>
 		<p>
-			This endpoint doesn't return any data on success (200) or failure (4XX),
-			however upon success, a <code>Set-Cookie</code> header is present on the
-			response which can be used in future requests to authenticate them.
+			This endpoint returns an <a href="/docs/models.html#account">Account</a>
+			object upon success, and a <code>Set-Cookie</code> header is present
+			on the response which can be used in future requests to authenticate
+			them.
 		</p>
 		<hr>
 		<h1 id="user">User Endpoints</h1>
