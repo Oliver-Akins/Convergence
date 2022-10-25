@@ -1,6 +1,7 @@
 import { describe, it } from "mocha";
 import { expect } from "chai";
 import { server } from "../../main";
+import { verifyAccount } from "../../utils";
 
 describe(`POST /register/username`, () => {
 	const method = `POST`;
@@ -17,15 +18,7 @@ describe(`POST /register/username`, () => {
 		});
 		expect(r.statusCode).to.equal(200);
 		let account = r.result as any;
-		expect(account).to.be.an("object").that.has.all.keys([
-			`id`,
-			`username`,
-			`discriminator`,
-			`profile_picture`,
-			`accounts`,
-			`games`,
-			`relations`
-		]);
+		verifyAccount(account);
 		expect(account.id).to.have.length(36);
 		expect(account.discriminator).to.equal(1);
 		expect(account.username).to.have.lengthOf(4);
