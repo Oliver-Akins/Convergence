@@ -10,7 +10,8 @@ export function verifyAccount(account: object, removeKeys: string[] = []) {
 		`games`,
 		`relations`
 	];
-	expect(account).to.be.an("object").and.have.all.keys(
-		keys.filter(k => !removeKeys.includes(k))
-	);
+	expect(account)
+		.to.be.an("object")
+		.and.have.all.keys(keys.filter(k => !removeKeys.includes(k)))
+		.and.not.have.any.keys([`password`, `salt`]);
 };
