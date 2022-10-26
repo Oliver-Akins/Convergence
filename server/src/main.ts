@@ -15,7 +15,17 @@ import glob from "glob";
 
 
 export const isDev = process.env.NODE_ENV?.startsWith(`dev`);
+
+/*
+Loading the config, if the server is being tested we want to override some of
+the config options to prevent the system from needing to send huge numbers of
+requests in order to properly test things.
+*/
 export const config = loadConfig();
+if (process.env.TESTING === `true`) {
+	config.service.same_name_account_limit = 3;
+};
+
 export const database = new JSONDatabase(config.database);
 export const log = new Logger({
 	displayFunctionName: false,
