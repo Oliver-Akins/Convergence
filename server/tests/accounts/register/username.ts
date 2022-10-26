@@ -8,7 +8,7 @@ describe(`POST /register/username`, function() {
 	const route = `/register/username`;
 
 	before(async function() {
-		let r = await server.inject({
+		await server.inject({
 			method: `GET`,
 			url: `/internal/db-reset`,
 			allowInternals: true,
