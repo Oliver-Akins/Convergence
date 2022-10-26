@@ -249,4 +249,20 @@ export class JSONDatabase {
 			.map(s => this.data.games[s])
 			.filter(g => g != undefined);
 	};
+
+	/** @internal */
+	public async reset() {
+		this.data.games = {};
+		this.data.users = {};
+		this.data.platforms = {};
+		this.data.meta = {
+			used_uuids: [],
+			users: {
+				count: 0,
+			},
+			games: {
+				count: 0,
+			},
+		};
+	};
 };
