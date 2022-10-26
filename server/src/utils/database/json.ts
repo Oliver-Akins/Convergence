@@ -54,6 +54,7 @@ export class JSONDatabase {
 	};
 
 	public async shutdown() {
+		if (process.env.TESTING === "true") { return };
 		fs.writeFileSync(this.conf.uri, JSON.stringify(this.data));
 	};
 
