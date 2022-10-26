@@ -3,9 +3,13 @@
 import "module-alias/register";
 
 import { JSONDatabase } from "./utils/database/json";
+import { Request, Server } from "@hapi/hapi";
 import { loadConfig } from "./utils/config";
-import { Server } from "@hapi/hapi";
+import cookie from "@hapi/cookie";
 import inert from "@hapi/inert";
+import basic from "@hapi/basic";
+import { Logger } from "tslog";
+import boom from "@hapi/boom";
 import path from "path";
 import glob from "glob";
 
@@ -13,6 +17,11 @@ import glob from "glob";
 export const isDev = process.env.NODE_ENV?.startsWith(`dev`);
 export const config = loadConfig();
 export const database = new JSONDatabase(config.database);
+export const log = new Logger({
+	displayFunctionName: false,
+	displayFilePath: "hidden",
+	minLevel: isDev ? `silly` : `info`,
+});
 
 // Handle the system exiting so we can cleanup before shutting down
 import { cleanExit } from "./utils/cleanExit";
@@ -21,7 +30,7 @@ process.on(`SIGTERM`, cleanExit);
 process.on(`SIGINT`, cleanExit);
 
 
-async function init() {
+export async function init() {
 
 	const server = new Server({
 		port: config.server.port,
@@ -33,7 +42,56 @@ async function init() {
 		},
 	});
 
-	await server.register(inert);
+	await server.register([inert, cookie, basic]);
+
+	/*
+	This allows for authenticating with the API through the use of cookies, this
+	is most recommended for browser purposes since the API also accepts BASIC
+	authentication which is simpler for most programmatic systems to utilize,
+	though if a non-browser based request does utilize the cookie authentication
+	the API won't reject the request and fulfill it anyway.
+	*/
+	server.auth.strategy(`session`, `cookie`, {
+		cookie: {
+			password: await database.getCookiePassword(),
+			isSecure: !isDev,
+			clearInvalid: true,
+			path: `/`,
+			isHttpOnly: !isDev,
+		},
+		validateFunc: async (_req: Request, session: any) => {
+			const { id } = session;
+			const account = await database.getAccountByID(id);
+
+			if (!account) {
+				return { valid: false };
+			};
+			return { valid: true, credentials: account };
+		},
+	});
+
+	/*
+	This authentication strategy is primarily for easier script writing that
+	uses the API, it allows requests using BASIC auth to be authenticated
+	properly. The username for the authentication MUST contain both the username
+	and the discriminator of the user, in the format "username#discriminator",
+	if either of the values are not provided, authorization will fail.
+	*/
+	server.auth.strategy(`basic`, `basic`, {
+		async validate(_request: Request, id: string, password: string) {
+			const account = await database.getAccountByID(id);
+			if (!account) {
+				throw boom.unauthorized();
+			};
+
+			return {
+				isValid: await database.comparePasswords(account, password),
+				credentials: account,
+			};
+		},
+	});
+
+	server.auth.default({ strategies: [ `session`, `basic` ] });
 
 	// Register all the routes
 	let files = glob.sync(
@@ -46,9 +104,36 @@ async function init() {
 		server.route(route);
 	};
 
+	if (isDev) {
+		server.route({
+			method: `GET`, path: `/docs/{path*}`,
+			options: {
+				auth: false,
+				files: {
+					relativeTo: path.join(__dirname, `../docs`)
+				},
+			},
+			handler: {
+				directory: {
+					path: `.`,
+					index: true,
+					redirectToSlash: true,
+				}
+			}
+		});
+		console.log(`Documentation available on /docs`);
+	};
+
+	return server;
+};
+
+async function start() {
+	const server = await init();
 	server.start().then(() => {
 		console.log(`Server listening on ${server.info.uri}`);
 	});
 };
 
-init();
+if (require.main == module) {
+	start();
+};

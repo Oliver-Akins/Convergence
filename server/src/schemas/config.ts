@@ -22,9 +22,29 @@ export const databaseOptionsSchema = Joi.object({
 .description(`The database specific options`);
 
 
+export const serviceOptionsSchema = Joi.object({
+	same_name_account_limit: Joi
+		.number()
+		.min(1)
+		.default(1_000)
+		.description(`The maximum number of accounts that are allowed to have the same username`),
+})
+.meta({ className: `serviceOptions` })
+.description(`The options relating specifically to the service and it's operations`);
+
+
+export const rawgOptionsSchema = Joi.object({
+	token: Joi.string().min(1).required(),
+})
+.meta({ className: `rawgOptions` })
+.description(`The API-specific configuration for RAWG`);
+
+
 export const configSchema = Joi.object({
 	server: serverOptionsSchema.required(),
 	database: databaseOptionsSchema.required(),
+	service: serviceOptionsSchema.default({}),
+	rawg: rawgOptionsSchema.required(),
 })
 .meta({ className: `config` })
 .description(`The configuration format for the server`);
