@@ -36,6 +36,7 @@ rund:
 
 test:
 	TS_NODE_COMPILER_OPTIONS='{"noUnusedLocals": false, "noUnusedParameters": false }' \
+	TESTING="true" \
 	$(BIN)/mocha --require ts-node/register --require tests/main.ts 'tests/**/*.ts'
 
 clean:
