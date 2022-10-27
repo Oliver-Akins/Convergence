@@ -31,15 +31,13 @@ const route: ServerRoute = {
 		let account = await database.getAccountByUsernameDiscriminator(username, discriminator);
 
 		if (!account) {
-			throw boom.badRequest(`Couldn't find user`);
+			throw boom.badRequest();
 		};
 
 		let valid: boolean = false;
 		try {
 			valid = await database.comparePasswords(account, pass);
-		} catch (_) {
-			throw boom.badRequest();
-		};
+		} catch (_) {};
 
 		if (!valid) {
 			log.debug(`Login attempt failed for: ${user}`);
