@@ -1,3 +1,29 @@
-.heading {
-    font-family: Arial, Helvetica, sans-serif;
+@import './Reset.scss';
+
+// Variables
+$bg-primary: #202225;
+$bg-secondary: #2F3136;
+$bg-tertiary: #36393E;
+$brand-primary: #1DB954;
+$brand-red: #D83C3E;
+$placeholder-grey: #828282;
+$text-color-light-primary: #E9ECEF;
+$text-color-light-secondary: #CACACA;
+
+$font-header-size: 32px;
+$font-normal-size: 16px;
+$font-body-size: 13px;
+$font-smallcaps-size: 12px;
+
+$font-weight-normal: normal;
+$font-weight-header: 600;
+
+$border-radius-btn: 7px;
+$border-radius-primary: 10px;
+
+$font-family-primary: 'Roboto', Arial, Helvetica, sans-serif;
+
+body {
+    font-family: $font-family-primary;
+    background-color: $bg-primary;
 }
