@@ -27,3 +27,52 @@ body {
     font-family: $font-family-primary;
     background-color: $bg-primary;
 }
+
+.btn {
+    background-color: $brand-primary;
+    border: 2px solid $brand-primary;
+    padding: 12px 40px;
+    border-radius: 7px;
+    color: $text-color-light-primary;
+    font-size: $font-normal-size;
+    transition: 0.2s;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+        -webkit-filter: brightness(0.9);
+        filter: brightness(0.9);
+        cursor: pointer;
+    }
+
+    &:active {
+        -webkit-filter: brightness(0.7);
+        filter: brightness(0.7);
+    }
+
+    &--primary {
+        padding: 32px 95px;
+        font-size: $font-header-size;
+        font-weight: $font-weight-header;
+    }
+    
+    &--grey {
+        background-color: $bg-tertiary;
+        border-color: $bg-tertiary;
+    }
+    
+    &--red {
+        background-color: $brand-red;
+        border-color: $brand-red;
+    }
+
+    &--delete {
+        &:hover {
+            background-color: $brand-red;
+            border-color: $brand-red;
+        }
+    }
+    
+    &--unfilled:not(:hover) {
+        background-color: transparent;
+    }
+}
