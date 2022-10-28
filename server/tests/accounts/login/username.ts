@@ -3,7 +3,7 @@ import { describe, it } from "mocha";
 import { server } from "../../main";
 import { expect } from "chai";
 
-describe.only(`POST /login/username`, () => {
+describe(`POST /login/username`, () => {
 	const method = `POST`;
 	const route = `/login/username`;
 
