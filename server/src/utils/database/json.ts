@@ -251,6 +251,16 @@ export class JSONDatabase {
 			.filter(g => g != undefined);
 	};
 
+	/**
+	 * Verifies whether or not a game exists with the provided slug.
+	 *
+	 * @param slug The slug to validate
+	 * @returns Whether or not a game exists with the slug
+	 */
+	public async isValidGame(slug: string): Promise<boolean> {
+		return this.data.games[slug] != null;
+	};
+
 	/** @internal */
 	public async reset() {
 		this.data.games = {};
