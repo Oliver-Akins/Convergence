@@ -14,6 +14,9 @@
 		<h1>Table of Contents</h1>
 		<ul>
 			<li>
+				<a href="#preface">Preface</a>
+			</li>
+			<li>
 				<a href="#registration">Registration Endpoints</a>
 				<ul>
 					<li><a href="#register-via-username"><code>POST /register/username</code></a></li>
@@ -23,6 +26,13 @@
 				<a href="#login">Login Endpoints</a>
 				<ul>
 					<li><a href="#login-via-username"><code>POST /login/username</code></a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#user">User Endpoints</a>
+				<ul>
+					<li><a href="#user-info"><code>GET /users/{user}</code></a></li>
+					<li><a href="#games-update"><code>POST,PUT,PATCH /users/{user}/games</code></a></li>
 				</ul>
 			</li>
 			<li>
@@ -41,7 +51,7 @@
 			<a href="/docs/models.html">Data Models</a>
 		</div>
 		<hr>
-		<h1>Preface</h1>
+		<h1 id="preface">Preface</h1>
 		<p>
 			All of the endpoints require authentication <b>except</b> those indicated.
 		</p>
