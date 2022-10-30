@@ -160,6 +160,69 @@
 			will include the <code>accounts</code> property on the object, otherwise it
 			won't be present.
 		</p>
+		<h2 id="games-update"><code>POST,PUT,PATCH /users/{user}/games</code></h2>
+		<p>
+			All three HTTP verbs operate the same, so there is no difference in
+			using <code>PATCH</code> compared to <code>PUT</code> or <code>POST</code>.
+		</p>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>user</code></td>
+					<td>User ID</td>
+					<td>
+						What ID of the user to update the game ownership info about.
+						This can be used to modify the currently authenticated
+						user by setting the parameter to <code>@me</code>.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			This returns an object with the following properties:
+		</p>
+		<table>
+			<thead>
+				<tr>
+					<td>Property</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>successes</code></td>
+					<td>String[]</td>
+					<td>
+						A list of strings in the format <code>slug - message</code>,
+						where <code>slug</code> is the slug of the game that the
+						message corresponds to, and <code>message</code> is a
+						user-friendly message indicating what happened to the
+						slug.
+					</td>
+				</tr>
+				<tr>
+					<td><code>errors</code></td>
+					<td>String[]</td>
+					<td>
+						A list of strings in the format <code>slug - message</code>
+						where <code>slug</code> is the slug of the game that the
+						message corresponds to, and <code>message</code> is a
+						user-friendly error indicating why the operation could
+						not be performed on the slug.
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<hr>
 		<h1 id="games">Game Endpoints</h1>
 		<p>
