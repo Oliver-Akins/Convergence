@@ -1,4 +1,4 @@
-import { cleanAccount } from "$/utils/data_cleaner";
+import { cleanAccount, friendAccount } from "$/utils/data_cleaner";
 import { ServerRoute } from "@hapi/hapi";
 import { Account } from "$/types/data";
 import { database } from "$/main";
@@ -31,11 +31,7 @@ const route: ServerRoute = {
 			throw boom.notFound(`No account found with that username/discrim`);
 		};
 
-		return h.response(cleanAccount(
-			account,
-			true,
-			!authed.relations.friends.includes(user))
-		).code(206);
+		return h.response(friendAccount(account)).code(206);
 	},
 };
 export default route;
