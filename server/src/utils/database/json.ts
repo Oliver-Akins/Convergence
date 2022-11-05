@@ -268,17 +268,20 @@ export class JSONDatabase {
 	 * @param to The user who is receiving the friend request
 	 */
 	public async sendFriendRequest(from: string, to: string) {
-		this.data.users[to].relations.requests.push(from);
+		if (!this.data.users[to].relations.requests.includes(from)) {
+			this.data.users[to].relations.requests.push(from);
+		};
 	};
 
 	/**
 	 * Accepts a friend request from someone
-	 * 
+	 *
 	 * @param to The user who needs to accept the friend request
 	 * @param from The user who sent the friend request
 	 */
 	public async acceptFriendRequest(to: string, from: string) {
 		this.data.users[to].relations.friends.push(from);
+		this.data.users[from].relations.friends.push(to);
 		this.data.users[to].relations.requests = this.data.users[to].relations.requests.filter(r => r !== from);
 	};
 
