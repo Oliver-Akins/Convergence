@@ -1,4 +1,5 @@
 import { ServerRoute } from "@hapi/hapi";
+import { Account } from "$/types/data";
 import { database } from "$/main";
 import Joi from "joi";
 
@@ -13,7 +14,8 @@ const route: ServerRoute = {
 	},
 	async handler(req, h) {
 		const users = req.payload as string[];
-		await database.removeFriends(users);
+		const authed = req.auth.credentials as unknown as Account;
+		await database.removeFriends(authed.id, users);
 		return h.response().code(204);
 	},
 };
