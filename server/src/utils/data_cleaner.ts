@@ -26,3 +26,15 @@ export function cleanAccount(
 		delete cloned.games;
 	return cloned;
 };
+
+/**
+ * Cleans a user object to be able to return it as the friend information
+ *
+ * @param user The user data to purge properties from
+ * @returns The user data minus all the properties that friends don't need to know
+ */
+export function friendAccount(user: Account): Partial<Account> {
+	let cleaned = cleanAccount(user, true, true);
+	delete cleaned.relations;
+	return cleaned;
+};

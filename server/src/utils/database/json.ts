@@ -54,6 +54,7 @@ export class JSONDatabase {
 	};
 
 	public async shutdown() {
+		if (process.env.TESTING === "true") { return };
 		fs.writeFileSync(this.conf.uri, JSON.stringify(this.data));
 	};
 
@@ -248,5 +249,70 @@ export class JSONDatabase {
 		return slugs
 			.map(s => this.data.games[s])
 			.filter(g => g != undefined);
+	};
+
+	/**
+	 * Verifies whether or not a game exists with the provided slug.
+	 *
+	 * @param slug The slug to validate
+	 * @returns Whether or not a game exists with the slug
+	 */
+	public async isValidGame(slug: string): Promise<boolean> {
+		return this.data.games[slug] != null;
+	};
+
+	/**
+	 * Sends a friend request from a user to another user
+	 *
+	 * @param from The user ID the request is from
+	 * @param to The user who is receiving the friend request
+	 */
+	public async sendFriendRequest(from: string, to: string) {
+		if (!this.data.users[to].relations.requests.includes(from)) {
+			this.data.users[to].relations.requests.push(from);
+		};
+	};
+
+	/**
+	 * Accepts a friend request from someone
+	 *
+	 * @param to The user who needs to accept the friend request
+	 * @param from The user who sent the friend request
+	 */
+	public async acceptFriendRequest(to: string, from: string) {
+		this.data.users[to].relations.friends.push(from);
+		this.data.users[from].relations.friends.push(to);
+		this.data.users[to].relations.requests = this.data.users[to].relations.requests.filter(r => r !== from);
+	};
+
+	/**
+	 * Removes a number of accounts from being friends with the user.
+	 *
+	 * @param account The account ID of the user deleting the friends
+	 * @param users The user IDs of the accounts to un-friend
+	 */
+	public async removeFriends(account: string, users: string[]) {
+		let main = this.data.users[account];
+		for (const user of users) {
+			let other = this.data.users[user];
+			other.relations.friends = other.relations.friends.filter(x => x !== account);
+		};
+		main.relations.friends = main.relations.friends.filter(u => !users.includes(u));
+	};
+
+	/** @internal */
+	public async reset() {
+		this.data.games = {};
+		this.data.users = {};
+		this.data.platforms = {};
+		this.data.meta = {
+			used_uuids: [],
+			users: {
+				count: 0,
+			},
+			games: {
+				count: 0,
+			},
+		};
 	};
 };
