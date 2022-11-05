@@ -261,6 +261,27 @@ export class JSONDatabase {
 		return this.data.games[slug] != null;
 	};
 
+	/**
+	 * Sends a friend request from a user to another user
+	 *
+	 * @param from The user ID the request is from
+	 * @param to The user who is receiving the friend request
+	 */
+	public async sendFriendRequest(from: string, to: string) {
+		this.data.users[to].relations.requests.push(from);
+	};
+
+	/**
+	 * Accepts a friend request from someone
+	 * 
+	 * @param to The user who needs to accept the friend request
+	 * @param from The user who sent the friend request
+	 */
+	public async acceptFriendRequest(to: string, from: string) {
+		this.data.users[to].relations.friends.push(from);
+		this.data.users[to].relations.requests = this.data.users[to].relations.requests.filter(r => r !== from);
+	};
+
 	/** @internal */
 	public async reset() {
 		this.data.games = {};
