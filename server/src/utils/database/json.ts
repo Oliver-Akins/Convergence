@@ -282,6 +282,21 @@ export class JSONDatabase {
 		this.data.users[to].relations.requests = this.data.users[to].relations.requests.filter(r => r !== from);
 	};
 
+	/**
+	 * Removes a number of accounts from being friends with the user.
+	 *
+	 * @param account The account ID of the user deleting the friends
+	 * @param users The user IDs of the accounts to un-friend
+	 */
+	public async removeFriends(account: string, users: string[]) {
+		let main = this.data.users[account];
+		for (const user of users) {
+			let other = this.data.users[user];
+			other.relations.friends = other.relations.friends.filter(x => x !== account);
+		};
+		main.relations.friends = main.relations.friends.filter(u => !users.includes(u));
+	};
+
 	/** @internal */
 	public async reset() {
 		this.data.games = {};
