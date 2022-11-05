@@ -32,6 +32,7 @@
 				<a href="#user">User Endpoints</a>
 				<ul>
 					<li><a href="#user-info"><code>GET /users/{user}</code></a></li>
+					<li><a href="#list-friends"><code>GET /users/{user}/friends</code></a></li>
 					<li><a href="#games-update"><code>POST,PUT,PATCH /users/{user}/games</code></a></li>
 				</ul>
 			</li>
@@ -170,6 +171,64 @@
 			will include the <code>accounts</code> property on the object, otherwise it
 			won't be present.
 		</p>
+		<h2 id="list-friends"><code>GET /users/{user}/friends</code></h2>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>user</code></td>
+					<td>User ID</td>
+					<td>
+						What ID of the user to retrieve the information about.
+						This can be used to retrieve the currently authenticated
+						account's information by setting the parameter to
+						<code>@me</code>.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Status Code</td>
+					<td>Payload Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>200</code></td>
+					<td>
+						Partial&lt;<a href="/docs/models.html#account">Account</a>&gt;[]
+					</td>
+					<td>
+						This status code is returned when the <code>user</code>
+						parameter is set to either <code>@me</code> or the authenticated
+						user's ID. It contains all of the account objects for the
+						friends that is returned normally <b>except</b> the
+						<code>relations</code> property.
+					</td>
+				</tr>
+				<tr>
+					<td><code>206</code></td>
+					<td>String[]</td>
+					<td>
+						This is used when the <code>user</code> parameter is not
+						the authenticated user, but is friends with the authenticated
+						user. It returns a list of user IDs that the friend is
+						friends with.
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		<h2 id="games-update"><code>POST,PUT,PATCH /users/{user}/games</code></h2>
 		<p>
 			All three HTTP verbs operate the same, so there is no difference in
