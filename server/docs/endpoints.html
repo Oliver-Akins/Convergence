@@ -33,6 +33,8 @@
 				<ul>
 					<li><a href="#user-info"><code>GET /users/{user}</code></a></li>
 					<li><a href="#list-friends"><code>GET /users/{user}/friends</code></a></li>
+					<li><a href="#add-friends"><code>POST,PUT /users/@me/friends</code></a></li>
+					<li><a href="#remove-friends"><code>DELETE /users/@me/friends</code></a></li>
 					<li><a href="#games-update"><code>POST,PUT,PATCH /users/{user}/games</code></a></li>
 				</ul>
 			</li>
@@ -229,6 +231,61 @@
 				</tr>
 			</tbody>
 		</table>
+		<h2 id="add-friends"><code>POST,PUT /users/@me/friends</code></h2>
+		<h3>Payload</h3>
+		<p>
+			The payload is expected to be an array of user IDs. This cannot
+			accept <code>@me</code> as a value.
+		</p>
+		<h3>Response</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Property</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>accepted</code></td>
+					<td>String[]</td>
+					<td>
+						The user IDs of those who had sent the authenticated user
+						a friend request, and the authenticated user just accepted
+						it.
+					</td>
+				</tr>
+				<tr>
+					<td><code>sent</code></td>
+					<td>String[]</td>
+					<td>
+						The user IDs of accounts that the authenticated user just
+						sent a friend request to.
+					</td>
+				</tr>
+				<tr>
+					<td><code>errored</code></td>
+					<td>String[]</td>
+					<td>
+						The user IDs of accounts that errored for some reason.
+						There is no indicator as to why the accounts failed, it
+						it just the ID.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="remove-friends"><code>DELETE /users/@me/friends</code></h2>
+		<h3>Payload</h3>
+		<p>
+			The payload is expected to be an array of user IDs. This cannot
+			accept <code>@me</code> as a value.
+		</p>
+		<h3>Response</h3>
+		<p>
+			This endpoint returns an "HTTP 204 - No Content" response on success
+			and a 4XX or 5XX status code on success.
+		</p>
 		<h2 id="games-update"><code>POST,PUT,PATCH /users/{user}/games</code></h2>
 		<p>
 			All three HTTP verbs operate the same, so there is no difference in
