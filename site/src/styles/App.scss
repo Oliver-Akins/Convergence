@@ -25,7 +25,91 @@ $font-family-primary: 'Roboto', Arial, Helvetica, sans-serif;
 
 body {
     font-family: $font-family-primary;
+    color: $text-color-light-primary;
     background-color: $bg-primary;
+}
+
+label {
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+a {
+    color: $brand-primary;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+input {
+    padding: 10px 7px;
+    border: none;
+    border-radius: $border-radius-btn;
+    outline-color: $brand-primary;
+    color: $text-color-light-primary;
+    background-color: $bg-primary;
+}
+
+.header {
+    text-align: center;
+    font-size: $font-header-size;
+}
+
+.caps {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.card {
+    margin: 0 auto;
+    background-color: $bg-secondary;
+    border-radius: $border-radius-primary;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 10px;
+    padding: 40px 50px 40px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        top: 16px;
+        width: 43%;
+        height: 3px;
+        background-color: $bg-tertiary;
+    }
+    
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+    
+    p {
+        z-index: 1;
+        width: unset;
+        margin-top: 6px;
+        font-weight: $font-weight-header;
+        font-size: $font-normal-size;
+    }
+}
+
+.card--register, .card--login {
+    & * {
+        width: 100%;
+    }
 }
 
 .btn {
@@ -80,6 +164,10 @@ body {
             background-color: $brand-red;
             border-color: $brand-red;
         }
+    }
+
+    &--form {
+        margin-top: 30px;
     }
     
     &--unfilled:not(:hover) {
