@@ -1,0 +1,16 @@
+.flex-row {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+
+/* Tweak Water's Table layout to look better with long descriptions */
+table {
+	table-layout: auto !important;
+}
+table tr > :nth-child(1),
+table tr > :nth-child(2) {
+	padding-right: 15px;
+	white-space: nowrap;
+}

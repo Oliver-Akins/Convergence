@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+	<link rel="stylesheet" href="/docs/custom-style.css">
+	<title>Convergence API Documentation</title>
+</head>
+<body>
+	<h1>API Documentation Home</h1>
+	<div class="flex-row">
+		<a href="#authentication">Authentication</a>
+		<a href="/docs/models.html">Data Models</a>
+		<a href="/docs/endpoints.html">Endpoints</a>
+	</div>
+	<hr>
+	<h2 id="authentication">Authentication</h2>
+	<p>
+		The API supports authentication through two different methods, both of
+		which are equivalent in their authorization capabilities.
+	</p>
+	<h3 id="cookie">Cookie Authentication</h3>
+	<p>
+		This authentication strategy is used for the website that sets a session
+		cookie in the browser and authenticates further requests as the user.
+		In order to receive a cookie for authentication a request must be made
+		to one of the <a href="/docs/endpoints#logins"><code>POST /login/*</code> endpoints</a>.
+		This is the only authentication strategy allowed for accounts that don't
+		have a password associated with their account.
+	</p>
+	<h3 id="basic">BASIC Authentication</h3>
+	<p>
+		This authentication strategy is primarily for third party API interaction
+		allowing systems to authenticate more easily than handling cookie. This
+		strategy requires that you use the ID of the account as the username,
+		and the password, which means that if the user doesn't have a password
+		for their account that this authentication strategy cannot be used.
+	</p>
+</body>
+</html>

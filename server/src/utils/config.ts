@@ -23,7 +23,7 @@ export function loadConfig() {
 		try {
 			file = fs.readFileSync(`./config.toml`, `utf-8`);
 		} catch (_) {
-			console.error(`Couldn't find produciton config. Fill out the config and run the server again`);
+			console.error(`Couldn't find production config. Fill out the config and run the server again`);
 			process.exit(1);
 		};
 	};
@@ -35,10 +35,12 @@ export function loadConfig() {
 		process.exit(1);
 	};
 
-	let { error, value } = configSchema.validate(data)
+	let { error, value } = configSchema.validate(data, { abortEarly: false })
 	if (error) {
-		console.error(`The config failed to validate it's data, not starting the server`);
-		console.error(error);
+		console.error(`Config failed to validate, see below for details:`)
+		for (const err of error.details) {
+			console.error(` - ${err.message}`);
+		};
 		process.exit(1);
 	};
 

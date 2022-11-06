@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+	<link rel="stylesheet" href="/docs/custom-style.css">
+	<title>Convergence API Documentation</title>
+</head>
+<body>
+	<h1>API Data Models</h1>
+	<div class="flex-row">
+		<a href="/docs">Home</a>
+		<a href="/docs/endpoints.html">Endpoints</a>
+	</div>
+	<hr>
+	<h2>Preface</h2>
+	<p>
+		All of the data models follow similar syntax for types and information:
+	</p>
+	<ul>
+		<li>
+			A <code>?</code> after the "Type" of a property means that it is a
+			nullable field. Though it will always be returned (if it is set to
+			be returned even if it were not nullable).
+		</li>
+		<li>
+			A <code>?</code> after the "Property" name means that the property
+			may not always be returned, but when it is, it will always the type
+			indicated.
+		</li>
+		<li>
+			Each property can have a number of superscript note indicators after
+			it, these indicators correspond to a note(s) at the bottom of the
+			table.
+		</li>
+	</ul>
+	<hr>
+	<h2 id="account">Account</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>id</code><sup>[0]</sup></td>
+				<td>String</td>
+				<td>The UUID for the user.</td>
+			</tr>
+			<tr>
+				<td><code>username</code></td>
+				<td>String</td>
+				<td>The account's username</td>
+			</tr>
+			<tr>
+				<td><code>discriminator</code></td>
+				<td>Number</td>
+				<td>The account's unique number that allows there to me multiple accounts with the same username.</td>
+			</tr>
+			<tr>
+				<td><code>password</code><sup>[1]</sup></td>
+				<td>String?</td>
+				<td>The account's password after it has been salted and hashed.</td>
+			</tr>
+			<tr>
+				<td><code>salt</code><sup>[0][1]</sup></td>
+				<td>String?</td>
+				<td>The salt that is unique to the account when they have password auth enabled.</td>
+			</tr>
+			<tr>
+				<td><code>accounts</code>?<sup>[3]</sup></td>
+				<td>Object</td>
+				<td>
+					The third party accounts that are linked to the user account.
+				</td>
+			</tr>
+			<tr>
+				<td><code>games</code><sup>[2][4]</sup></td>
+				<td><a href="#owned-games">Owned Games</a></td>
+				<td>The games that the user has registered that they own.</td>
+			</tr>
+			<tr>
+				<td><code>relations</code><sup>[4]</sup></td>
+				<td><a href="#relations">Relations</a></td>
+				<td>The relationship connections for the account.</td>
+			</tr>
+		</tbody>
+	</table>
+	<sup>[0]</sup>: This is a read-only property, attempting to modify it will
+	result in an HTTP 400 error.
+	<br>
+	<sup>[1]</sup>: This property is not returned from API calls
+	<br>
+	<sup>[2]</sup>: This is not expanded to contain the full object.
+	<br>
+	<sup>[3]</sup>: This is only returned from the <code>/users/{user}</code>
+	endpoints when the user that is being requested is also the authenticated
+	user.
+	<br>
+	<sup>[4]</sup>: This property is only returned in the object when the
+	authenticated user is requesting for themselves, or they are friends with
+	the user that they are requesting for.
+
+
+	<h2 id="game">Game</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>slug</code><sup>[1]</sup></td>
+				<td>String</td>
+				<td>
+					A URL-safe version of the name.
+					Example: <code>minecraft-java-edition</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>name</code></td>
+				<td>String</td>
+				<td>
+					The formatted name of the game.
+					Example: <code>Minecraft: Java Edition</code>
+				</td>
+			</tr>
+			<tr>
+				<td><code>publisher</code>?<sup>[2]</sup></td>
+				<td>String</td>
+				<td>The publisher/developer of the game.</td>
+			</tr>
+			<tr>
+				<td><code>cover</code></td>
+				<td>String?</td>
+				<td>
+					A URL pointing to an image that represents the game. This
+					is automatically pulled from
+					<a href="https://rawg.io" target="_blank">RAWG.io</a>
+					during the search request.
+				</td>
+			</tr>
+			<tr>
+				<td><code>platforms</code></td>
+				<td>String[]</td>
+				<td>
+					The platforms that the game supports. The specificity of the
+					platform depends on
+					<a href="https://rawg.io" target="_blank">RAWG.io</a>
+					as the data is pulled directly from their API.
+				</td>
+			</tr>
+			<tr>
+				<td><code>crossplays</code>?<sup>[2]</sup></td>
+				<td>String[][]</td>
+				<td>
+					An array of arrays that indicate what platforms are capable
+					of cross-playing with each other.
+					<br>
+					So if the game has support for 3 platforms (A, B, and C),
+					and platforms A and B can play together, and B and C can play
+					together, but platforms A and C cannot play together, this
+					would lead to the following value:
+					<code>[ [ "A", "B" ], [ "B", "C" ] ]</code>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<sup>[1]</sup>: This is a read-only property. Any attempted modifications
+	will result in an HTTP 400 response.
+	<br>
+	<sup>[2]</sup>: This is currently unused.
+
+
+	<h2 id="relation">Relations</h2>
+	<p>
+		This object represents the user's relationships within the site.
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<td>Property</td>
+				<td>Type</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>friends</code></td>
+				<td>String[]</td>
+				<td>
+					The list of the users that the user has friended.
+				</td>
+			</tr>
+			<tr>
+				<td><code>requests</code></td>
+				<td>String[]</td>
+				<td>
+					The list of user IDs that are asking this user to be their
+					friend.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<h2 id="owned-games">Owned Games</h2>
+	<p>
+		This represents the games that the user owns, and on what platforms
+		that they own them on. It is an object with keys corresponding to the
+		game's slug, and the value identifying what platforms that they own the
+		game on. The platform strings should correlate to a string within the
+		<a href="#game">Game.platforms</a> property.
+	</p>
+<pre><code lang="json">{
+	"minecraft": [
+		"Linux",
+		"Nintendo Switch",
+		"Windows"
+	],
+	"mario-kart-8-deluxe": [
+		"Nintendo Switch"
+	]
+}</code></pre>
+</body>
+</html>

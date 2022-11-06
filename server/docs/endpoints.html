@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+	<link rel="stylesheet" href="/docs/custom-style.css">
+	<link rel="stylesheet" href="/docs/endpoints-style.css">
+	<title>Convergence API Documentation</title>
+</head>
+<body>
+	<div id="toc">
+		<h1>Table of Contents</h1>
+		<ul>
+			<li>
+				<a href="#preface">Preface</a>
+			</li>
+			<li>
+				<a href="#registration">Registration Endpoints</a>
+				<ul>
+					<li><a href="#register-via-username"><code>POST /register/username</code></a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#login">Login Endpoints</a>
+				<ul>
+					<li><a href="#login-via-username"><code>POST /login/username</code></a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#user">User Endpoints</a>
+				<ul>
+					<li><a href="#user-info"><code>GET /users/{user}</code></a></li>
+					<li><a href="#list-friends"><code>GET /users/{user}/friends</code></a></li>
+					<li><a href="#add-friends"><code>POST,PUT /users/@me/friends</code></a></li>
+					<li><a href="#remove-friends"><code>DELETE /users/@me/friends</code></a></li>
+					<li><a href="#games-update"><code>POST,PUT,PATCH /users/{user}/games</code></a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#games">Game Endpoints</a>
+				<ul>
+					<li><a href="#search-games"><code>GET /games/search</code></a></li>
+					<li><a href="#compare-games"><code>GET /intersection</code></a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div id="content">
+		<h1>API Endpoints</h1>
+		<div class="flex-row">
+			<a href="/docs">Home</a>
+			<a href="/docs/models.html">Data Models</a>
+		</div>
+		<hr>
+		<h1 id="preface">Preface</h1>
+		<p>
+			All of the endpoints require authentication <b>except</b> those indicated.
+		</p>
+		<hr>
+		<h1 id="registration">Registration Endpoints</h1>
+		<p>
+			These are the endpoints that allow creating accounts. All of the
+			registration endpoints are <b>unauthenticated</b>, so they can be
+			accessed without an account.
+		</p>
+		<h2 id="register-via-username"><code>POST /register/username</code></h2>
+		<h3>Payload</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Property</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>username</code></td>
+					<td>String</td>
+					<td>
+						The user's username, this <b>cannot</b> contain a
+						discriminator in it. The valid characters are alpha-numeric,
+						no other characters are allowed.
+					</td>
+				</tr>
+				<tr>
+					<td><code>password</code></td>
+					<td>String</td>
+					<td>The user's password to create the account with</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			This endpoint returns the newly created <a href="/docs/models.html#account">Account</a>
+			for the user.
+		</p>
+		<hr>
+		<h1 id="login">Login Endpoints</h1>
+		<p>
+			These endpoints are used to retrieve an authentication cookie for the
+			user. All of the login endpoints are <b>unauthenticated</b>, so they can
+			be accessed without an account.
+		</p>
+		<h2 id="login-via-username"><code>POST /login/username</code></h2>
+		<h3>Payload</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Property</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>username</code></td>
+					<td>String</td>
+					<td>
+						The user's username and discriminator in the format
+						<code>username#discriminator</code>. If the discriminator
+						isn't provided the request will always fail.
+					</td>
+				</tr>
+				<tr>
+					<td><code>password</code></td>
+					<td>String</td>
+					<td>The user's password to create the account with</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			This endpoint returns an <a href="/docs/models.html#account">Account</a>
+			object upon success, and a <code>Set-Cookie</code> header is present
+			on the response which can be used in future requests to authenticate
+			them.
+		</p>
+		<hr>
+		<h1 id="user">User Endpoints</h1>
+		<p>
+			These endpoints are for retrieving and managing specific user accounts.
+		</p>
+		<h2 id="user-info"><code>GET /users/{user}</code></h2>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>user</code></td>
+					<td>User ID</td>
+					<td>
+						What ID of the user to retrieve the information about.
+						This can be used to retrieve the currently authenticated
+						account's information by setting the parameter to
+						<code>@me</code>.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			This returns an <a href="/docs/models.html#account">Account</a> object. If
+			the requested user is also the user that is authenticating the request, it
+			will include the <code>accounts</code> property on the object, otherwise it
+			won't be present.
+		</p>
+		<h2 id="list-friends"><code>GET /users/{user}/friends</code></h2>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>user</code></td>
+					<td>User ID</td>
+					<td>
+						What ID of the user to retrieve the information about.
+						This can be used to retrieve the currently authenticated
+						account's information by setting the parameter to
+						<code>@me</code>.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Status Code</td>
+					<td>Payload Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>200</code></td>
+					<td>
+						Partial&lt;<a href="/docs/models.html#account">Account</a>&gt;[]
+					</td>
+					<td>
+						This status code is returned when the <code>user</code>
+						parameter is set to either <code>@me</code> or the authenticated
+						user's ID. It contains all of the account objects for the
+						friends that is returned normally <b>except</b> the
+						<code>relations</code> property.
+					</td>
+				</tr>
+				<tr>
+					<td><code>206</code></td>
+					<td>String[]</td>
+					<td>
+						This is used when the <code>user</code> parameter is not
+						the authenticated user, but is friends with the authenticated
+						user. It returns a list of user IDs that the friend is
+						friends with.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="add-friends"><code>POST,PUT /users/@me/friends</code></h2>
+		<h3>Payload</h3>
+		<p>
+			The payload is expected to be an array of user IDs. This cannot
+			accept <code>@me</code> as a value.
+		</p>
+		<h3>Response</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Property</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>accepted</code></td>
+					<td>String[]</td>
+					<td>
+						The user IDs of those who had sent the authenticated user
+						a friend request, and the authenticated user just accepted
+						it.
+					</td>
+				</tr>
+				<tr>
+					<td><code>sent</code></td>
+					<td>String[]</td>
+					<td>
+						The user IDs of accounts that the authenticated user just
+						sent a friend request to.
+					</td>
+				</tr>
+				<tr>
+					<td><code>errored</code></td>
+					<td>String[]</td>
+					<td>
+						The user IDs of accounts that errored for some reason.
+						There is no indicator as to why the accounts failed, it
+						it just the ID.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2 id="remove-friends"><code>DELETE /users/@me/friends</code></h2>
+		<h3>Payload</h3>
+		<p>
+			The payload is expected to be an array of user IDs. This cannot
+			accept <code>@me</code> as a value.
+		</p>
+		<h3>Response</h3>
+		<p>
+			This endpoint returns an "HTTP 204 - No Content" response on success
+			and a 4XX or 5XX status code on success.
+		</p>
+		<h2 id="games-update"><code>POST,PUT,PATCH /users/{user}/games</code></h2>
+		<p>
+			All three HTTP verbs operate the same, so there is no difference in
+			using <code>PATCH</code> compared to <code>PUT</code> or <code>POST</code>.
+		</p>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>user</code></td>
+					<td>User ID</td>
+					<td>
+						What ID of the user to update the game ownership info about.
+						This can be used to modify the currently authenticated
+						user by setting the parameter to <code>@me</code>.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			This returns an object with the following properties:
+		</p>
+		<table>
+			<thead>
+				<tr>
+					<td>Property</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>successes</code></td>
+					<td>String[]</td>
+					<td>
+						A list of strings in the format <code>slug - message</code>,
+						where <code>slug</code> is the slug of the game that the
+						message corresponds to, and <code>message</code> is a
+						user-friendly message indicating what happened to the
+						slug.
+					</td>
+				</tr>
+				<tr>
+					<td><code>errors</code></td>
+					<td>String[]</td>
+					<td>
+						A list of strings in the format <code>slug - message</code>
+						where <code>slug</code> is the slug of the game that the
+						message corresponds to, and <code>message</code> is a
+						user-friendly error indicating why the operation could
+						not be performed on the slug.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<h1 id="games">Game Endpoints</h1>
+		<p>
+			These endpoints are specifically for interacting with
+			<a href="/docs/models.html#game">Game</a> objects, that are not
+			associated with a user.
+		</p>
+		<h2 id="search-games"><code>GET /games/search</code></h2>
+		<p>
+			This endpoint utilizes a mix of the Convergence database and the
+			RAWG API to provide search results, if the Convergence database can
+			provide &gt;= 15 results, the RAWG API will not be called, however if
+			the Convergence database returns &lt;15 results, it will populate
+			the response from information from RAWG's API.
+		</p>
+		<h3>Query Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>query</code></td>
+					<td>String</td>
+					<td>
+						The URL-encoded string to search for in the name of games.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			A list of <a href="/docs/models.html#game">Game</a> objects.
+		</p>
+		<h2 id="compare-games"><code>GET /intersection</code></h2>
+		<p>
+			Allows comparing the games that users own to see which ones all of
+			them own.
+		</p>
+		<h3>Query Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>@me</code>?</td>
+					<td>Boolean</td>
+					<td>
+						Whether or not to include the authenticated user in the
+						list of users having the game compared.
+					</td>
+				</tr>
+				<tr>
+					<td><code>users</code></td>
+					<td>UUID[]</td>
+					<td>
+						A comma-separated list of user IDs to compare to. This
+						shouldn't include the authenticated user's ID, for that
+						use the <code>@me</code> parameter, however providing
+						the authenticated user's ID in this array won't cause
+						any errors to be thrown. If this array contains any IDs
+						of users that are <b>not</b> friends with the authenticated
+						user, they will be removed and not included in the comparion.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>users</code></td>
+					<td>UUID[]</td>
+					<td>
+						The IDs of the users that were included in the comparison.
+						This may be different than the list provided in the query
+						parameters of the request.
+					</td>
+				</tr>
+				<tr>
+					<td><code>games</code></td>
+					<td><a href="/docs/models.html#game">Game</a>[]</td>
+					<td>
+						A list of games that all of the users in the <code>users</code>
+						property own.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
