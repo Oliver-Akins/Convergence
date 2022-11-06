@@ -35,8 +35,18 @@ body {
     border-radius: 7px;
     color: $text-color-light-primary;
     font-size: $font-normal-size;
-    transition: 0.2s;
+    transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    gap: 10px;
+
+    img {
+        height: 30px;
+        width: 30px; 
+    }
 
     &:hover {
         -webkit-filter: brightness(0.9);
