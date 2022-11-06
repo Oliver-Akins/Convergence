@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "noImplicitAny": false,
+      "target": "es6",
+      "module": "commonjs",
+      "baseUrl": "./src",
+      "jsx": "react",
+      "esModuleInterop": true,
+    },
+    "include": ["./src/**/*"],  
+  }
