@@ -36,9 +36,9 @@ function UnfilledButton({ text, onClickCallback }) {
 /** 
  * Button changes to red on hover
 */
-function DeletableButton({ text, hoverText, iconSrc=null, onClickCallback }) {
+function DeletableButton({ text, hoverText, iconSrc=null, isGrey = false, onClickCallback }) {
   return (
-    <Button classes={"btn--delete"} text={text} iconSrc={iconSrc} onClickCallback={onClickCallback} hoverText={hoverText} />
+    <Button classes={ isGrey ? "btn--grey btn--delete" : "btn--delete"} text={text} iconSrc={iconSrc} onClickCallback={onClickCallback} hoverText={hoverText} />
   )
 }
 
