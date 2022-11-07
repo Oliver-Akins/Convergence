@@ -13,9 +13,10 @@ $text-color-light-secondary: #CACACA;
 $font-header-size: 32px;
 $font-normal-size: 16px;
 $font-body-size: 13px;
-$font-smallcaps-size: 12px;
+$font-small-caps-size: 12px;
 
 $font-weight-normal: normal;
+$font-weight-small-caps: 600;
 $font-weight-header: 600;
 
 $border-radius-btn: 7px;
@@ -31,8 +32,8 @@ body {
 
 label {
     display: block;
-    padding-top: 20px;
-    padding-bottom: 5px;
+    padding-top: 25px;
+    padding-bottom: 10px;
 }
 
 a {
@@ -57,9 +58,11 @@ input {
     font-size: $font-header-size;
 }
 
-.caps {
+.small-caps {
     letter-spacing: 2px;
     text-transform: uppercase;
+    font-size: $font-small-caps-size;
+    font-weight: $font-weight-small-caps;
 }
 
 .card {
@@ -71,12 +74,13 @@ input {
     flex-direction: column;
     flex-grow: 1;
     gap: 10px;
-    padding: 40px 50px 40px 50px;
+    padding: 40px 60px 40px 60px;
     justify-content: center;
     align-items: center;
 }
 
 .divider {
+    margin-top: 10px;
     position: relative;
     text-align: center;
     &::before, &::after {
@@ -109,6 +113,12 @@ input {
 .card--register, .card--login {
     & * {
         width: 100%;
+    }
+}
+
+.register__form, .login__form {
+    & > :first-child {
+        padding-top: 15px;
     }
 }
 
@@ -167,7 +177,7 @@ input {
     }
 
     &--form {
-        margin-top: 30px;
+        margin-top: 20px;
     }
     
     &--unfilled:not(:hover) {
