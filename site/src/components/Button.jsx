@@ -42,4 +42,12 @@ function DeletableButton({ text, hoverText, iconSrc=null, isGrey = false, onClic
   )
 }
 
-export { Button, PrimaryButton, UnfilledButton, DeletableButton };
+function SimpleDeleteButton({ onClickCallback }) {
+  return (
+    <button type="button" className="btn-x" onClick={() => { onClickCallback && onClickCallback()}}>
+      <img src={require("../images/icons/close-button.svg").default} alt="Delete"></img>
+    </button>
+  );
+} 
+
+export { Button, PrimaryButton, UnfilledButton, DeletableButton, SimpleDeleteButton };
