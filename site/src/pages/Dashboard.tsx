@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
-import GameComparison from "components/GameComparison";
+import GameComparison from "../components/GameComparison";
 import { IconButton } from "../components/Button"
 
 let personalProfileFake = {

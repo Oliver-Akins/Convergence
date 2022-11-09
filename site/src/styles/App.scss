@@ -300,6 +300,8 @@ button {
 .dashboard {
     display: flex;
     gap: 30px;
+    height: 93vh;
+    padding: 30px;
     &__sidebar {
         width: 350px;
         display: flex;
@@ -310,11 +312,10 @@ button {
 
 .sidebar {
     width: 350px;
+    height: 100%;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
     gap: 10px;
     border-radius: $border-radius-primary;
     background-color: $bg-secondary;
@@ -374,4 +375,13 @@ button {
     &--steam {
         background-color: #1B2838;
     }
+}
+
+.get-started-text {
+    font-size: $font-header-size;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
