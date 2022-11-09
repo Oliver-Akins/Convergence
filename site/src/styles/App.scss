@@ -24,10 +24,16 @@ $border-radius-primary: 10px;
 
 $font-family-primary: 'Roboto', Arial, Helvetica, sans-serif;
 
+$box-shadow-default: 0 5px 5px rgba(45, 45, 45, 0.5);
+
 body {
     font-family: $font-family-primary;
     color: $text-color-light-primary;
     background-color: $bg-primary;
+}
+
+main {
+    margin: 0 auto;
 }
 
 label {
@@ -132,6 +138,17 @@ button {
     font-size: $font-normal-size;
     gap: 10px;
     cursor: pointer;
+
+    &:hover {
+        -webkit-filter: brightness(0.9);
+        filter: brightness(0.9);
+        cursor: pointer;
+    }
+
+    &:active {
+        -webkit-filter: brightness(0.7);
+        filter: brightness(0.7);
+    }
 }
 
 .btn {
@@ -144,17 +161,6 @@ button {
     img {
         height: 30px;
         width: 30px; 
-    }
-
-    &:hover {
-        -webkit-filter: brightness(0.9);
-        filter: brightness(0.9);
-        cursor: pointer;
-    }
-
-    &:active {
-        -webkit-filter: brightness(0.7);
-        filter: brightness(0.7);
     }
 
     &--primary {
@@ -187,14 +193,55 @@ button {
     &--unfilled:not(:hover) {
         background-color: transparent;
     }
+
+    &--decorative {
+        &:hover {
+            -webkit-filter: none;
+            filter: none;
+            cursor: default;
+        }
+    
+        &:active {
+            -webkit-filter: none;
+            filter: none;
+        }
+    }
+
+    &--pill {
+        padding: 2px 12px;
+        border: none;
+        min-width: unset;
+    }
+
+
 }
 
-.btn-x {
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+
+    img {
+        min-width: 30px;
+        min-height: 30px;
+        max-width: 30px;
+        max-height: 30px;
+    }
+}
+
+.btn-icon--outlined {
     width: 30px;
     height: 30px;
     border: 2px solid $text-color-light-secondary;
-    border-radius: 5px;
-    background-color: transparent;
+
+    img {
+        min-width: 15px;
+        min-height: 15px;
+        max-width: 15px;
+        max-height: 15px;
+    }
 
     &:hover {
         background-color: $text-color-light-secondary;
@@ -210,7 +257,7 @@ button {
     gap: 10px;
 }
 
-.friend {
+.person {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -219,15 +266,23 @@ button {
     gap: 10px;
     border-radius: $border-radius-primary;
 
-    &--simple {
-        button {
-            margin-left: auto;    
-        }
+    button {
+        margin-left: auto;    
     }
 
-    &__img--profile {
-        width: 40px;
-        height: 40px;
+    &__img {
+        width: 35px;
+        height: 35px;
+    }
+
+    &--personal {
+        padding: 20px;
+        gap: 20px;
+
+        .person__img {
+            width: 40px;
+            height: 40px;
+        }  
     }
 
     &__name {
@@ -236,8 +291,20 @@ button {
     }
 
     &__id {
+        margin-top: -2px;
         font-size: $font-small-caps-size;
         letter-spacing: 0.1rem;
+    }
+}
+
+.dashboard {
+    display: flex;
+    gap: 30px;
+    &__sidebar {
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 }
 
@@ -254,5 +321,57 @@ button {
 
     & > * {
         width: 100%;
+    }
+}
+
+.game-comparison {
+    background-color: $bg-secondary;
+    border-radius: $border-radius-primary;
+    width: 100%;
+    padding: 20px;
+}
+
+.game {
+    background-color: $bg-tertiary;
+    border-radius: $border-radius-primary;
+    padding: 10px;
+    display: flex;
+    max-width: 920px;
+    gap: 10px;
+    box-shadow: $box-shadow-default;
+
+    &__img {
+        width: 282px;
+        height: 132px;
+        border-radius: $border-radius-primary;
+    }
+    &__info {
+        margin-left: 10px;
+    }
+    &__name {
+        font-size: $font-header-size;
+        margin-bottom: 10px;
+    }
+    &__platforms {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 10px;
+
+        img {
+            max-width: 16px;
+            max-height: 16px;
+        }
+    }
+}
+
+.platform {
+    text-transform: capitalize;
+
+    &--switch {
+        background-color: #e60012;
+    }
+
+    &--steam {
+        background-color: #1B2838;
     }
 }
