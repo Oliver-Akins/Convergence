@@ -1,5 +1,13 @@
 import React from "react";
 import Sidebar from "components/Sidebar";
+import Person from "components/Person";
+import GameComparison from "components/GameComparison";
+import { IconButton } from "../components/Button"
+
+let personalProfileFake = {
+  "username": "Me", 
+  "id": "0001",
+};
 
 let friendsListFake = [
   {
@@ -8,14 +16,26 @@ let friendsListFake = [
   }
 ];
 
+let gamesFake = [
+  {
+      "name": "Untitled Goose Game",
+      "platforms": ["switch", "steam"],
+  },
+];
+
 function Home() {
+  const SettingsButton = () => <IconButton imgSrc="settings.svg" />;
+
   return (
     <>
       <header>
       </header>
       <main className="dashboard">
-        <h1 className="heading">Convergence App Dashboard</h1>
-        <Sidebar friendsList={ friendsListFake }></Sidebar>
+        <div className="dashboard__sidebar">
+          <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
+          <Sidebar friendsList={ friendsListFake }></Sidebar>
+        </div>
+        <GameComparison games={gamesFake} />
       </main>
     </>
   );

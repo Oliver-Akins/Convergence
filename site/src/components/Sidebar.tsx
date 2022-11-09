@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, SimpleDeleteButton } from "../components/Button";
+import Person from "./Person";
 
 function Sidebar({ friendsList }) {
+
+    const RemoveButton = () => <SimpleDeleteButton onClickCallback={()=>{alert("Removes friend from comparison")}} />;
 
     return (
         <section className="sidebar">
@@ -9,17 +12,7 @@ function Sidebar({ friendsList }) {
             <div className="friends-list">
             {friendsList.map((friend, i) => {
                 return (
-                    <div className="friend friend--simple" key={i}>
-                        { friend.imgSrc ? 
-                            <img src={require(friend.imgSrc).default} className="friend__img--profile" alt=""></img>
-                            :<img src={require("../images/icons/profile.svg").default} className="friend__img--profile" alt=""></img>
-                        }
-                        <div className="friend__info">
-                            <p className="friend__name">{ friend.username }</p>
-                            <p className="friend__id">#{ friend.id }</p>
-                        </div>
-                        <SimpleDeleteButton onClickCallback={()=>{alert("Removes friend from comparison")}} />
-                    </div>
+                   <Person person={friend} classes={"person--simple"} key={i} buttons={ [RemoveButton] }/>
                 );
             })}
             </div>
