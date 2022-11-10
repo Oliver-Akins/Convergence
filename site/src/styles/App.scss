@@ -330,6 +330,20 @@ button {
     border-radius: $border-radius-primary;
     width: 100%;
     padding: 20px;
+
+    &__heading {
+        display: flex;
+        gap: 15px;
+        margin: 10px 0 13px 0;
+        h2 {
+            font-size: $font-header-size;
+        }
+    }
+}
+
+.games-number {
+    font-size: $font-header-size;    
+    color: $brand-primary;   
 }
 
 .game {
