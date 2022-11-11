@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
 import GameComparison from "../components/GameComparison";
 import { IconButton } from "../components/Button"
+import ModalSettings from "../components/modals/ModalSettings";
 
 let personalProfileFake = {
   "username": "Me", 
@@ -23,15 +24,19 @@ let gamesFake = [
   },
 ];
 
-function Home() {
-  const SettingsButton = () => <IconButton imgSrc="settings.svg" />;
+function Dashboard() {
+  const [openSettingsModal, setOpenSettingsModal] = useState(false);
+
+  const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
   return (
     <>
       <header>
       </header>
+      { openSettingsModal && <ModalSettings setOpen={ setOpenSettingsModal } />}
       <main className="dashboard">
         <div className="dashboard__sidebar">
+        {openSettingsModal}
           <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
           <Sidebar friendsList={ friendsListFake }></Sidebar>
         </div>
@@ -41,4 +46,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Dashboard;
