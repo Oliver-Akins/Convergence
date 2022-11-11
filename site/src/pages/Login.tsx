@@ -9,7 +9,7 @@ function Home() {
       <header>
       </header>
       <main>
-        <section className="card card--login">
+        <section className="card card--large">
           <h1 className="header">Convergence</h1>
           <Button text="Login with Discord" classes="btn--grey" iconSrc="icons/discord.svg" onClickCallback={()=>{alert("discord")}} />
           <Button text="Login with Steam" classes="btn--grey" iconSrc="icons/steam.svg" onClickCallback={()=>{alert("steam")}} />
