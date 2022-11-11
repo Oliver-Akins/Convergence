@@ -50,9 +50,9 @@ function IconButton({ onClickCallback, classes, imgSrc }) {
   );
 }
 
-function SimpleDeleteButton({ onClickCallback, classes }) {
+function SimpleDeleteButton({ onClickCallback, outlined, thin }) {
   return (
-    <IconButton onClickCallback={onClickCallback} classes="btn-icon--outlined" imgSrc="close-button.svg" />
+    <IconButton onClickCallback={onClickCallback} classes={outlined ? "btn-icon--outlined" : ""} imgSrc={ !thin ? "close-button.svg" : "close-button-thin.svg" } />
   );
 }
 
