@@ -1,5 +1,4 @@
 import React from "react";
-import { IconButton } from "./Button";
 
 function Person({ person, classes, buttons }) {
     return (
@@ -12,7 +11,9 @@ function Person({ person, classes, buttons }) {
                 <p className="person__name">{ person.username }</p>
                 <p className="person__id">#{ person.id }</p>
             </div>
-            { buttons && buttons.map((AButton) => <AButton/>) }
+            <div className="person__buttons">
+                { buttons && buttons.map((AButton) => <AButton/>) }
+            </div>
         </div>
     );
 }
