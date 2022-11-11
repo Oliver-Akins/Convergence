@@ -1,3 +1,88 @@
-.heading {
-    font-family: Arial, Helvetica, sans-serif;
+@import './Reset.scss';
+
+// Variables
+$bg-primary: #202225;
+$bg-secondary: #2F3136;
+$bg-tertiary: #36393E;
+$brand-primary: #1DB954;
+$brand-red: #D83C3E;
+$placeholder-grey: #828282;
+$text-color-light-primary: #E9ECEF;
+$text-color-light-secondary: #CACACA;
+
+$font-header-size: 32px;
+$font-normal-size: 16px;
+$font-body-size: 13px;
+$font-smallcaps-size: 12px;
+
+$font-weight-normal: normal;
+$font-weight-header: 600;
+
+$border-radius-btn: 7px;
+$border-radius-primary: 10px;
+
+$font-family-primary: 'Roboto', Arial, Helvetica, sans-serif;
+
+body {
+    font-family: $font-family-primary;
+    background-color: $bg-primary;
+}
+
+.btn {
+    background-color: $brand-primary;
+    border: 2px solid $brand-primary;
+    padding: 12px 40px;
+    border-radius: 7px;
+    color: $text-color-light-primary;
+    font-size: $font-normal-size;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+    gap: 10px;
+
+    img {
+        height: 30px;
+        width: 30px; 
+    }
+
+    &:hover {
+        -webkit-filter: brightness(0.9);
+        filter: brightness(0.9);
+        cursor: pointer;
+    }
+
+    &:active {
+        -webkit-filter: brightness(0.7);
+        filter: brightness(0.7);
+    }
+
+    &--primary {
+        padding: 32px 95px;
+        font-size: $font-header-size;
+        font-weight: $font-weight-header;
+    }
+    
+    &--grey {
+        background-color: $bg-tertiary;
+        border-color: $bg-tertiary;
+    }
+    
+    &--red {
+        background-color: $brand-red;
+        border-color: $brand-red;
+    }
+
+    &--delete {
+        &:hover {
+            background-color: $brand-red;
+            border-color: $brand-red;
+        }
+    }
+    
+    &--unfilled:not(:hover) {
+        background-color: transparent;
+    }
 }
