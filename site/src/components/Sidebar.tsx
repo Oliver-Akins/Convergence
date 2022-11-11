@@ -4,7 +4,7 @@ import Person from "./Person";
 
 function Sidebar({ friendsList }) {
 
-    const RemoveButton = () => <SimpleDeleteButton onClickCallback={()=>{alert("Removes friend from comparison")}} />;
+    const RemoveButton = () => <SimpleDeleteButton outlined={true} onClickCallback={()=>{alert("Removes friend from comparison")}} />;
 
     return (
         <section className="sidebar">
