@@ -14,7 +14,7 @@ let friendsListFake = [
     }
   ];
 
-function ModalFriends() {
+function ModalFriends({ setOpen }) {
     const HamburgerMenu = () => {
         return (
             <button className="btn-icon btn-icon--hamburger">
@@ -64,7 +64,7 @@ function ModalFriends() {
     }
 
     return (
-        <Modal children={[<ModalContent />]}/>
+        <Modal setOpen={ setOpen } children={[<ModalContent />]}/>
     )
 }
 

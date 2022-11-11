@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, DeletableButton } from "../Button";
 import Modal from "../Modal";
 
-function ModalSettings() {
+function ModalSettings({ setOpen }) {
     function ModalContent() {
         // TODO Component-ize this
         return (
@@ -37,7 +37,7 @@ function ModalSettings() {
     }
 
     return (
-        <Modal classes="settings" children={[<ModalContent />]}/>
+        <Modal setOpen={ setOpen } classes="settings" children={[<ModalContent />]}/>
     )
 }
 
