@@ -231,7 +231,10 @@ button {
         min-width: unset;
     }
 
-
+    &--add-game {
+        max-height: 40px;
+        margin-left: 50px;
+    }
 }
 
 .btn-icon {
@@ -338,13 +341,19 @@ button {
 .dashboard {
     display: flex;
     gap: 30px;
-    height: 93vh;
+    height: 95vh;
+    max-height: 95vh;
     padding: 30px;
     &__sidebar {
-        width: 350px;
+        min-width: 350px;
         display: flex;
         flex-direction: column;
         gap: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    &__main {
+        width: 100%;
     }
 }
 
@@ -363,19 +372,66 @@ button {
     }
 }
 
-.game-comparison {
+.game-lists {
+    max-height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.game-list {
     background-color: $bg-secondary;
     border-radius: $border-radius-primary;
-    width: 100%;
-    padding: 20px;
+    max-height: 80vh;
+    padding: 0 20px 40px 20px;
+    overflow: hidden;
+
+    &:only-child {
+        height: 89vh;
+        max-height: unset;
+    }
+    
+    &--shared {
+        margin-bottom: 30px;
+        & .game-list__games {
+            max-height: 43vh;
+        }
+
+        & + .game-list {
+            max-height: 35vh;
+
+            & .game-list__games {
+                max-height: 17vh;
+            }
+        }
+    }
 
     &__heading {
         display: flex;
+        align-items: center;
         gap: 15px;
-        margin: 10px 0 13px 0;
+        padding: 30px 0 13px 0;
+
+        div {
+            display: flex;
+            gap: 15px
+        }
+
         h2 {
             font-size: $font-header-size;
         }
+    }
+
+    &__games {
+        display: flex;
+        flex-flow: column nowrap;
+        max-height: 80%;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        max-width: 920px;
+        overflow-y: auto;
+        gap: 10px;
     }
 }
 
@@ -389,7 +445,8 @@ button {
     border-radius: $border-radius-primary;
     padding: 10px;
     display: flex;
-    max-width: 920px;
+    flex-wrap: wrap;
+    flex-grow: 1;
     gap: 10px;
     box-shadow: $box-shadow-default;
 

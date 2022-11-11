@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
-import GameComparison from "../components/GameComparison";
-import { IconButton } from "../components/Button"
+import GameList from "../components/GameList";
+import { Button, IconButton } from "../components/Button"
 import ModalSettings from "../components/modals/ModalSettings";
 
 let personalProfileFake = {
@@ -22,12 +22,26 @@ let gamesFake = [
       "name": "Untitled Goose Game",
       "platforms": ["switch", "steam"],
   },
+  {
+    "name": "Xenoblade Chronicles",
+    "platforms": ["switch"],
+  },
+  {
+    "name": "It Takes Two",
+    "platforms": ["switch", "steam"],
+  },
+  {
+    "name": "Minish Cap",
+    "platforms": ["steam"],
+  },
 ];
 
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
+
+  const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" />;
 
   return (
     <>
@@ -40,7 +54,12 @@ function Dashboard() {
           <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
           <Sidebar friendsList={ friendsListFake }></Sidebar>
         </div>
-        <GameComparison games={gamesFake} />
+        <section className="dashboard__main">
+          <div className="game-lists">
+            { <GameList shared={true} games={gamesFake} /> }
+            <GameList games={gamesFake} controls={[AddGameButton]} />
+          </div>
+        </section>
       </main>
     </>
   );
