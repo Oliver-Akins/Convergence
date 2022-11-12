@@ -14,7 +14,7 @@ function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText =
   };
 
   return (
-    <button type="button" className={`btn ${classes}`} onClick={() => { onClickCallback && onClickCallback()}} onMouseOver={onHover} onMouseOut={onHoverOver}>
+    <button type="button" className={`btn ${classes}`} onClick={(e) => { onClickCallback && onClickCallback(e)}} onMouseOver={onHover} onMouseOut={onHoverOver}>
       { iconSrc && <img src={require(`../images/${iconSrc}`)} alt=""></img> }
       {(!hoverText || (hoverText && isHover)) ? text: hoverText }
     </button>
