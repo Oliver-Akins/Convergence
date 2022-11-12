@@ -72,7 +72,7 @@ input {
     outline-color: $brand-primary;
     color: $text-color-light-primary;
     background-color: $bg-primary;
-    padding: 10px 20px;
+    padding: 8px 20px;
     
     &:focus {
         outline: 1px solid $brand-primary;
@@ -87,6 +87,19 @@ input {
     &:focus {
         outline: 1px solid $brand-red;
         outline-offset: 1px;
+    }
+}
+
+.input-combined {
+    display: flex;
+    gap: 20px;
+
+    input {
+        max-height: 40px;
+    }
+
+    button.btn {
+        width: 383px;
     }
 }
 
@@ -219,6 +232,10 @@ button {
         }
     }
 
+    &--small {
+        @include force-height(40px);
+    }
+
     &--form {
         margin-top: 20px;
     }
@@ -314,11 +331,7 @@ button {
         display: flex;
         align-items: center;
         margin-left: auto;  
-        gap: 10px;
-
-        button {
-            max-height: 40px;
-        }  
+        gap: 10px; 
     }
 
     &__img {
@@ -535,14 +548,20 @@ button {
     border-radius: $border-radius-primary;
     background-color: $bg-primary;
 
+    label {
+        padding-top: 0;
+        font-size: $font-normal-size;
+    }
+
     &__header {
         font-size: $font-header-size;
         margin-bottom: 10px;
         text-align: center;
     }
 
-    .modal__button--close {
+    &__button--close {
         position: absolute;
+        width: unset;
         top: 20px;
         right: 20px;
 
@@ -553,64 +572,69 @@ button {
             }
         }
     }
-}
 
-.add-friend {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: $border-radius-primary;
-    background-color: $bg-secondary;
+    &__form {
+        display: flex;
+        flex-flow: column;
+        border-radius: $border-radius-primary;
+        background-color: $bg-secondary;    
+        margin-top: 20px;
+        padding: 20px;  
 
-    label {
-        padding-top: 0;
-        font-size: $font-normal-size;
+        &--settings {
+            flex-flow: row;
+            gap: 20px;
+    
+            img {
+                @include force-size(75px, 75px);
+            }
+
+            input {
+                max-width: 320px;
+            }
+        
+            .current-username {
+                input {
+                    flex-grow: 1;
+                }
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
     }
 
-    .add-friend__inputs {
-        max-height: 44px;
+    &__controls {
+        margin-top: 20px;
         display: flex;
-        gap: 20px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__inputs {
+        display: flex;
+        flex-flow: column;
+        flex-grow: 1;
 
         input {
-            flex-grow: 1;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        input:not(:last-child) {
+            margin-bottom: 20px;
         }
 
         .btn {
             width: 242px;   
         }
     }
-    
 }
 
 .settings {
     .card {
         margin-bottom: 20px;
         padding: 20px;
-    }
-    &__form {
-        display: flex;
-        flex-flow: row;
-        gap: 20px;
-
-        .inputs {
-            max-width: 350px;
-            display: flex;
-            flex-flow: column;
-            flex-grow: 1;
-        }
-
-        img {
-            @include force-size(75px, 75px);
-        }
-    
-        .current-username {
-            input {
-                flex-grow: 1;
-            }
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
     }
     &__linked-accounts {
         flex-direction: column;

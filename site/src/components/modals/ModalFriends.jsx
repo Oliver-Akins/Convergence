@@ -25,7 +25,7 @@ function ModalFriends({ setOpen }) {
 
     const CompareLibraryButton = () => {
         return (
-            <Button text="Compare Library"/>
+            <Button text="Compare Library" classes="btn--small"/>
         );
     }
 
@@ -43,11 +43,13 @@ function ModalFriends({ setOpen }) {
 
     function AddFriendSection() {
         return (
-            <div className="add-friend">
+            <div className="add-friend modal__form">
                 <label className="small-caps" htmlFor="username">Add Friend</label>
-                <div className="add-friend__inputs">
-                    <input type="text" id="username" placeholder="Username#0001"></input>
-                    <Button text="Send Friend Request" />
+                <div className="modal__inputs">
+                    <div className="input-combined">
+                        <input type="text" id="username" placeholder="Username#0001"></input>
+                        <Button text="Send Friend Request" classes="btn--small" />
+                    </div>
                 </div>
             </div>
         );

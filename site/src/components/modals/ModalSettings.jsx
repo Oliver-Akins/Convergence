@@ -8,11 +8,11 @@ function ModalSettings({ setOpen }) {
         return (
             <>
                 <h2 className="modal__header">Account Settings</h2>
-                <div className="card settings__form">
+                <div className="card modal__form modal__form--settings">
                     <div>
                         <img src={require("../../images/icons/profile.svg").default} alt="Profile"></img>
                     </div>
-                    <div className="inputs">
+                    <div className="modal__inputs">
                         <label className="small-caps" htmlFor="username">Username</label>
                         <div className="current-username">
                             <input type="text" id="username"></input>
