@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
+import { login } from "../components/authentication";
 
 
 function Home() {
+  const [inputState, setInputState] = useState({
+    username: "",
+    password: ""
+  });
+
+  const handleChange = (e) => {
+    const {id , value} = e.target; 
+    setInputState(prevState => ({
+        ...prevState,
+        [id]: value
+    }));        
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // TODO validation and error messages
+    // for discriminator and password
+    login(inputState.username, inputState.password);
+  }
+  
   return (
     <>
       <header>
@@ -19,10 +40,10 @@ function Home() {
           </span>
           <div className="login__form">
             <label className="small-caps" htmlFor="username">Username</label>
-            <input type="text" id="username"></input>
+            <input type="text" id="username" onChange={handleChange}></input>
             <label className="small-caps" htmlFor="password">Password</label>
-            <input type="password" id="password"></input>
-            <Button text="Login" classes="btn btn--form"/>
+            <input type="password" id="password" onChange={handleChange}></input>
+            <Button text="Login" classes="btn btn--form" onClickCallback={(e) => { handleFormSubmit(e); }}/>
           </div>
           <div>
             <p>Don't have an account? <Link to="/register">Register</Link></p>
