@@ -103,6 +103,10 @@ input {
     }
 }
 
+.select {
+    color: $bg-primary;
+}
+
 .header {
     text-align: center;
     font-size: $font-header-size;
@@ -457,7 +461,6 @@ button {
         max-height: 80%;
         padding-bottom: 10px;
         padding-right: 10px;
-        max-width: 920px;
         overflow-y: auto;
         gap: 10px;
     }
@@ -526,7 +529,7 @@ button {
 // Modal
 .overlay {
     z-index: 1000;
-    background-color: rgba(10, 10, 10, 0.56);
+    background-color: rgba(0, 0, 0, 0.749);
     position: absolute;
     top: 0;
     left: 0;
@@ -550,7 +553,7 @@ button {
 
     label {
         padding-top: 0;
-        font-size: $font-normal-size;
+        font-size: $font-body-size;
     }
 
     &__header {
