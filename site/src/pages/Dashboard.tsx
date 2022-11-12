@@ -4,6 +4,7 @@ import Person from "components/Person";
 import GameList from "../components/GameList";
 import { Button, IconButton } from "../components/Button"
 import ModalSettings from "../components/modals/ModalSettings";
+import { ModalAddGame } from "../components/modals/ModalGames";
 
 let personalProfileFake = {
   "username": "Me", 
@@ -38,19 +39,20 @@ let gamesFake = [
 
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
+  const [openAddGameModal, setOpenAddGameModal] = useState(false);
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
-  const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" />;
+  const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
 
   return (
     <>
       <header>
       </header>
       { openSettingsModal && <ModalSettings setOpen={ setOpenSettingsModal } />}
+      { openAddGameModal && <ModalAddGame setOpen={ setOpenAddGameModal } />}
       <main className="dashboard">
         <div className="dashboard__sidebar">
-        {openSettingsModal}
           <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
           <Sidebar friendsList={ friendsListFake }></Sidebar>
         </div>
