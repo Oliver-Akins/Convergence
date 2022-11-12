@@ -73,6 +73,21 @@ input {
     color: $text-color-light-primary;
     background-color: $bg-primary;
     padding: 10px 20px;
+    
+    &:focus {
+        outline: 1px solid $brand-primary;
+        outline-offset: 1px;
+    }
+}
+
+.invalid {
+    border: 1px solid $brand-red;
+    outline: 1px solid $brand-red;
+
+    &:focus {
+        outline: 1px solid $brand-red;
+        outline-offset: 1px;
+    }
 }
 
 .header {
