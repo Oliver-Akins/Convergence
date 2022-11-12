@@ -9,7 +9,7 @@ import cookie from "@hapi/cookie";
 import inert from "@hapi/inert";
 import basic from "@hapi/basic";
 import { Logger } from "tslog";
-import boom from "@hapi/boom";
+import boom, { isBoom } from "@hapi/boom";
 import path from "path";
 import glob from "glob";
 
@@ -49,7 +49,45 @@ export async function init() {
 				relativeTo: path.join(__dirname, `../site`),
 			},
 			cors: !isDev,
+			validate: {
+				options: {
+					abortEarly: false,
+				},
+				failAction(r, h, err) {
+					throw err;
+				},
+			},
 		},
+	});
+
+	/*
+	This event listener makes it so that the error that is returned from the system
+	is more user-friendly when it's a validation error, and so that nothing gets
+	leaked accidentally through allowing other data to make it out of the API.
+	*/
+	server.ext(`onPreResponse`, (req, h) => {
+
+		if (isBoom(req.response)) {
+			log.info(req.response)
+			let oldResponse = req.response.output.payload as any;
+			let newResponse: any = {
+				statusCode: oldResponse.statusCode,
+				error: oldResponse.error,
+				message: oldResponse.message,
+			};
+
+			let deets = (req.response as any).details as any[];
+			if (deets) {
+				let messages = deets.map(e => e.message);
+				newResponse.message = (req.response as any).output.payload.validation.source + ` failed to validate`;
+				newResponse.violations = messages;
+			};
+
+			req.response.output.payload = newResponse;
+			return h.continue;
+		}
+
+		return h.continue;
 	});
 
 	await server.register([inert, cookie, basic]);
