@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, SimpleDeleteButton } from "../components/Button";
+import { Button, SimpleDeleteButton } from "./Button";
 import ModalFriends from "./modals/ModalFriends";
 import Person from "./Person";
 

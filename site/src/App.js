@@ -1,11 +1,11 @@
 import { Routes, Route, Link } from "react-router-dom";
 import './styles/App.scss';
 
-import Home from './pages/Home.tsx';
-import Register from './pages/Register.tsx';
-import Login from './pages/Login.tsx';
-import Dashboard from './pages/Dashboard.tsx';
-import NotFound from './pages/NotFound.tsx';
+import Home from './pages/Home.jsx';
+import Register from './pages/Register.jsx';
+import Login from './pages/Login.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 function App() {
   return (
