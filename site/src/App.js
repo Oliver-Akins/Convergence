@@ -10,12 +10,6 @@ import NotFound from './pages/NotFound.jsx';
 function App() {
   return (
     <div className="App">
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Sign Up</Link>
-      </nav>
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="home" element={<Home />} />
