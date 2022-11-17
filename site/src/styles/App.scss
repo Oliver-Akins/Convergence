@@ -46,6 +46,8 @@ body {
     font-family: $font-family-primary;
     color: $text-color-light-primary;
     background-color: $bg-primary;
+    height: unset;
+    overflow: hidden;
 }
 
 main {
@@ -147,7 +149,7 @@ input {
         }
         
         & *::-webkit-scrollbar-thumb {
-            background-color: rgb(32, 32, 32);
+            background-color: $bg-tertiary;
             border-radius: $border-radius-primary;
         }
     }
@@ -613,7 +615,7 @@ input {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 103vh;
     width: 100vw;
     overflow: hidden;
 }

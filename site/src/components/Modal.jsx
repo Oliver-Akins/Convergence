@@ -10,7 +10,7 @@ function Modal({ setOpen, children, classes }) {
     }
 
     return (
-        <div className="overlay" onClick={closeOnOverlay}>
+        <div className="overlay scrollable--light" onClick={closeOnOverlay}>
             <section tabIndex={-1} role="dialog" className={`modal ${classes}`}>
                 <div className="modal__button--close">
                     <SimpleDeleteButton onClickCallback={()=>{setOpen(false)}} thin={true} />
