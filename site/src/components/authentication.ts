@@ -23,6 +23,7 @@ async function login(username: string, password: string): Promise<any> {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "same-origin",
         body: JSON.stringify({ username: username, password: password}),
     })
         .then((response) => {
