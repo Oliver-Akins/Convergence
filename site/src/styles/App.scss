@@ -23,6 +23,7 @@ $border-radius-btn: 7px;
 $border-radius-primary: 10px;
 
 $font-family-primary: 'Roboto', Arial, Helvetica, sans-serif;
+$font-family-brand: 'Rubik', Arial, Helvetica, sans-serif;
 
 $box-shadow-default: 0 5px 5px rgba(45, 45, 45, 0.5);
 
@@ -48,7 +49,7 @@ body {
 }
 
 main {
-    margin: 0 auto;
+    margin: 0 auto 0 auto;
 }
 
 label {
@@ -178,7 +179,12 @@ input {
 }
 
 // Buttons
-button {
+.btn {
+    background-color: $brand-primary;
+    padding: 12px 40px;
+    min-width: 200px;
+    border: 2px solid $brand-primary;
+    color: $text-color-light-primary;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
     display: flex;
@@ -192,6 +198,7 @@ button {
     &:hover {
         -webkit-filter: brightness(0.9);
         filter: brightness(0.9);
+        text-decoration: none;
         cursor: pointer;
     }
 
@@ -199,14 +206,6 @@ button {
         -webkit-filter: brightness(0.7);
         filter: brightness(0.7);
     }
-}
-
-.btn {
-    background-color: $brand-primary;
-    padding: 12px 40px;
-    min-width: 200px;
-    border: 2px solid $brand-primary;
-    color: $text-color-light-primary;
 
     img {
         height: 30px;
@@ -316,6 +315,41 @@ button {
     }
 }
 
+.container {
+    max-width: 1170px;
+
+    &--navigation {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin: 0 auto;
+    }
+}
+
+// Navigation Bar
+.navigation {
+    background-color: $bg-secondary;
+    padding: 20px 30px;
+
+    &__home {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        font-family: $font-family-brand;
+        font-size: $font-header-size;
+        color: white;
+    }
+    
+    a {
+        color: white;
+    }
+
+    &__login {
+        padding: 10px 30px;
+    }
+}
+
 .friends-list {
     display: flex;
     flex-direction: column;
@@ -369,13 +403,26 @@ button {
     }
 }
 
+.main {
+    &--register {
+        margin-top: 30px;
+    }
+
+    &--login {
+        margin-top: 30px;
+    }
+
+    &--dashboard {
+        margin: 30px;
+    }
+}
+
 // Main App
 .dashboard {
     display: flex;
     gap: 30px;
-    height: 95vh;
+    height: 83vh;
     max-height: 95vh;
-    padding: 30px;
     &__sidebar {
         min-width: 350px;
         display: flex;

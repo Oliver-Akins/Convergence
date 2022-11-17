@@ -4,6 +4,7 @@ import Person from "components/Person";
 import GameList from "../components/GameList";
 import { Button, IconButton } from "../components/Button"
 import ModalSettings from "../components/modals/ModalSettings";
+import { DashboardNavigation } from "../components/Navigation";
 import { ModalAddGame } from "../components/modals/ModalGames";
 
 let personalProfileFake = {
@@ -48,10 +49,11 @@ function Dashboard() {
   return (
     <>
       <header>
+        <DashboardNavigation />
       </header>
       { openSettingsModal && <ModalSettings setOpen={ setOpenSettingsModal } />}
       { openAddGameModal && <ModalAddGame setOpen={ setOpenAddGameModal } />}
-      <main className="dashboard">
+      <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
           <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
           <Sidebar friendsList={ friendsListFake }></Sidebar>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
+import { SimpleNavigation } from "../components/Navigation";
 
 import { register } from "../components/authentication";
 
@@ -34,8 +35,9 @@ function Home() {
   return (
     <>
       <header>
+        <SimpleNavigation />
       </header>
-      <main>
+      <main className="main--register">
         <section className="card card--large">
           <h1 className="header">Create an account</h1>
           <Button text="Continue with Discord" classes="btn--grey" iconSrc="icons/discord.svg" onClickCallback={()=>{alert("discord")}} />

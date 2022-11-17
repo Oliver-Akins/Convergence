@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 import { login } from "../components/authentication";
+import { SimpleNavigation } from "../components/Navigation";
 
 
 function Home() {
@@ -28,8 +29,9 @@ function Home() {
   return (
     <>
       <header>
+        <SimpleNavigation />
       </header>
-      <main>
+      <main className="main--login">
         <section className="card card--large">
           <h1 className="header">Convergence</h1>
           <Button text="Login with Discord" classes="btn--grey" iconSrc="icons/discord.svg" onClickCallback={()=>{alert("discord")}} />
