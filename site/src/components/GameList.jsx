@@ -3,7 +3,7 @@ import Game from "./Game";
 
 function GameList({ games=null, shared=false, controls=null }) {
     return (
-        <section className={shared ? "game-list game-list--shared" : "game-list"}>
+        <section className={shared ? "game-list game-list--shared scrollable" : "game-list scrollable"}>
             <>
             <div className="game-list__heading">
                 <div>

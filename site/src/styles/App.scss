@@ -32,20 +32,6 @@ $box-shadow-default: 0 5px 5px rgba(45, 45, 45, 0.5);
     max-width: $width;
 }
 
-*::-webkit-scrollbar {
-    width: 13px;
-}
-
-*::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
-    border-radius: $border-radius-primary;
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: rgb(32, 32, 32);
-    border-radius: $border-radius-primary;
-}
-
 @mixin force-height($height) {
     min-height: $height;
     max-height: $height;
@@ -132,6 +118,39 @@ input {
     text-transform: uppercase;
     font-size: $font-small-caps-size;
     font-weight: $font-weight-small-caps;
+}
+
+// Scrollbars
+.scrollable {
+    & *::-webkit-scrollbar {
+        width: 13px;
+    }
+    
+    & *::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
+        border-radius: $border-radius-primary;
+    }
+    
+    & *::-webkit-scrollbar-thumb {
+        background-color: rgb(32, 32, 32);
+        border-radius: $border-radius-primary;
+    }
+
+    &--light {
+        & *::-webkit-scrollbar {
+            width: 13px;
+        }
+        
+        & *::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
+            border-radius: $border-radius-primary;
+        }
+        
+        & *::-webkit-scrollbar-thumb {
+            background-color: rgb(32, 32, 32);
+            border-radius: $border-radius-primary;
+        }
+    }
 }
 
 .card {
