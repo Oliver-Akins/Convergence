@@ -35,4 +35,8 @@ async function login(username: string, password: string): Promise<any> {
         .catch((err) => console.error(err));
 }
 
-export { register, login };
+function getAccount(): any {
+    return localStorage.getItem("user");
+}
+
+export { register, login, getAccount };
