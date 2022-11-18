@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { SimpleNavigation } from "../components/Navigation";
 
-import { register } from "../components/authentication";
+import { register, getAccount } from "../components/authentication";
 
-function Home() {
+function Register() {
+  let navigate = useNavigate();
+
   const [inputState, setInputState] = useState({
     username: "",
     password: "",
@@ -22,14 +24,19 @@ function Home() {
     }));
   }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     // TODO validation and error messages
     setIsPasswordSame(inputState.password === inputState.confirmPassword);
     if(inputState.password !== inputState.confirmPassword) {
       return;
     }
-    register(inputState.username, inputState.password);
+    await register(inputState.username, inputState.password);
+    if(getAccount() !== "undefined") {
+      navigate("/app");
+    } else {
+      // TODO show validation errors
+    }
   }
 
   return (
@@ -64,4 +71,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Register;
