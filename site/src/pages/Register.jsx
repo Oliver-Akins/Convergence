@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { SimpleNavigation } from "../components/Navigation";
 
-import { register, getAccount } from "../components/authentication";
+import { register, getAccount } from "../components/api/authentication";
 
 function Register() {
   let navigate = useNavigate();

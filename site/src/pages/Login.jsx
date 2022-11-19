@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
-import { login } from "../components/authentication";
 import { SimpleNavigation } from "../components/Navigation";
 
-import { getAccount } from "../components/authentication";
+import { getAccount, login } from "../components/api/authentication";
 
 function Login() {
   let navigate = useNavigate();
