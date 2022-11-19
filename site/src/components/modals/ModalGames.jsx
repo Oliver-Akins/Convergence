@@ -7,34 +7,48 @@ import SearchList from "../SearchList";
 import { getGameSearch, addGames } from "../api/gameEndpoints.ts";
 
 const platformOptions = [
-    { value: 'steam', label: 'Steam' },
-    { value:  'switch', label: 'Nintendo Switch' },
-    { value: 'epic', label: 'Epic Games Store' },
-    { value: 'gog', label: 'GOG' },
+    { value: 'Steam', label: 'Steam' },
+    { value: 'PC', label: 'PC' },
+    { value: 'Nintendo Switch', label: 'Nintendo Switch' },
+    { value: 'PlayStation 4', label: 'PlayStation 4' },
+    { value: 'Xbox One', label: 'Xbox One' },
+    { value: 'MacOS', label: 'Mac' },
+    { value: 'Linux', label: 'Linux' },
+    { value: 'Android', label: 'Android' },
+    { value: 'IOS', label: 'iOS' },
+    { value: 'Nintendo 3DS', label: 'Nintendo 3DS' },
 ];
 
 function ModalAddGame({ setOpen }) {
-    function AddGameButton({item}) {
-        const handleAddGame = async (item) => {
-            let passedGame = {
-                [item.slug]: item.platforms
+    const handleAddGame = async (item) => {
+        try {
+            await addGames("@me", item);
+            // setOpen(false);
+        } catch(e) {
+            // TODO handle error
+            console.log("Could not add game");
+        } 
+    };
+
+    const handleAddCustomGame = async (item) => {
+        if(item["game-title"] === "" || Object.keys(item.platforms).length === 0) {
+            // TODO validation
+        } else {
+            item["game-title"] = item["game-title"].replace(/ /g,"-");
+            let itemParsed = {
+                [item["game-title"]]: item.platforms.selectedOptions.map((obj) => obj.value) 
             };
+            await handleAddGame(itemParsed);
+        }
+    };
 
-            try {
-                await addGames("@me", passedGame);
-            } catch(e) {
-                // TODO handle error
-                console.log("Could not add game");
-            }
-        };
-
-        return <Button text="Add Game" classes="btn--add-result" onClickCallback={() => {handleAddGame(item)}} />;
+    function AddGameButton({item}) {
+        return <Button text="Add Game" classes="btn--add-result" onClickCallback={() => {handleAddGame({[item.slug]: item.platforms})}} />;
     }
 
     function ModalContent() {
         const [inputState, setInputState] = useState({
             "game-title": "",
-            "game-publisher": "",
             "platforms": {}
         });
         const [searchResults, setSearchResults] = useState([]);
@@ -74,14 +88,12 @@ function ModalAddGame({ setOpen }) {
                     <div className="modal__inputs">
                         <label className="small-caps" htmlFor="game-title">Game Title</label>
                         <input type="text" id="game-title" onChange={handleChange}></input>
-                        <label className="small-caps" htmlFor="game-publisher">Publisher</label>
-                        <input type="text" id="game-publisher" onChange={handleChange}></input>
                         <label className="small-caps" htmlFor="platforms">Platforms</label>
                         <Select className="select" isMulti name="platforms" id="platforms" onChange={handleSelectChange} options={platformOptions} />
                     </div>
                 </div>
                 <div className="modal__controls">
-                    <Button text="Add Custom Game"></Button>
+                    <Button text="Add Custom Game" onClickCallback={() => {handleAddCustomGame(inputState)}}></Button>
                 </div>
                 <div className="card modal__form">
                     <div className="modal__inputs">
