@@ -234,7 +234,8 @@
 		<h2 id="add-friends"><code>POST,PUT /users/@me/friends</code></h2>
 		<h3>Payload</h3>
 		<p>
-			The payload is expected to be an array of user IDs. This cannot
+			The payload is expected to be an array of user IDs, or username+discriminator
+			combination in the format <code>username#discrim</code>. This cannot
 			accept <code>@me</code> as a value.
 		</p>
 		<h3>Response</h3>
