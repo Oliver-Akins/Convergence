@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
-import GameList from "../components/GameList";
+import SharedGameList from "../components/games/SharedGameList";
+import OwnedGameList from "../components/games/OwnedGameList";
 import { Button, IconButton } from "../components/Button"
 import ModalSettings from "../components/modals/ModalSettings";
 import { DashboardNavigation } from "../components/Navigation";
 import { ModalAddGame } from "../components/modals/ModalGames";
+
+import { getOwnedGames, getIntersection } from "../components/api/gameEndpoints";
 
 let personalProfileFake = {
   "username": "Me", 
@@ -21,8 +25,8 @@ let friendsListFake = [
 
 let gamesFake = [
   {
-      "name": "Untitled Goose Game",
-      "platforms": ["switch", "steam"],
+    "name": "Untitled Goose Game",
+    "platforms": ["switch", "steam"],
   },
   {
     "name": "Xenoblade Chronicles",
@@ -41,10 +45,29 @@ let gamesFake = [
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openAddGameModal, setOpenAddGameModal] = useState(false);
+  const [ownedGames, setOwnedGames] = useState(null);
+  const [sharedGames, setSharedGames] = useState(null);
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
   const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        await getOwnedGames();
+        const ownedGames = JSON.parse(localStorage.getItem("ownedGames"));
+        setOwnedGames(ownedGames);
+
+        // const sharedGames = await getIntersection("");
+        // setSharedGames(sharedGames);
+      } catch(error) {
+        
+      }
+    };
+    
+    fetchGames();
+  }, []);
 
   return (
     <>
@@ -60,8 +83,8 @@ function Dashboard() {
         </div>
         <section className="dashboard__main">
           <div className="game-lists">
-            { <GameList shared={true} games={gamesFake} /> }
-            <GameList games={gamesFake} controls={[AddGameButton]} />
+            {/* <SharedGameList games={gamesFake} /> */}
+            <OwnedGameList games={ownedGames} controls={[AddGameButton]} />
           </div>
         </section>
       </main>
