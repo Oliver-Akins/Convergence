@@ -1,7 +1,7 @@
 import React from "react";
 import OwnedGame from "./OwnedGame";
 
-function OwnedGameList({ games=null }) {
+function OwnedGameList({ games=null, controls=null }) {
     return (
         <section className="game-list scrollable">
             <>
@@ -9,6 +9,9 @@ function OwnedGameList({ games=null }) {
                 <div>
                     <h2>All Games</h2>
                     { games && <p className="games-number">{ Object.keys(games).length }</p>}
+                    { controls && controls.map((Control, i) => {
+                        return <Control></Control>
+                    })}
                 </div>
             </div>
             <div className="game-list__games">
