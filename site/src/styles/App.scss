@@ -128,10 +128,8 @@ input {
 
 .grid-container {
     display: grid;
-    // column-gap: 200px;
     padding: 10px;
     grid-template-columns: auto auto;
-    // justify-content: center ;
 }
 
 .grid-item {
@@ -154,11 +152,6 @@ input {
 }
 
 .get-started-button {
-    width: 140px;
-    height: 30px;
-    border: #1DB954;
-    color: white;
-    background-color: #1DB954;
     margin-top: 10px;
 }
 
