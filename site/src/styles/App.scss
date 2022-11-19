@@ -115,6 +115,47 @@ input {
     font-size: $font-header-size;
 }
 
+
+.home-section {
+    min-height: 250px;
+    
+}
+
+.home-section-dark{
+    min-height: 200px;
+    background-color: #1B2838;
+}
+
+.grid-container {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: auto auto;
+}
+
+.grid-item {
+    width: 400px; 
+    align-self: center; 
+    grid-column-start: 15; 
+}
+
+.grid-item1 {
+    grid-column-start: 7;
+}
+
+.btn-center {
+    display: block;
+    margin: auto;
+}
+
+.p-home {
+    font-size: smaller;
+}
+
+.get-started-button {
+    margin-top: 10px;
+}
+
+
 .small-caps {
     letter-spacing: 2px;
     text-transform: uppercase;
