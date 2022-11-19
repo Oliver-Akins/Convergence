@@ -15,7 +15,7 @@ function GameList({ games=null, shared=false, controls=null }) {
                 </div>
             </div>
             <div className="game-list__games">
-                {games.map((game, i) => {
+                {games?.map((game, i) => {
                     return (
                         <Game game={game} key={i} />
                     );

@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "./Button";
 
-function Game({ game }) {
+function Game({ game, controls }) {
     return (
         <div className="game">
-            { game.imgSrc ? 
-                <img src={require(game.imgSrc).default} className="game__img" alt=""></img>
+            { game.cover ? 
+                <img src={game.cover} className="game__img" alt=""></img>
                 :<img src={require("../images/game-default.png")} className="game__img" alt=""></img>
             }
             <div className="game__info">
@@ -13,10 +13,15 @@ function Game({ game }) {
                 <div className="game__platforms">
                 { game.platforms && game.platforms.map((platform, i) => {
                     return (
-                        <Button text={platform} iconSrc={`icons/${ platform }.svg`} classes={`btn--pill btn--decorative platform platform--${ platform }`} key={i} />
+                        <Button text={platform} classes={`btn--pill btn--decorative platform platform--${ platform }`} key={i} />
                     );
                 })}
                 </div>
+                { controls && 
+                    controls.map((Control, i) => {
+                        return <Control item={game} ></Control>
+                    })
+                }
             </div>
         </div>
     );
