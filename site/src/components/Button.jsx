@@ -21,18 +21,6 @@ function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText =
   );
 }
 
-function PrimaryButton({ text, onClickCallback }) {
-  return (
-    <Button classes={"btn--primary"} text={text} onClickCallback={onClickCallback} />
-  )
-}
-
-function UnfilledButton({ text, onClickCallback }) {
-  return (
-    <Button classes={"btn--unfilled"} text={text} onClickCallback={onClickCallback} />
-  )
-}
-
 /** 
  * Button changes to red on hover
 */
@@ -56,4 +44,4 @@ function SimpleDeleteButton({ onClickCallback, outlined, thin }) {
   );
 }
 
-export { Button, PrimaryButton, UnfilledButton, DeletableButton, IconButton, SimpleDeleteButton };
+export { Button, DeletableButton, IconButton, SimpleDeleteButton };
