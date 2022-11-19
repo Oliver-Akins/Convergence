@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, DeletableButton } from "../Button";
 import Modal from "../Modal";
 
-function ModalSettings({ setOpen }) {
+function ModalSettings({ user, setOpen }) {
     function ModalContent() {
         // TODO Component-ize this
         return (
@@ -15,8 +15,8 @@ function ModalSettings({ setOpen }) {
                     <div className="modal__inputs">
                         <label className="small-caps" htmlFor="username">Username</label>
                         <div className="current-username">
-                            <input type="text" id="username"></input>
-                            <p>#0001</p>
+                            <input type="text" id="username" value={ user.username }></input>
+                            <p>#{ user.discriminator}</p>
                         </div>
                         <label className="small-caps" htmlFor="password">Password</label>
                         <input type="password" id="password"></input>

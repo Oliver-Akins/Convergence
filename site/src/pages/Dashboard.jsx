@@ -10,6 +10,7 @@ import { DashboardNavigation } from "../components/Navigation";
 import { ModalAddGame } from "../components/modals/ModalGames";
 
 import { getOwnedGames, getIntersection } from "../components/api/gameEndpoints";
+import { getSelf, getOwnFriends } from "../components/api/user";
 
 let personalProfileFake = {
   "username": "Me", 
@@ -45,8 +46,10 @@ let gamesFake = [
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openAddGameModal, setOpenAddGameModal] = useState(false);
+  const [user, setUser] = useState(null);
   const [ownedGames, setOwnedGames] = useState(null);
   const [sharedGames, setSharedGames] = useState(null);
+  const [friendsList, setFriendsList] = useState(null);
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
@@ -58,6 +61,14 @@ function Dashboard() {
         await getOwnedGames();
         const ownedGames = JSON.parse(localStorage.getItem("ownedGames"));
         setOwnedGames(ownedGames);
+
+        await getOwnFriends();
+        const friends = JSON.parse(localStorage.getItem("friends"));
+        setFriendsList(friends);
+
+        await getSelf();
+        const aUser = JSON.parse(localStorage.getItem("user"));
+        setUser(aUser);
 
         // const sharedGames = await getIntersection("");
         // setSharedGames(sharedGames);
@@ -74,12 +85,12 @@ function Dashboard() {
       <header>
         <DashboardNavigation />
       </header>
-      { openSettingsModal && <ModalSettings setOpen={ setOpenSettingsModal } />}
+      { openSettingsModal && <ModalSettings user={user} setOpen={ setOpenSettingsModal } />}
       { openAddGameModal && <ModalAddGame setOpen={ setOpenAddGameModal } />}
       <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
-          <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
-          <Sidebar friendsList={ friendsListFake }></Sidebar>
+          <Person person={ user } classes="person--personal" buttons={ [SettingsButton] }/>
+          <Sidebar friendsList={ friendsList }></Sidebar>
         </div>
         <section className="dashboard__main">
           <div className="game-lists">
