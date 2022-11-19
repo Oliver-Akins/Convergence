@@ -1,14 +1,14 @@
 import React from "react";
 import Game from "./Game";
 
-function GameList({ games=null, shared=false, controls=null }) {
+function SharedGameList({ games=null, controls=null }) {
     return (
-        <section className={shared ? "game-list game-list--shared scrollable" : "game-list scrollable"}>
+        <section className="game-list game-list--shared scrollable">
             <>
             <div className="game-list__heading">
                 <div>
-                    <h2>{ shared ? "Shared" : "All" } Games</h2>
-                    { games && <p className="games-number">{ games.length } { shared && "in common"}</p>}
+                    <h2>Shared Games</h2>
+                    { games && <p className="games-number">{ games.length } in common</p>}
                 </div>
                 <div className="game-list__controls">
                     { controls && controls.map((Control, i) => { return <Control key={i} /> })}
@@ -28,4 +28,4 @@ function GameList({ games=null, shared=false, controls=null }) {
     );
 }
 
-export default GameList;
+export default SharedGameList;

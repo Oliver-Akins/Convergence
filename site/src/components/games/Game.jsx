@@ -1,12 +1,12 @@
 import React from "react";
-import { Button } from "./Button";
+import { Button } from "../Button";
 
 function Game({ game, controls }) {
     return (
         <div className="game">
             { game.cover ? 
                 <img src={game.cover} className="game__img" alt=""></img>
-                :<img src={require("../images/game-default.png")} className="game__img" alt=""></img>
+                :<img src={require("../../images/game-default.png")} className="game__img" alt=""></img>
             }
             <div className="game__info">
                 <p className="game__name">{ game.name }</p>

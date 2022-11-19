@@ -1,4 +1,4 @@
-import Game from "./Game";
+import Game from "./games/Game";
 
 function SearchList({ results=null, controls=null }) {
     if(!results || results.length < 1) {
