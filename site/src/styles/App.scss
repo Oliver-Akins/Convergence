@@ -47,7 +47,6 @@ body {
     color: $text-color-light-primary;
     background-color: $bg-primary;
     height: unset;
-    overflow: hidden;
 }
 
 main {
@@ -102,6 +101,7 @@ input {
     }
 
     button.btn {
+        max-height: 40px;
         width: 383px;
     }
 }
@@ -213,6 +213,10 @@ input {
     }
 }
 
+button {
+    cursor: pointer
+}
+
 // Buttons
 .btn {
     background-color: $brand-primary;
@@ -304,6 +308,11 @@ input {
     &--add-game {
         max-height: 40px;
         margin-left: 50px;
+    }
+
+    &--add-result {
+        max-height: 40px;
+        margin-top: auto;
     }
 }
 
@@ -585,9 +594,14 @@ input {
             max-height: 16px;
         }
     }
+    &__add {
+        margin-top: 10px;
+        float: right;
+    }
 }
 
 .platform {
+    background-color: $bg-primary;
     text-transform: capitalize;
 
     &--switch {
@@ -723,5 +737,45 @@ input {
     }
     &__linked-accounts {
         flex-direction: column;
+    }
+}
+
+.search-list {
+    display: flex;
+    flex-flow: column;
+
+    &__heading {
+        position: sticky;
+        top: -20px;
+        padding: 10px;
+        width: 100%;
+        background-color: $bg-secondary;
+    }
+
+    &__results {
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+
+        .game {
+            flex-flow: row;
+            justify-content: center;
+            font-size: $font-normal-size;
+            &__img {
+                @include force-size(180px, 150px);
+            }
+
+            &__name {
+                font-size: $font-normal-size;
+                margin: 0;
+            }
+
+            &__info {
+                display: flex;
+                flex-flow: column;
+                gap: 10px;
+                width: 100%;
+            }
+        }
     }
 }
