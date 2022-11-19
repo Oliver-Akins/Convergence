@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import { Button } from "../Button";
 import Modal from "../Modal";
-import Person from "../Person";
+import Friend from "../Friend";
 
-let friendsListFake = [
-    {
-      "username": "User1",
-      "id": "0001",
-    },
-    {
-        "username": "User2",
-        "id": "2324",
-    }
-  ];
+import { getUser, addFriends, friends } from "../api/user";
 
-function ModalFriends({ setOpen }) {
+function ModalFriends({ friendsList, setOpen }) {
     const HamburgerMenu = () => {
         return (
             <button className="btn-icon btn-icon--hamburger">
@@ -22,19 +13,20 @@ function ModalFriends({ setOpen }) {
             </button>
         );
     }
-
-    const CompareLibraryButton = () => {
-        return (
-            <Button text="Compare Library" classes="btn--small"/>
-        );
-    }
+    const CompareLibraryButton = () => <Button text="Compare Library" classes="btn--small"/>;
+    const RequestedLabel = () => <Button text="Requested" classes={`btn--pill btn--grey btn--decorative`} />;
 
     function FriendsList({friendsList}) {
         return (
             <div className="friends-list">
-                {friendsList.map((friend, i) => {
+                {friendsList.friends && friendsList.friends.map((friend, i) => {
                     return (
-                        <Person person={friend} classes="person--manage" key={i} buttons={[CompareLibraryButton, HamburgerMenu]}/>
+                        <Friend person={friend} classes="person--manage" key={i} buttons={[CompareLibraryButton, HamburgerMenu]}/>
+                    );
+                })}
+                {friendsList.requests && friendsList.requests.map((friend, i) => {
+                    return (
+                        <Friend person={friend} classes="person--manage person--requested" key={i} buttons={[RequestedLabel, HamburgerMenu]}/>
                     );
                 })}
             </div>
@@ -42,13 +34,19 @@ function ModalFriends({ setOpen }) {
     }
 
     function AddFriendSection() {
+        const [friendInput, setFriendInput] = useState("");
+
+        const addFriendFetch = async () => {
+            await addFriends([friendInput]);     
+        }
+
         return (
             <div className="add-friend modal__form">
                 <label className="small-caps" htmlFor="username">Add Friend</label>
                 <div className="modal__inputs">
                     <div className="input-combined">
-                        <input type="text" id="username" placeholder="Username#0001"></input>
-                        <Button text="Send Friend Request" classes="btn--small" />
+                        <input type="text" id="username" placeholder="Username#0001" onChange={(e) => {setFriendInput(e.target.value)}}></input>
+                        <Button text="Send Friend Request" classes="btn--small" onClickCallback={addFriendFetch} />
                     </div>
                 </div>
             </div>
@@ -59,7 +57,7 @@ function ModalFriends({ setOpen }) {
         return (
             <>
                 <h2 className="modal__header">Friends</h2>
-                <FriendsList friendsList={friendsListFake} />
+                <FriendsList friendsList={friendsList} />
                 <AddFriendSection />
             </>
         );
