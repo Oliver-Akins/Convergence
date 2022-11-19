@@ -115,6 +115,54 @@ input {
     font-size: $font-header-size;
 }
 
+
+.home-section {
+    min-height: 250px;
+    
+}
+
+.home-section-dark{
+    min-height: 200px;
+    background-color: #1B2838;
+}
+
+.grid-container {
+    display: grid;
+    // column-gap: 200px;
+    padding: 10px;
+    grid-template-columns: auto auto;
+    // justify-content: center ;
+}
+
+.grid-item {
+    width: 400px; 
+    align-self: center; 
+    grid-column-start: 15; 
+}
+
+.grid-item1 {
+    grid-column-start: 7;
+}
+
+.btn-center {
+    display: block;
+    margin: auto;
+}
+
+.p-home {
+    font-size: smaller;
+}
+
+.get-started-button {
+    width: 140px;
+    height: 30px;
+    border: #1DB954;
+    color: white;
+    background-color: #1DB954;
+    margin-top: 10px;
+}
+
+
 .small-caps {
     letter-spacing: 2px;
     text-transform: uppercase;
