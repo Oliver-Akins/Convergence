@@ -1,4 +1,6 @@
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
 import './styles/App.scss';
 
 import Home from './pages/Home.jsx';
@@ -15,8 +17,11 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="app" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
+
+        <Route element={<ProtectedRoute user={true} />}>
+          <Route path="app" element={<Dashboard />} />
+        </Route>
       </Routes>
     </div>
   );
