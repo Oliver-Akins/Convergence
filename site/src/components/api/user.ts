@@ -40,10 +40,13 @@ async function getOwnFriends(): Promise<any> {
 }
 
 // TODO
-async function addFriends(usernames: string[]): Promise<any> {     
+async function addFriends(usernames: string[]): Promise<any> {    
     await fetch(`users/@me/friends`, {
         method: "POST",
-        body: JSON.stringify({ "username": usernames }),
+        body: JSON.stringify(usernames),
+        headers: {
+            'Content-Type': 'application/json'
+        },
     })
         .then((response) => {
             if(response.ok) return response.json();
