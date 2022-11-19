@@ -1,11 +1,22 @@
-async function getUser(aUsername: string): Promise<any> {     
+async function getUser(aUsername: string): Promise<any> {  
+    if(localStorage.getItem("user")) return localStorage.getItem("user");
+       
     await fetch(`users/${aUsername}`, {
         method: "GET",
     })
         .then((response) => {
             if(response.ok) return response.json();
+        }).then((res) => {
+            localStorage.setItem("user", JSON.stringify(res));
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            localStorage.removeItem("user");
+            console.error(err);
+        });
+}
+
+async function getSelf(): Promise<any> {
+    await getUser("@me");
 }
 
 async function getFriends(aUsername: string): Promise<any> {     
@@ -15,7 +26,17 @@ async function getFriends(aUsername: string): Promise<any> {
         .then((response) => {
             if(response.ok) return response.json();
         })
-        .catch((err) => console.error(err));
+        .then((res) => {
+            localStorage.setItem("friends", JSON.stringify(res));
+        })
+        .catch((err) => {
+            localStorage.removeItem("friends");
+            console.error(err);
+        });
+}
+
+async function getOwnFriends(): Promise<any> {     
+    await getFriends("@me");
 }
 
 // TODO
@@ -42,4 +63,4 @@ async function deleteFriends(usernames: string[]): Promise<any> {
         .catch((err) => console.error(err));
 }
 
-export { getUser, getFriends, addFriends, deleteFriends };
+export { getUser, getSelf, getFriends, getOwnFriends, addFriends, deleteFriends };
