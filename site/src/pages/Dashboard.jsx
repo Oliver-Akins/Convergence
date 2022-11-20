@@ -61,6 +61,26 @@ function Dashboard() {
     fetchGames();
   }, [setOpenAddGameModal]);
 
+  useEffect(() => {
+    const fetchIntersection = async () => {
+      if(friendsToCompare.length > 0) {
+        const parsedList = friendsToCompare.join();
+  
+        try {
+          await getIntersection(parsedList, true);
+          const sharedGames = JSON.parse(localStorage.getItem("sharedGames"));
+          setSharedGames(sharedGames);
+        } catch(error) {
+          
+        }
+      } else {
+        setSharedGames([]);
+      }
+    }
+
+    fetchIntersection();
+  }, [friendsToCompare]);
+
   return (
     <>
       <header>
@@ -75,7 +95,7 @@ function Dashboard() {
         </div>
         <section className="dashboard__main">
           <div className="game-lists">
-            {/* <SharedGameList games={gamesFake} /> */}
+            <SharedGameList games={sharedGames} />
             <OwnedGameList games={ownedGames} controls={[AddGameButton]} />
           </div>
         </section>

@@ -2,6 +2,10 @@ import React from "react";
 import Game from "./Game";
 
 function SharedGameList({ games=null, controls=null }) {
+    if(!games || (games && games.length < 1)) {
+        return <></>;
+    }
+
     return (
         <section className="game-list game-list--shared scrollable">
             <>

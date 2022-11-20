@@ -71,6 +71,11 @@ async function getOwnedGames(): Promise<any> {
 
 // TODO
 async function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {     
+    console.log(`intersection?` + new URLSearchParams({
+        "@me": `${includeAuthenticatedUser}`,
+        "users": `${users}`
+    }).toString());
+    
     await fetch(`intersection?` + new URLSearchParams({
         "@me": `${includeAuthenticatedUser}`,
         "users": `${users}`
@@ -79,6 +84,8 @@ async function getIntersection(users: string, includeAuthenticatedUser: boolean 
     })
         .then((response) => {
             if(response.ok) return response.json();
+        }).then((res) => {
+            localStorage.setItem("sharedGames", JSON.stringify(res.games));            
         })
         .catch((err) => console.error(err));
 }

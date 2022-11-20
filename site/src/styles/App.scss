@@ -546,6 +546,7 @@ button {
 
 .game-lists {
     max-height: 100%;
+    height: 100%;
     width: 100%;
     overflow-y: hidden;
     display: flex;
@@ -565,6 +566,7 @@ button {
     }
     
     &--shared {
+        flex-grow: 1;
         margin-bottom: 30px;
         & .game-list__games {
             max-height: 40vh;
@@ -616,7 +618,7 @@ button {
     border-radius: $border-radius-primary;
     padding: 10px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-grow: 1;
     gap: 10px;
     box-shadow: $box-shadow-default;

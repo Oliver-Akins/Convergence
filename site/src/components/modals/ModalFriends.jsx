@@ -15,7 +15,7 @@ function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToComp
     }
     const CompareLibraryButton = ({friend, comparing}) => {
         if(comparing) {
-            return <DeletableButton text="Comparing" classes="btn--small btn--grey" onClickCallback={() => {
+            return <DeletableButton text="Stop Comparison" hoverText="Comparing" classes="btn--small btn--grey" onClickCallback={() => {
                 setFriendsToCompare(friendsToCompare.filter(function(e) { return e !== friend }))
             }}/>;
         } else {
