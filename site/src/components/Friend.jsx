@@ -1,6 +1,6 @@
 import React from "react";
 
-function Friend({ person, classes, buttons }) {
+function Friend({ person, classes, children }) {
     return (
         <div className={`person ${ classes }`}>
             { person.imgSrc ? 
@@ -12,7 +12,7 @@ function Friend({ person, classes, buttons }) {
                 <p className="person__id">#{  }</p>
             </div>
             <div className="person__buttons">
-                { buttons && buttons.map((AButton) => <AButton/>) }
+                { children }
             </div>
         </div>
     );

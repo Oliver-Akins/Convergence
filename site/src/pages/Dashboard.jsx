@@ -12,63 +12,30 @@ import { ModalAddGame } from "../components/modals/ModalGames";
 import { getOwnedGames, getIntersection } from "../components/api/gameEndpoints";
 import { getSelf, getOwnFriends } from "../components/api/user";
 
-let personalProfileFake = {
-  "username": "Me", 
-  "id": "0001",
-};
-
-let friendsListFake = [
-  {
-    "username": "User1",
-    "id": "0001",
-  }
-];
-
-let gamesFake = [
-  {
-    "name": "Untitled Goose Game",
-    "platforms": ["switch", "steam"],
-  },
-  {
-    "name": "Xenoblade Chronicles",
-    "platforms": ["switch"],
-  },
-  {
-    "name": "It Takes Two",
-    "platforms": ["switch", "steam"],
-  },
-  {
-    "name": "Minish Cap",
-    "platforms": ["steam"],
-  },
-];
-
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openAddGameModal, setOpenAddGameModal] = useState(false);
   const [user, setUser] = useState(null);
   const [ownedGames, setOwnedGames] = useState(null);
   const [sharedGames, setSharedGames] = useState(null);
-  const [friendsList, setFriendsList] = useState(null);
+  const [friendsList, setFriendsList] = useState([]);
+  const [friendsToCompare, setFriendsToCompare] = useState([]);
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
   const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
 
   useEffect(() => {
-    const fetchGames = async () => {
+    const fetchItems = async () => {
       try {
         await getOwnedGames();
         const ownedGames = JSON.parse(localStorage.getItem("ownedGames"));
         setOwnedGames(ownedGames);
 
-        await getOwnFriends();
-        const friends = JSON.parse(localStorage.getItem("friends"));
-        setFriendsList(friends);
-
         await getSelf();
         const aUser = JSON.parse(localStorage.getItem("user"));
         setUser(aUser);
+        setFriendsList(aUser.relations);
 
         // const sharedGames = await getIntersection("");
         // setSharedGames(sharedGames);
@@ -77,8 +44,22 @@ function Dashboard() {
       }
     };
     
-    fetchGames();
+    fetchItems();
   }, []);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        await getOwnedGames();
+        const ownedGames = JSON.parse(localStorage.getItem("ownedGames"));
+        setOwnedGames(ownedGames);
+      } catch(error) {
+        
+      }
+    }
+
+    fetchGames();
+  }, [setOpenAddGameModal]);
 
   return (
     <>
@@ -90,7 +71,7 @@ function Dashboard() {
       <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
           <Person person={ user } classes="person--personal" buttons={ [SettingsButton] }/>
-          <Sidebar friendsList={ friendsList }></Sidebar>
+          <Sidebar friendsList={ friendsList } friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} ></Sidebar>
         </div>
         <section className="dashboard__main">
           <div className="game-lists">

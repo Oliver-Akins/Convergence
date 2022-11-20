@@ -28,7 +28,7 @@ function ModalSettings({ user, setOpen }) {
                     <p>Allow Incoming Friend Requests</p>
                 </div>
                 <div className="card settings__linked-accounts">
-                    <DeletableButton text="Unlink from Discord" isGrey={true} hoverText="Linked with Discord" iconSrc={"icons/discord.svg"}></DeletableButton>
+                    <DeletableButton text="Unlink from Discord" classes="btn--grey" hoverText="Linked with Discord" iconSrc={"icons/discord.svg"}></DeletableButton>
                     <Button text="Link with Steam" iconSrc="icons/steam.svg"></Button>
                     <Button text="Link with Itch.io" iconSrc="icons/itch-io.svg"></Button>
                 </div>

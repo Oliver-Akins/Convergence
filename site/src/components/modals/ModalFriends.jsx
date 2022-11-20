@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Button } from "../Button";
+import { Button, DeletableButton } from "../Button";
 import Modal from "../Modal";
 import Friend from "../Friend";
 
-import { getUser, addFriends, friends } from "../api/user";
+import { getUser, addFriends } from "../api/user";
 
-function ModalFriends({ friendsList, setOpen }) {
+function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToCompare }) {
     const HamburgerMenu = () => {
         return (
             <button className="btn-icon btn-icon--hamburger">
@@ -13,7 +13,16 @@ function ModalFriends({ friendsList, setOpen }) {
             </button>
         );
     }
-    const CompareLibraryButton = () => <Button text="Compare Library" classes="btn--small"/>;
+    const CompareLibraryButton = ({friend, comparing}) => {
+        if(comparing) {
+            return <DeletableButton text="Comparing" classes="btn--small btn--grey" onClickCallback={() => {
+                setFriendsToCompare(friendsToCompare.filter(function(e) { return e !== friend }))
+            }}/>;
+        } else {
+            return <Button text="Compare Library" classes="btn--small" onClickCallback={() => { setFriendsToCompare([...friendsToCompare, friend]) }}/>;
+        }
+    };
+
     const RequestedLabel = () => <Button text="Requested" classes={`btn--pill btn--grey btn--decorative`} />;
 
     function FriendsList({friendsList}) {
@@ -21,12 +30,18 @@ function ModalFriends({ friendsList, setOpen }) {
             <div className="friends-list">
                 {friendsList.friends && friendsList.friends.map((friend, i) => {
                     return (
-                        <Friend person={friend} classes="person--manage" key={i} buttons={[CompareLibraryButton, HamburgerMenu]}/>
+                        <Friend person={friend} classes="person--manage" key={i}>
+                            <CompareLibraryButton friend={friend} comparing={friendsToCompare.includes(friend)}></CompareLibraryButton>
+                            <HamburgerMenu></HamburgerMenu>
+                        </Friend>
                     );
                 })}
                 {friendsList.requests && friendsList.requests.map((friend, i) => {
                     return (
-                        <Friend person={friend} classes="person--manage person--requested" key={i} buttons={[RequestedLabel, HamburgerMenu]}/>
+                        <Friend person={friend} classes="person--manage person--requested" key={i}>
+                            <RequestedLabel></RequestedLabel>
+                            <HamburgerMenu></HamburgerMenu>
+                        </Friend>
                     );
                 })}
             </div>
@@ -37,7 +52,7 @@ function ModalFriends({ friendsList, setOpen }) {
         const [friendInput, setFriendInput] = useState("");
 
         const addFriendFetch = async () => {
-            await addFriends([friendInput]);     
+            await addFriends([friendInput]);
         }
 
         return (

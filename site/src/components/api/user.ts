@@ -1,6 +1,4 @@
-async function getUser(aUsername: string): Promise<any> {  
-    if(localStorage.getItem("user")) return localStorage.getItem("user");
-       
+async function getUser(aUsername: string): Promise<any> {         
     await fetch(`users/${aUsername}`, {
         method: "GET",
     })
