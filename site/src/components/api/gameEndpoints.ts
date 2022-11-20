@@ -1,26 +1,23 @@
 // TODO
-async function getGameSearch(searchQuery : string): Promise<any> { 
+function getGameSearch(searchQuery : string): Promise<any> { 
     const url = `games/search?` + new URLSearchParams({
         "query": `${searchQuery}`,
     });    
 
-    await fetch(url, {
+    return fetch(url, {
         method: "GET",
     })
         .then((response) => {            
             if(response.ok) return response.json();
-        }).then((res) => {
-            localStorage.setItem("gameSearch", JSON.stringify(res));
         })
         .catch((err) => {
-            localStorage.removeItem("gameSearch");
             console.error(err);
         });
 }
 
 // TODO figure this out, also has a route for PATCH and POST which all operate the same
-async function addGames(aUsername: string, games: object): Promise<any> {      
-    await fetch(`users/${aUsername}/games`, {
+function addGames(aUsername: string, games: object): Promise<any> {      
+    return fetch(`users/${aUsername}/games`, {
         method: "PATCH",
         body: JSON.stringify(games),
         headers: {
@@ -33,8 +30,8 @@ async function addGames(aUsername: string, games: object): Promise<any> {
         .catch((err) => console.error(err));
 }
 
-async function getGames(aUsername: string): Promise<any> {      
-    await fetch(`users/${aUsername}/games`, {
+function getGames(aUsername: string): Promise<any> {      
+    return fetch(`users/${aUsername}/games`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -42,17 +39,14 @@ async function getGames(aUsername: string): Promise<any> {
     })
         .then((response) => {            
             if(response.ok) return response.json();
-        }).then((res) => {
-            localStorage.setItem("games", JSON.stringify(res));
         })
         .catch((err) => {
-            localStorage.removeItem("games");
             console.error(err);
         });
 }
 
-async function getOwnedGames(): Promise<any> {      
-    await fetch(`users/@me/games`, {
+function getOwnedGames(): Promise<any> {      
+    return fetch(`users/@me/games`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -60,23 +54,20 @@ async function getOwnedGames(): Promise<any> {
     })
         .then((response) => {            
             if(response.ok) return response.json();
-        }).then((res) => {
-            localStorage.setItem("ownedGames", JSON.stringify(res));
         })
         .catch((err) => {
-            localStorage.removeItem("ownedGames");
             console.error(err);
         });
 }
 
 // TODO
-async function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {     
+function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {     
     console.log(`intersection?` + new URLSearchParams({
         "@me": `${includeAuthenticatedUser}`,
         "users": `${users}`
     }).toString());
     
-    await fetch(`intersection?` + new URLSearchParams({
+    return fetch(`intersection?` + new URLSearchParams({
         "@me": `${includeAuthenticatedUser}`,
         "users": `${users}`
     }).toString(), {
@@ -84,8 +75,6 @@ async function getIntersection(users: string, includeAuthenticatedUser: boolean 
     })
         .then((response) => {
             if(response.ok) return response.json();
-        }).then((res) => {
-            localStorage.setItem("sharedGames", JSON.stringify(res.games));            
         })
         .catch((err) => console.error(err));
 }

@@ -73,12 +73,12 @@ function ModalAddGame({ setOpen }) {
             e.preventDefault();
 
             try {
-                await getGameSearch(searchState);
+                let searchResults = await getGameSearch(searchState);
+                setSearchResults(searchResults)
             } catch(e) {
                 // TODO handle error
                 console.log("Could not search games");
             }
-            setSearchResults(JSON.parse(localStorage.getItem("gameSearch")));
         }
 
         return (
@@ -91,9 +91,9 @@ function ModalAddGame({ setOpen }) {
                         <label className="small-caps" htmlFor="platforms">Platforms</label>
                         <Select className="select" isMulti name="platforms" id="platforms" onChange={handleSelectChange} options={platformOptions} />
                     </div>
-                </div>
-                <div className="modal__controls">
-                    <Button text="Add Custom Game" onClickCallback={() => {handleAddCustomGame(inputState)}}></Button>
+                    <div className="modal__controls">
+                        <Button text="Add Custom Game" classes="btn--small" onClickCallback={() => {handleAddCustomGame(inputState)}}></Button>
+                    </div>
                 </div>
                 <div className="card modal__form">
                     <div className="modal__inputs">
@@ -110,7 +110,7 @@ function ModalAddGame({ setOpen }) {
     }
 
     return (
-        <Modal setOpen={ setOpen } classes="add-game" children={[<ModalContent />]}/>
+        <Modal setOpen={ setOpen } classes="modal--add-game" children={[<ModalContent />]}/>
     )
 }
 

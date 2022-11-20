@@ -1,5 +1,5 @@
-async function linkSteamAccount(apiKey: string, steamID: string): Promise<any> {     
-    await fetch("link/@me/steam", {
+function linkSteamAccount(apiKey: string, steamID: string): Promise<any> {     
+    return fetch("link/@me/steam", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

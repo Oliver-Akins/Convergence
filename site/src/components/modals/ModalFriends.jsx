@@ -52,7 +52,12 @@ function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToComp
         const [friendInput, setFriendInput] = useState("");
 
         const addFriendFetch = async () => {
-            await addFriends([friendInput]);
+            try {
+                let response = await addFriends([friendInput]);
+                console.log(response);
+            } catch(error) {
+                console.log("Could not add friend");
+            }
         }
 
         return (

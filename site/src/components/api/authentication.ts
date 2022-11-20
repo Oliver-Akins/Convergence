@@ -1,7 +1,7 @@
-// Contains the async calls to authenticate: register, login, logout, etc.
+// Contains the calls to authenticate: register, login, logout, etc.
 
-async function register(aUsername: string, aPassword: string): Promise<any> {     
-    await fetch("register/username", {
+function register(aUsername: string, aPassword: string): Promise<any> {     
+    return fetch("register/username", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -17,8 +17,8 @@ async function register(aUsername: string, aPassword: string): Promise<any> {
         .catch((err) => console.error(err));
 }
 
-async function login(username: string, password: string): Promise<any> {    
-    await fetch("/login/username", {
+function login(username: string, password: string): Promise<any> {    
+    return fetch("/login/username", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

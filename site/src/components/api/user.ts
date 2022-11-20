@@ -1,45 +1,38 @@
-async function getUser(aUsername: string): Promise<any> {         
-    await fetch(`users/${aUsername}`, {
-        method: "GET",
-    })
-        .then((response) => {
-            if(response.ok) return response.json();
-        }).then((res) => {
-            localStorage.setItem("user", JSON.stringify(res));
-        })
-        .catch((err) => {
-            localStorage.removeItem("user");
-            console.error(err);
-        });
-}
-
-async function getSelf(): Promise<any> {
-    await getUser("@me");
-}
-
-async function getFriends(aUsername: string): Promise<any> {     
-    await fetch(`users/${aUsername}/friends`, {
+function getUser(aUsername: string): Promise<any> {         
+    return fetch(`users/${aUsername}`, {
         method: "GET",
     })
         .then((response) => {
             if(response.ok) return response.json();
         })
-        .then((res) => {
-            localStorage.setItem("friends", JSON.stringify(res));
-        })
         .catch((err) => {
-            localStorage.removeItem("friends");
             console.error(err);
         });
 }
 
-async function getOwnFriends(): Promise<any> {     
-    await getFriends("@me");
+function getSelf(): Promise<any> {
+    return getUser("@me");
+}
+
+function getFriends(aUsername: string): Promise<any> {     
+    return fetch(`users/${aUsername}/friends`, {
+        method: "GET",
+    })
+        .then((response) => {
+            if(response.ok) return response.json();
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
+function getOwnFriends(): Promise<any> {     
+    return getFriends("@me");
 }
 
 // TODO
-async function addFriends(usernames: string[]): Promise<any> {    
-    await fetch(`users/@me/friends`, {
+function addFriends(usernames: string[]): Promise<any> {    
+    return fetch(`users/@me/friends`, {
         method: "POST",
         body: JSON.stringify(usernames),
         headers: {
@@ -53,8 +46,8 @@ async function addFriends(usernames: string[]): Promise<any> {
 }
 
 // TODO
-async function deleteFriends(usernames: string[]): Promise<any> {     
-    await fetch(`users/@me/friends`, {
+function deleteFriends(usernames: string[]): Promise<any> {     
+    return fetch(`users/@me/friends`, {
         method: "DELETE",
         body: JSON.stringify({ "username": usernames }),
     })

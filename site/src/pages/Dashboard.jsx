@@ -28,17 +28,12 @@ function Dashboard() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        await getOwnedGames();
-        const ownedGames = JSON.parse(localStorage.getItem("ownedGames"));
+        const ownedGames = await getOwnedGames();
         setOwnedGames(ownedGames);
 
-        await getSelf();
-        const aUser = JSON.parse(localStorage.getItem("user"));
+        const aUser = await getSelf();
         setUser(aUser);
         setFriendsList(aUser.relations);
-
-        // const sharedGames = await getIntersection("");
-        // setSharedGames(sharedGames);
       } catch(error) {
         
       }
@@ -50,8 +45,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        await getOwnedGames();
-        const ownedGames = JSON.parse(localStorage.getItem("ownedGames"));
+        const ownedGames = await getOwnedGames();
         setOwnedGames(ownedGames);
       } catch(error) {
         
@@ -67,8 +61,7 @@ function Dashboard() {
         const parsedList = friendsToCompare.join();
   
         try {
-          await getIntersection(parsedList, true);
-          const sharedGames = JSON.parse(localStorage.getItem("sharedGames"));
+          const sharedGames = await getIntersection(parsedList, true);
           setSharedGames(sharedGames);
         } catch(error) {
           
