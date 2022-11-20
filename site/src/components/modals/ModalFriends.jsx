@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { Button, DeletableButton } from "../Button";
+import React, { useEffect, useState } from "react";
+import { Button, DeletableButton, SimpleDeleteButton, SimpleCheckButton } from "../Button";
 import Modal from "../Modal";
 import Friend from "../Friend";
 
-import { getUser, addFriends } from "../api/user";
+import { getOwnFriends, addFriends } from "../api/user";
 
-function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToCompare }) {
+function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpen, friendsToCompare, setFriendsToCompare }) {
     const HamburgerMenu = () => {
         return (
             <button className="btn-icon btn-icon--hamburger">
@@ -22,16 +22,29 @@ function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToComp
             return <Button text="Compare Library" classes="btn--small" onClickCallback={() => { setFriendsToCompare([...friendsToCompare, friend]) }}/>;
         }
     };
+    
+    const handleReject = async () => {
 
-    const RequestedLabel = () => <Button text="Requested" classes={`btn--pill btn--grey btn--decorative`} />;
+    };
 
-    function FriendsList({friendsList}) {
+    const handleAccept = async (friend) => {
+        try {
+            const result = await addFriends([friend]);
+            console.log(result);
+            const friendsListUpdated = await getOwnFriends();
+            setFriendsList(friendsListUpdated);
+        } catch(error) {
+        }
+    };
+
+    function FriendsList({acceptedFriendsList, friendsList}) {
+        console.log(acceptedFriendsList);
         return (
             <div className="friends-list">
-                {friendsList.friends && friendsList.friends.map((friend, i) => {
+                {acceptedFriendsList && acceptedFriendsList.map((friend, i) => {
                     return (
-                        <Friend person={friend} classes="person--manage" key={i}>
-                            <CompareLibraryButton friend={friend} comparing={friendsToCompare.includes(friend)}></CompareLibraryButton>
+                        <Friend person={friend} isAccepted={true} classes="person--manage" key={i}>
+                            <CompareLibraryButton friend={friend.id} comparing={friendsToCompare.includes(friend.id)}></CompareLibraryButton>
                             <HamburgerMenu></HamburgerMenu>
                         </Friend>
                     );
@@ -39,8 +52,8 @@ function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToComp
                 {friendsList.requests && friendsList.requests.map((friend, i) => {
                     return (
                         <Friend person={friend} classes="person--manage person--requested" key={i}>
-                            <RequestedLabel></RequestedLabel>
-                            <HamburgerMenu></HamburgerMenu>
+                            {/* <SimpleDeleteButton outlined={true} onClickCallback={()=> {handleReject()}} /> */}
+                            <SimpleCheckButton outlined={true} onClickCallback={(e) => {handleAccept(friend)}} />
                         </Friend>
                     );
                 })}
@@ -77,7 +90,7 @@ function ModalFriends({ friendsList, setOpen, friendsToCompare, setFriendsToComp
         return (
             <>
                 <h2 className="modal__header">Friends</h2>
-                <FriendsList friendsList={friendsList} />
+                <FriendsList friendsList={friendsList} acceptedFriendsList={acceptedFriendsList} />
                 <AddFriendSection />
             </>
         );

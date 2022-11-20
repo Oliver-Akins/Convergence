@@ -3,14 +3,14 @@ import { Button, SimpleDeleteButton } from "./Button";
 import ModalFriends from "./modals/ModalFriends";
 import Friend from "./Friend";
 
-function Sidebar({ friendsList, friendsToCompare, setFriendsToCompare }) {
+function Sidebar({ friendsList, acceptedFriendsList, friendsToCompare, setFriendsToCompare }) {
     const [openFriendsModal, setOpenFriendsModal] = useState(false);
 
     const RemoveButton = ({friend}) => <SimpleDeleteButton outlined={true} onClickCallback={() => { setFriendsToCompare(friendsToCompare.filter(function(e) { return e !== friend })) }} />;
 
     return (
         <section className="sidebar">
-            { openFriendsModal && <ModalFriends friendsList={friendsList} friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} setOpen={ setOpenFriendsModal }/>}
+            { openFriendsModal && <ModalFriends friendsList={friendsList} acceptedFriendsList={acceptedFriendsList} friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} setOpen={ setOpenFriendsModal }/>}
             <Button text="Friends List" onClickCallback={()=> { setOpenFriendsModal(true) }} />
             <div className="friends-list">
             {friendsToCompare && friendsToCompare.map((friend, i) => {

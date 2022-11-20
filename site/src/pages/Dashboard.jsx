@@ -17,8 +17,9 @@ function Dashboard() {
   const [openAddGameModal, setOpenAddGameModal] = useState(false);
   const [user, setUser] = useState(null);
   const [ownedGames, setOwnedGames] = useState(null);
-  const [sharedGames, setSharedGames] = useState(null);
+  const [sharedGames, setSharedGames] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
+  const [acceptedFriendsList, setAcceptedFriendsList] = useState([]);
   const [friendsToCompare, setFriendsToCompare] = useState([]);
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
@@ -62,7 +63,7 @@ function Dashboard() {
   
         try {
           const sharedGames = await getIntersection(parsedList, true);
-          setSharedGames(sharedGames);
+          setSharedGames(sharedGames.games);
         } catch(error) {
           
         }
@@ -74,6 +75,14 @@ function Dashboard() {
     fetchIntersection();
   }, [friendsToCompare]);
 
+  useEffect(() => {
+    (async () => {
+      let result = await getOwnFriends();
+      console.log(result);
+      setAcceptedFriendsList(result);
+    })();
+  }, [friendsList]);
+
   return (
     <>
       <header>
@@ -84,7 +93,7 @@ function Dashboard() {
       <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
           <Person person={ user } classes="person--personal" buttons={ [SettingsButton] }/>
-          <Sidebar friendsList={ friendsList } friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} ></Sidebar>
+          <Sidebar friendsList={friendsList} acceptedFriendsList={acceptedFriendsList} setFriendsList={setFriendsList} friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} ></Sidebar>
         </div>
         <section className="dashboard__main">
           <div className="game-lists">

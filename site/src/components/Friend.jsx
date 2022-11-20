@@ -1,14 +1,14 @@
 import React from "react";
 
-function Friend({ person, classes, children }) {
+function Friend({ person, classes, isAccepted=false, children }) {
     return (
         <div className={`person ${ classes }`}>
-            { person.imgSrc ? 
+            { person["profile_picture"] ? 
                 <img src={require(person.imgSrc).default} className="person__img" alt=""></img>
                 :<img src={require("../images/icons/profile.svg").default} className="person__img" alt=""></img>
             }
             <div className="person__info">
-                <p className="person__name">{ person }</p>
+                <p className="person__name">{ isAccepted? person.username: person }</p>
                 <p className="person__id">{ person.discriminator && `# ${person.discriminator}` }</p>
             </div>
             <div className="person__buttons">

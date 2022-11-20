@@ -378,24 +378,27 @@ button {
             @include force-size(20px, 20px);
         }
     }
-}
+    &--outlined {
+        width: 30px;
+        height: 30px;
+        border: 2px solid $text-color-light-secondary;
 
-.btn-icon--outlined {
-    width: 30px;
-    height: 30px;
-    border: 2px solid $text-color-light-secondary;
+        img {
+            @include force-size(15px, 15px)
+        }
 
-    img {
-        min-width: 15px;
-        min-height: 15px;
-        max-width: 15px;
-        max-height: 15px;
+        &:hover {
+            background-color: $text-color-light-secondary;
+            & > img {
+                filter: invert(1);
+            }
+        }
     }
 
-    &:hover {
-        background-color: $text-color-light-secondary;
-        & > img {
-            filter: invert(1);
+    &--check {
+        img {
+            margin-left: -3px;
+            @include force-size(18px, 18px);
         }
     }
 }

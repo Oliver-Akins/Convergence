@@ -30,18 +30,25 @@ function DeletableButton({ text, hoverText, iconSrc=null, classes, onClickCallba
   )
 }
 
-function IconButton({ onClickCallback, classes, imgSrc }) {
+function IconButton({ onClickCallback, classes, imgSrc, children}) {
   return (
     <button type="button" className={`btn-icon ${ classes }`} onClick={ async (e) => { onClickCallback && onClickCallback(e)}}>
+      { children }
       <img src={require(`../images/icons/${imgSrc}`)} alt="Delete"></img>
     </button>
   );
 }
 
-function SimpleDeleteButton({ onClickCallback, outlined, thin }) {
+function SimpleDeleteButton({ onClickCallback, outlined, thin, children }) {
   return (
-    <IconButton onClickCallback={onClickCallback} classes={outlined ? "btn-icon--outlined" : ""} imgSrc={ !thin ? "close-button.svg" : "close-button-thin.svg" } />
+    <IconButton onClickCallback={onClickCallback} children={children} classes={outlined ? "btn-icon--outlined" : ""} imgSrc={ !thin ? "close-button.svg" : "close-button-thin.svg" } />
   );
 }
 
-export { Button, DeletableButton, IconButton, SimpleDeleteButton };
+function SimpleCheckButton({ onClickCallback, outlined, children }) {
+  return (
+    <IconButton onClickCallback={onClickCallback} children={children} classes={outlined ? "btn-icon--check btn-icon--outlined" : "btn-icon--check"} imgSrc="check-button.svg" />
+  );
+}
+
+export { Button, DeletableButton, IconButton, SimpleDeleteButton, SimpleCheckButton };
