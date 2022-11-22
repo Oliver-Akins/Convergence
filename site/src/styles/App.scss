@@ -403,6 +403,24 @@ button {
     }
 }
 
+.hamburger {
+    position: relative;
+    &__controls {
+        display: none;
+    }
+
+    &:active .hamburger__controls, &:focus-within .hamburger__controls, &:focus .hamburger__controls {
+        display: unset;
+        position: absolute;
+        background-color: $bg-tertiary;
+        padding: 10px;
+        border-radius: $border-radius-primary;
+        box-shadow: $box-shadow-default;
+        right: 0;
+        top: 30px;
+    }
+}
+
 .container {
     max-width: 1170px;
     width: 100%;

@@ -6,14 +6,6 @@ import Friend from "../Friend";
 import { getOwnFriends, addFriends, deleteFriends } from "../api/user";
 
 function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpen, friendsToCompare, setFriendsToCompare }) {
-    const HamburgerMenu = () => {
-        return (
-            <button className="btn-icon btn-icon--hamburger">
-                <img src={require("../../images/icons/hamburger.svg").default} alt="Menu"></img> 
-            </button>
-        );
-    }
-
     const handleAddComparison = (newItem) => {
         if(friendsToCompare.indexOf(newItem) === -1) {
             setFriendsToCompare([...friendsToCompare, newItem]);
@@ -48,6 +40,17 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
         }
     };
 
+    const HamburgerMenu = ({friend}) => {
+        return (
+            <button className="btn-icon btn-icon--hamburger hamburger">
+                <img src={require("../../images/icons/hamburger.svg").default} alt="Menu"></img>
+                <div className="hamburger__controls">
+                    <DeletableButton classes="btn--small btn--grey" text="Remove Friend" onClickCallback={()=>{handleDelete(friend.id)}}/>
+                </div>
+            </button>
+        );
+    };
+
     function FriendsList({acceptedFriendsList, friendsList}) {
         return (
             <div className="friends-list">
@@ -55,8 +58,7 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
                     return (
                         <Friend person={friend} classes="person--manage" key={i}>
                             <CompareLibraryButton friend={friend} comparing={friendsToCompare.includes(friend)}></CompareLibraryButton>
-                            {/* <HamburgerMenu></HamburgerMenu> */}
-                            <SimpleDeleteButton onClickCallback={()=>{handleDelete(friend.id)}}></SimpleDeleteButton>
+                            <HamburgerMenu friend={friend}></HamburgerMenu>
                         </Friend>
                     );
                 })}
