@@ -13,13 +13,20 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
             </button>
         );
     }
+
+    const handleAddComparison = (newItem) => {
+        if(friendsToCompare.indexOf(newItem) === -1) {
+            setFriendsToCompare([...friendsToCompare, newItem]);
+        }
+    }
+
     const CompareLibraryButton = ({friend, comparing}) => {
         if(comparing) {
             return <DeletableButton text="Stop Comparison" hoverText="Comparing" classes="btn--small btn--grey" onClickCallback={() => {
                 setFriendsToCompare(friendsToCompare.filter(function(e) { return e !== friend }))
             }}/>;
         } else {
-            return <Button text="Compare Library" classes="btn--small" onClickCallback={() => { setFriendsToCompare([...friendsToCompare, friend]) }}/>;
+            return <Button text="Compare Library" classes="btn--small" onClickCallback={() => { handleAddComparison(friend) }}/>;
         }
     };
     
