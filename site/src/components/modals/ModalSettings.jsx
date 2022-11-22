@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, DeletableButton } from "../Button";
+import { Button, DeletableButton, SimpleCheckButton, SimpleDeleteButton } from "../Button";
 import Modal from "../Modal";
 
 function ModalSettings({ user, setOpen }) {
@@ -24,8 +24,13 @@ function ModalSettings({ user, setOpen }) {
                         <input type="password" id="confirm-password"></input>
                     </div>
                 </div>
-                <div className="card incoming-requests">
+                <div className="card card--incoming-requests">
                     <p>Allow Incoming Friend Requests</p>
+                    <div className="card__controls">
+                        <SimpleDeleteButton outlined={true}/>
+                        <SimpleCheckButton outlined={true} />
+
+                    </div>
                 </div>
                 <div className="card settings__linked-accounts">
                     <DeletableButton text="Unlink from Discord" classes="btn--grey" hoverText="Linked with Discord" iconSrc={"icons/discord.svg"}></DeletableButton>
