@@ -30,7 +30,6 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
     const handleAccept = async (friend) => {
         try {
             const result = await addFriends([friend]);
-            console.log(result);
             const friendsListUpdated = await getOwnFriends();
             setFriendsList(friendsListUpdated);
         } catch(error) {
@@ -47,13 +46,12 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
     };
 
     function FriendsList({acceptedFriendsList, friendsList}) {
-        console.log(acceptedFriendsList);
         return (
             <div className="friends-list">
                 {acceptedFriendsList && acceptedFriendsList.map((friend, i) => {
                     return (
-                        <Friend person={friend} isAccepted={true} classes="person--manage" key={i}>
-                            <CompareLibraryButton friend={friend.id} comparing={friendsToCompare.includes(friend.id)}></CompareLibraryButton>
+                        <Friend person={friend} classes="person--manage" key={i}>
+                            <CompareLibraryButton friend={friend} comparing={friendsToCompare.includes(friend)}></CompareLibraryButton>
                             {/* <HamburgerMenu></HamburgerMenu> */}
                             <SimpleDeleteButton onClickCallback={()=>{handleDelete(friend.id)}}></SimpleDeleteButton>
                         </Friend>
@@ -77,7 +75,6 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
         const addFriendFetch = async () => {
             try {
                 let response = await addFriends([friendInput]);
-                console.log(response);
             } catch(error) {
                 console.log("Could not add friend");
             }

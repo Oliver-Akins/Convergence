@@ -61,12 +61,7 @@ function getOwnedGames(): Promise<any> {
 }
 
 // TODO
-function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {     
-    console.log(`intersection?` + new URLSearchParams({
-        "@me": `${includeAuthenticatedUser}`,
-        "users": `${users}`
-    }).toString());
-    
+function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {         
     return fetch(`intersection?` + new URLSearchParams({
         "@me": `${includeAuthenticatedUser}`,
         "users": `${users}`

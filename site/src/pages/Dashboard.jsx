@@ -78,7 +78,6 @@ function Dashboard() {
   useEffect(() => {
     (async () => {
       let result = await getOwnFriends();
-      console.log(result);
       setAcceptedFriendsList(result);
     })();
   }, [friendsList]);
