@@ -8,7 +8,7 @@ function Friend({ person, classes, children }) {
                 :<img src={require("../images/icons/profile.svg").default} className="person__img" alt=""></img>
             }
             <div className="person__info">
-                <p className="person__name">{ person.username }</p>
+                <p className="person__name">{ person.username ? person.username: person }</p>
                 <p className="person__id">{ person.discriminator && `# ${person.discriminator}` }</p>
             </div>
             <div className="person__buttons">

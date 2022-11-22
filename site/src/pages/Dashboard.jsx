@@ -59,7 +59,9 @@ function Dashboard() {
   useEffect(() => {
     const fetchIntersection = async () => {
       if(friendsToCompare.length > 0) {
-        const parsedList = friendsToCompare.join();
+        const parsedList = friendsToCompare.map((item) => {
+          return item.id;
+        }).join();
   
         try {
           const sharedGames = await getIntersection(parsedList, true);

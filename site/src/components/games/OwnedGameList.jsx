@@ -7,7 +7,7 @@ function OwnedGameList({ games=null, controls=null }) {
             <>
             <div className="game-list__heading">
                 <div>
-                    <h2>All Games</h2>
+                    <h2>My Games</h2>
                     { games && <p className="games-number">{ Object.keys(games).length }</p>}
                     { controls && controls.map((Control, i) => {
                         return <Control></Control>

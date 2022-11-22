@@ -30,10 +30,6 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
         }
     };
     
-    const handleReject = async () => {
-
-    };
-
     const handleAccept = async (friend) => {
         try {
             const result = await addFriends([friend]);
@@ -67,7 +63,6 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
                 {friendsList.requests && friendsList.requests.map((friend, i) => {
                     return (
                         <Friend person={friend} classes="person--manage person--requested" key={i}>
-                            {/* <SimpleDeleteButton outlined={true} onClickCallback={()=> {handleReject()}} /> */}
                             <SimpleCheckButton outlined={true} onClickCallback={(e) => {handleAccept(friend)}} />
                         </Friend>
                     );
@@ -81,9 +76,15 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
 
         const addFriendFetch = async () => {
             try {
+                const ownInfo = JSON.parse(localStorage.getItem("user"));
+                let parsedInput = friendInput.split("#");
+                if(parsedInput[0] == ownInfo.username && parsedInput[1] == ownInfo.discriminator) {
+                    alert("Cannot add self!");
+                    return;
+                }
                 let response = await addFriends([friendInput]);
             } catch(error) {
-                console.log("Could not add friend");
+                alert("Could not add friend");
             }
         }
 
