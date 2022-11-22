@@ -47,27 +47,8 @@ function ModalAddGame({ setOpen }) {
     }
 
     function ModalContent() {
-        const [inputState, setInputState] = useState({
-            "game-title": "",
-            "platforms": {}
-        });
         const [searchResults, setSearchResults] = useState([]);
         const [searchState, setSearchState] = useState("");
-    
-        const handleChange = (e) => {
-            const {id , value} = e.target; 
-            setInputState(prevState => ({
-                ...prevState,
-                [id]: value
-            }));
-        }
-
-        const handleSelectChange = (selectedOptions) => {
-            setInputState(prevState => ({
-                ...prevState,
-                "platforms": {selectedOptions}
-            }));
-        }
 
         const handleSearchSubmit = async (e) => {
             e.preventDefault();
@@ -84,17 +65,6 @@ function ModalAddGame({ setOpen }) {
         return (
             <>
                 <h2 className="modal__header">Add New Game</h2>
-                <div className="card modal__form">
-                    <div className="modal__inputs">
-                        <label className="small-caps" htmlFor="game-title">Game Title</label>
-                        <input type="text" id="game-title" onChange={handleChange}></input>
-                        <label className="small-caps" htmlFor="platforms">Platforms</label>
-                        <Select className="select" isMulti name="platforms" id="platforms" onChange={handleSelectChange} options={platformOptions} />
-                    </div>
-                    <div className="modal__controls">
-                        <Button text="Add Custom Game" classes="btn--small" onClickCallback={() => {handleAddCustomGame(inputState)}}></Button>
-                    </div>
-                </div>
                 <div className="card modal__form">
                     <div className="modal__inputs">
                         <label className="small-caps" htmlFor="game-search">Game Title</label>
