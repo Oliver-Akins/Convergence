@@ -3,7 +3,7 @@ import { Button, DeletableButton, SimpleDeleteButton, SimpleCheckButton } from "
 import Modal from "../Modal";
 import Friend from "../Friend";
 
-import { getOwnFriends, addFriends } from "../api/user";
+import { getOwnFriends, addFriends, deleteFriends } from "../api/user";
 
 function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpen, friendsToCompare, setFriendsToCompare }) {
     const HamburgerMenu = () => {
@@ -37,6 +37,15 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
         }
     };
 
+    const handleDelete = async (friend) => {
+        try {
+            const result = await deleteFriends([friend]);
+            const friendsListUpdated = await getOwnFriends();
+            setFriendsList(friendsListUpdated);
+        } catch(error) {
+        }
+    };
+
     function FriendsList({acceptedFriendsList, friendsList}) {
         console.log(acceptedFriendsList);
         return (
@@ -45,7 +54,8 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
                     return (
                         <Friend person={friend} isAccepted={true} classes="person--manage" key={i}>
                             <CompareLibraryButton friend={friend.id} comparing={friendsToCompare.includes(friend.id)}></CompareLibraryButton>
-                            <HamburgerMenu></HamburgerMenu>
+                            {/* <HamburgerMenu></HamburgerMenu> */}
+                            <SimpleDeleteButton onClickCallback={()=>{handleDelete(friend.id)}}></SimpleDeleteButton>
                         </Friend>
                     );
                 })}

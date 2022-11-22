@@ -49,10 +49,16 @@ function addFriends(usernames: string[]): Promise<any> {
 function deleteFriends(usernames: string[]): Promise<any> {     
     return fetch(`users/@me/friends`, {
         method: "DELETE",
-        body: JSON.stringify({ "username": usernames }),
+        body: JSON.stringify(usernames),
+        headers: {
+            'Content-Type': 'application/json'
+        },
     })
         .then((response) => {
-            if(response.ok) return response.json();
+            if(response.ok) {
+                // HTTP 204 - No Content response = success
+                return response.status;
+            }
         })
         .catch((err) => console.error(err));
 }
