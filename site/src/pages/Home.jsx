@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { Navigation } from "../components/Navigation";
 import logo from "../images/logo.svg";
 import friends from "../images/friends.png";
@@ -20,7 +22,9 @@ function Home() {
                 <p className="p-home">Convergence allows you to see what games you and your friends
                   all own to make finding games to play together easier!
                 </p>
-                <button className="btn get-started-button">Get Started</button>
+                <Link to="/register">
+                  <button className="btn get-started-button">Get Started</button>
+                </Link>
               </div>
               <div className="grid-item">
                 <img src={logo} alt="logo" width="200"></img>
@@ -60,7 +64,9 @@ function Home() {
               </div>
             </div>
           </div>
-          <button className="btn get-started-button btn-center">Get Started</button>
+          <Link to="/register">
+            <button className="btn get-started-button btn-center">Get Started</button>
+          </Link>
       </main>
     </>
   );
