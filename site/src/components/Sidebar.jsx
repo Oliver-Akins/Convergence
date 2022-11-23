@@ -9,10 +9,12 @@ function Sidebar({ friendsList, setFriendsList, acceptedFriendsList, setAccepted
     const RemoveButton = ({friend}) => <SimpleDeleteButton outlined={true} onClickCallback={() => { setFriendsToCompare(friendsToCompare.filter(function(e) { return e !== friend })) }} />;
 
     useEffect(() => {
-        let filtered = acceptedFriendsList.filter((item) => {
-            return !friendsToCompare.includes(item);
-        });
-        setFriendsNotCompared(filtered);
+        if(acceptedFriendsList) {
+            let filtered = acceptedFriendsList.filter((item) => {
+                return !friendsToCompare.includes(item);
+            });
+            setFriendsNotCompared(filtered);
+        }
     }, [acceptedFriendsList, friendsToCompare]);
 
     return (
