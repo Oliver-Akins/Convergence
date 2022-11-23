@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 import { Button, DeletableButton, SimpleDeleteButton, SimpleCheckButton } from "../Button";
 import Modal from "../Modal";
 import Friend from "../Friend";
@@ -80,19 +82,22 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
             try {
                 const ownInfo = JSON.parse(localStorage.getItem("user"));
                 let parsedInput = friendInput.split("#");
-                if(parsedInput[0] == ownInfo.username && parsedInput[1] == ownInfo.discriminator) {
-                    alert("Cannot add self!");
+                if(parsedInput.length < 2) {
+                    toast.error("Friend request must be in the format 'username#123'.");
+                    return;
+                } else if(parsedInput[0] == ownInfo.username && parsedInput[1] == ownInfo.discriminator) {
+                    toast.error("You cannot add yourself as a friend.");
                     return;
                 }
                 let response = await addFriends([friendInput]);
                 
-                if(response.sent && response.accepted.length > 0) {
-                    alert("Friend request successfully sent!");
+                if(response.sent && response.sent.length > 0) {
+                    toast.success("Friend request sent!");
                 } else if(response.errored && response.errored.length > 0) {
-                    alert("Failed to send friend request.");
+                    toast.error("Friend request failed. Try a different username combo.");
                 }
             } catch(error) {
-                alert("Could not add friend");
+                toast.error("Friend request could not be sent. Try again later.");
             }
         }
 
