@@ -41,7 +41,7 @@ function Dashboard() {
         
       }
     };
-    
+
     fetchItems();
   }, []);
 
@@ -104,7 +104,11 @@ function Dashboard() {
             <OwnedGameList games={ownedGames} controls={[AddGameButton]} />
           </div>
         </section>
-        <ToastContainer />
+        <ToastContainer 
+          position="top-center"
+          hideProgressBar={true}
+          theme="dark"
+        />
       </main>
     </>
   );

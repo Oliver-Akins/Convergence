@@ -1,45 +1,21 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+
 import { Button } from "../Button";
 import Modal from "../Modal";
-import Select from 'react-select';
 import SearchList from "../SearchList";
 
 import { getGameSearch, addGames } from "../api/gameEndpoints.ts";
-
-const platformOptions = [
-    { value: 'Steam', label: 'Steam' },
-    { value: 'PC', label: 'PC' },
-    { value: 'Nintendo Switch', label: 'Nintendo Switch' },
-    { value: 'PlayStation 4', label: 'PlayStation 4' },
-    { value: 'Xbox One', label: 'Xbox One' },
-    { value: 'MacOS', label: 'Mac' },
-    { value: 'Linux', label: 'Linux' },
-    { value: 'Android', label: 'Android' },
-    { value: 'IOS', label: 'iOS' },
-    { value: 'Nintendo 3DS', label: 'Nintendo 3DS' },
-];
 
 function ModalAddGame({ setOpen }) {
     const handleAddGame = async (item) => {
         try {
             await addGames("@me", item);
-            // setOpen(false);
+            toast.success("Game added!");
         } catch(e) {
             // TODO handle error
-            console.log("Could not add game");
+            toast.error("Error! Game could not be added.");
         } 
-    };
-
-    const handleAddCustomGame = async (item) => {
-        if(item["game-title"] === "" || Object.keys(item.platforms).length === 0) {
-            // TODO validation
-        } else {
-            item["game-title"] = item["game-title"].replace(/ /g,"-");
-            let itemParsed = {
-                [item["game-title"]]: item.platforms.selectedOptions.map((obj) => obj.value) 
-            };
-            await handleAddGame(itemParsed);
-        }
     };
 
     function AddGameButton({item}) {
