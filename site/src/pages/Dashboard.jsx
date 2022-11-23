@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
@@ -102,6 +104,7 @@ function Dashboard() {
             <OwnedGameList games={ownedGames} controls={[AddGameButton]} />
           </div>
         </section>
+        <ToastContainer />
       </main>
     </>
   );
