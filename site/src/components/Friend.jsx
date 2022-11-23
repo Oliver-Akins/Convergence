@@ -9,7 +9,7 @@ function Friend({ person, classes, children }) {
             }
             <div className="person__info">
                 <p className="person__name">{ person.username ? person.username: person }</p>
-                <p className="person__id">{ person.discriminator && `# ${person.discriminator}` }</p>
+                <p className="person__id">{ person.discriminator && `#${person.discriminator}` }</p>
             </div>
             <div className="person__buttons">
                 { children }
