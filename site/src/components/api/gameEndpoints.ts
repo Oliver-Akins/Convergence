@@ -28,6 +28,10 @@ function addGames(games: object): Promise<any> {
         .catch((err) => console.error(err));
 }
 
+function deleteGames(games: object): Promise<any> {
+    return addGames(games);
+}
+
 function getGames(aUsername: string): Promise<any> {      
     return fetch(`users/${aUsername}/games`, {
         method: "GET",
@@ -71,4 +75,4 @@ function getIntersection(users: string, includeAuthenticatedUser: boolean = fals
         .catch((err) => console.error(err));
 }
 
-export { getGameSearch, addGames, getGames, getOwnedGames, getIntersection };
+export { getGameSearch, addGames, deleteGames, getGames, getOwnedGames, getIntersection };

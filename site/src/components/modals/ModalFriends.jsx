@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button, DeletableButton, SimpleDeleteButton, SimpleCheckButton } from "../Button";
+import HamburgerMenu from "../HamburgerMenu";
 import Modal from "../Modal";
 import Friend from "../Friend";
 
@@ -73,17 +74,6 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
         }
     };
 
-    const HamburgerMenu = ({friend}) => {
-        return (
-            <button className="btn-icon btn-icon--hamburger hamburger">
-                <img src={require("../../images/icons/hamburger.svg").default} alt="Menu"></img>
-                <div className="hamburger__controls">
-                    <DeletableButton classes="btn--small btn--grey" text="Remove Friend" onClickCallback={()=>{handleDelete(friend.id)}}/>
-                </div>
-            </button>
-        );
-    };
-
     function FriendsList({acceptedFriendsList, friendsList}) {
         return (
             <div className="friends-list">
@@ -91,7 +81,9 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
                     return (
                         <Friend person={friend} classes="person--manage" key={i}>
                             <CompareLibraryButton friend={friend} comparing={friendsToCompare.includes(friend)}></CompareLibraryButton>
-                            <HamburgerMenu friend={friend}></HamburgerMenu>
+                            <HamburgerMenu>
+                                <DeletableButton classes="btn--small btn--grey" text="Remove Friend" onClickCallback={()=>{handleDelete(friend.id)}}/>
+                            </HamburgerMenu>
                         </Friend>
                     );
                 })}

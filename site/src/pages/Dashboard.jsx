@@ -115,7 +115,9 @@ function Dashboard() {
             { friendsToCompare.length > 0 ?<SharedGameList games={sharedGames} />
               :<></>
             }
-            <OwnedGameList games={ownedGames} controls={[AddGameButton]} />
+            <OwnedGameList ownedGames={ownedGames} setOwnedGames={setOwnedGames}>
+              <AddGameButton />
+            </OwnedGameList>
           </div>
         </section>
         <ToastContainer 

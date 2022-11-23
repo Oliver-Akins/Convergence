@@ -1,11 +1,16 @@
 import React from "react";
 import { Button } from "../Button";
 
-function OwnedGame({ gameTitle, platforms }) {
+function OwnedGame({ gameTitle, platforms, children }) {
     return (
         <div className="game game--owned">
             <div className="game__info">
-                <p className="game__name">{ gameTitle }</p>
+                <div className="game__header">
+                    <p className="game__name">{ gameTitle }</p>
+                    <div className="game__controls">
+                        { children }
+                    </div>
+                </div>
                 <div className="game__platforms">
                 { platforms && platforms.map((platform, i) => {
                     return (
