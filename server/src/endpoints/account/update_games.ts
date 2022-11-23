@@ -10,12 +10,9 @@ interface response {
 }
 
 const route: ServerRoute = {
-	method: [`POST`, `PUT`, `PATCH`], path: `/users/{user}/games`,
+	method: [`POST`, `PUT`, `PATCH`], path: `/users/@me/games`,
 	options: {
 		validate: {
-			params: Joi.object({
-				user: Joi.string().uuid().allow(`@me`),
-			}),
 			payload: Joi.object().pattern(
 				/[A-Za-z0-9\-]+/,
 				Joi.array().items(Joi.string()).allow(null)
@@ -24,18 +21,8 @@ const route: ServerRoute = {
 	},
 	async handler(request, h) {
 		log.debug(`Updating a user's game list`);
-		let { user } = request.params;
 		const account = request.auth.credentials as unknown as Account;
 		const gamesToAdd = request.payload as any;
-
-		// Only allow users to update their own account
-		if (
-			user !== `@me`
-			&& user !== account.id
-		) {
-			log.warn(`Can't update games for a user that isn't authenticated`);
-			throw boom.forbidden(`Can't update games for other users`);
-		};
 
 		let response: response = {
 			successes: [],
