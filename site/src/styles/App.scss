@@ -1,4 +1,4 @@
-@import './Reset.scss';
+@use './Reset.scss';
 
 // Variables
 $bg-primary: #202225;
@@ -13,50 +13,279 @@ $text-color-light-secondary: #CACACA;
 $font-header-size: 32px;
 $font-normal-size: 16px;
 $font-body-size: 13px;
-$font-smallcaps-size: 12px;
+$font-small-caps-size: 12px;
 
 $font-weight-normal: normal;
+$font-weight-small-caps: 600;
 $font-weight-header: 600;
 
 $border-radius-btn: 7px;
 $border-radius-primary: 10px;
 
 $font-family-primary: 'Roboto', Arial, Helvetica, sans-serif;
+$font-family-brand: 'Rubik', Arial, Helvetica, sans-serif;
+
+$box-shadow-default: 0 5px 5px rgba(45, 45, 45, 0.5);
+
+@mixin force-width($width) {
+    min-width: $width;
+    max-width: $width;
+}
+
+@mixin force-height($height) {
+    min-height: $height;
+    max-height: $height;
+}
+
+@mixin force-size($width, $height) {
+    @include force-width($width);
+    @include force-height($height);
+}
 
 body {
     font-family: $font-family-primary;
+    color: $text-color-light-primary;
     background-color: $bg-primary;
+    height: unset;
+    overflow: hidden;
 }
 
+main {
+    margin: 0 auto 0 auto;
+}
+
+label {
+    display: block;
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
+
+a {
+    color: $brand-primary;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+input {
+    padding: 10px 7px;
+    border: none;
+    border-radius: $border-radius-btn;
+    outline-color: $brand-primary;
+    color: $text-color-light-primary;
+    background-color: $bg-primary;
+    padding: 8px 20px;
+    
+    &:focus {
+        outline: 1px solid $brand-primary;
+        outline-offset: 1px;
+    }
+}
+
+.invalid {
+    border: 1px solid $brand-red;
+    outline: 1px solid $brand-red;
+
+    &:focus {
+        outline: 1px solid $brand-red;
+        outline-offset: 1px;
+    }
+}
+
+.input-combined {
+    display: flex;
+    gap: 20px;
+
+    input {
+        max-height: 40px;
+    }
+
+    button.btn {
+        width: 383px;
+    }
+}
+
+.select {
+    color: $bg-primary;
+}
+
+.header {
+    text-align: center;
+    font-size: $font-header-size;
+}
+
+
+.home-section {
+    min-height: 250px;
+    
+}
+
+.home-section-dark{
+    min-height: 200px;
+    background-color: #1B2838;
+}
+
+.grid-container {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: auto auto;
+}
+
+.grid-item {
+    width: 400px; 
+    align-self: center; 
+    grid-column-start: 15; 
+}
+
+.grid-item1 {
+    grid-column-start: 7;
+}
+
+.btn-center {
+    display: block;
+    margin: auto;
+}
+
+.p-home {
+    font-size: smaller;
+}
+
+.get-started-button {
+    margin-top: 10px;
+}
+
+
+.small-caps {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: $font-small-caps-size;
+    font-weight: $font-weight-small-caps;
+}
+
+// Scrollbars
+.scrollable {
+    & *::-webkit-scrollbar {
+        width: 13px;
+    }
+    
+    & *::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
+        border-radius: $border-radius-primary;
+    }
+    
+    & *::-webkit-scrollbar-thumb {
+        background-color: rgb(32, 32, 32);
+        border-radius: $border-radius-primary;
+    }
+
+    &--light {
+        & *::-webkit-scrollbar {
+            width: 13px;
+        }
+        
+        & *::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.25);
+            border-radius: $border-radius-primary;
+        }
+        
+        & *::-webkit-scrollbar-thumb {
+            background-color: $bg-tertiary;
+            border-radius: $border-radius-primary;
+        }
+    }
+}
+
+.card {
+    margin: 0 auto;
+    background-color: $bg-secondary;
+    border-radius: $border-radius-primary;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+
+    &--large {
+        max-width: 500px;
+        flex-grow: 1;
+        padding: 40px 60px 40px 60px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        & * {
+            width: 100%;
+        }
+    }
+}
+
+.divider {
+    margin-top: 10px;
+    position: relative;
+    text-align: center;
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        top: 16px;
+        width: 43%;
+        height: 3px;
+        background-color: $bg-tertiary;
+    }
+    
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+    
+    p {
+        z-index: 1;
+        width: unset;
+        margin-top: 6px;
+        font-weight: $font-weight-header;
+        font-size: $font-normal-size;
+    }
+}
+
+.register__form, .login__form {
+    & > :first-child {
+        padding-top: 15px;
+    }
+}
+
+// Buttons
 .btn {
     background-color: $brand-primary;
-    border: 2px solid $brand-primary;
     padding: 12px 40px;
-    border-radius: 7px;
+    min-width: 200px;
+    border: 2px solid $brand-primary;
     color: $text-color-light-primary;
-    font-size: $font-normal-size;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 200px;
+    border-radius: $border-radius-btn;
+    font-size: $font-normal-size;
     gap: 10px;
-
-    img {
-        height: 30px;
-        width: 30px; 
-    }
+    cursor: pointer;
 
     &:hover {
         -webkit-filter: brightness(0.9);
         filter: brightness(0.9);
+        text-decoration: none;
         cursor: pointer;
     }
 
     &:active {
         -webkit-filter: brightness(0.7);
         filter: brightness(0.7);
+    }
+
+    img {
+        height: 30px;
+        width: 30px; 
     }
 
     &--primary {
@@ -81,8 +310,459 @@ body {
             border-color: $brand-red;
         }
     }
+
+    &--small {
+        @include force-height(40px);
+    }
+
+    &--form {
+        margin-top: 20px;
+    }
     
     &--unfilled:not(:hover) {
         background-color: transparent;
+    }
+
+    &--decorative {
+        &:hover {
+            -webkit-filter: none;
+            filter: none;
+            cursor: default;
+        }
+    
+        &:active {
+            -webkit-filter: none;
+            filter: none;
+        }
+    }
+
+    &--pill {
+        padding: 2px 12px;
+        border: none;
+        min-width: unset;
+    }
+
+    &--add-game {
+        max-height: 40px;
+        margin-left: 50px;
+    }
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+
+    img {
+        min-width: 30px;
+        min-height: 30px;
+        max-width: 30px;
+        max-height: 30px;
+    }
+
+    &--hamburger, &--hamburger {
+        @include force-size(30px, 30px);
+
+        img {
+            @include force-size(20px, 20px);
+        }
+    }
+}
+
+.btn-icon--outlined {
+    width: 30px;
+    height: 30px;
+    border: 2px solid $text-color-light-secondary;
+
+    img {
+        min-width: 15px;
+        min-height: 15px;
+        max-width: 15px;
+        max-height: 15px;
+    }
+
+    &:hover {
+        background-color: $text-color-light-secondary;
+        & > img {
+            filter: invert(1);
+        }
+    }
+}
+
+.container {
+    max-width: 1170px;
+
+    &--navigation {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin: 0 auto;
+    }
+}
+
+// Navigation Bar
+.navigation {
+    background-color: $bg-secondary;
+    padding: 20px 30px;
+
+    &__home {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-right: auto;
+        font-family: $font-family-brand;
+        font-size: $font-header-size;
+        color: white;
+    }
+    
+    a {
+        color: white;
+    }
+
+    &__login {
+        padding: 10px 30px;
+    }
+}
+
+.friends-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.person {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $bg-tertiary;
+    padding: 10px;
+    gap: 10px;
+    border-radius: $border-radius-primary;
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        margin-left: auto;  
+        gap: 10px; 
+    }
+
+    &__img {
+        width: 35px;
+        height: 35px;
+    }
+
+    &--personal, &--manage {
+        padding: 20px;
+        gap: 20px;
+
+        .person__img {
+            width: 40px;
+            height: 40px;
+        }  
+    }
+
+    &--manage {
+        background-color: $bg-secondary;
+    }
+
+    &__name {
+        font-size: $font-normal-size;
+        font-weight: $font-weight-header;
+    }
+
+    &__id {
+        margin-top: -2px;
+        font-size: $font-small-caps-size;
+        letter-spacing: 0.1rem;
+    }
+}
+
+.main {
+    &--register {
+        margin-top: 30px;
+    }
+
+    &--login {
+        margin-top: 30px;
+    }
+
+    &--dashboard {
+        margin: 30px;
+    }
+}
+
+// Main App
+.dashboard {
+    display: flex;
+    gap: 30px;
+    height: 83vh;
+    max-height: 95vh;
+    &__sidebar {
+        min-width: 350px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    &__main {
+        width: 100%;
+    }
+}
+
+.sidebar {
+    width: 350px;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: $border-radius-primary;
+    background-color: $bg-secondary;
+
+    & > * {
+        width: 100%;
+    }
+}
+
+.game-lists {
+    max-height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.game-list {
+    background-color: $bg-secondary;
+    border-radius: $border-radius-primary;
+    max-height: 80vh;
+    padding: 0 20px 40px 20px;
+    overflow: hidden;
+
+    &:only-child {
+        height: 89vh;
+        max-height: unset;
+    }
+    
+    &--shared {
+        margin-bottom: 30px;
+        & .game-list__games {
+            max-height: 40vh;
+        }
+
+        & + .game-list {
+            max-height: 35vh;
+
+            & .game-list__games {
+                max-height: 17vh;
+            }
+        }
+    }
+
+    &__heading {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 30px 0 13px 0;
+
+        div {
+            display: flex;
+            gap: 15px
+        }
+
+        h2 {
+            font-size: $font-header-size;
+        }
+    }
+
+    &__games {
+        display: flex;
+        flex-flow: column nowrap;
+        max-height: 80%;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        overflow-y: auto;
+        gap: 10px;
+    }
+}
+
+.games-number {
+    font-size: $font-header-size;    
+    color: $brand-primary;   
+}
+
+.game {
+    background-color: $bg-tertiary;
+    border-radius: $border-radius-primary;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    gap: 10px;
+    box-shadow: $box-shadow-default;
+
+    &__img {
+        width: 282px;
+        height: 132px;
+        border-radius: $border-radius-primary;
+    }
+    &__info {
+        margin-left: 10px;
+    }
+    &__name {
+        font-size: $font-header-size;
+        margin-bottom: 10px;
+    }
+    &__platforms {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 10px;
+
+        img {
+            max-width: 16px;
+            max-height: 16px;
+        }
+    }
+}
+
+.platform {
+    text-transform: capitalize;
+
+    &--switch {
+        background-color: #e60012;
+    }
+
+    &--steam {
+        background-color: #1B2838;
+    }
+}
+
+.get-started-text {
+    font-size: $font-header-size;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Modal
+.overlay {
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.749);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 103vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.modal {
+    position: sticky;
+    top: 10%;
+    margin: auto;
+    width: 650px;
+    min-height: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px 30px;
+    border-radius: $border-radius-primary;
+    background-color: $bg-primary;
+
+    label {
+        padding-top: 0;
+        font-size: $font-body-size;
+    }
+
+    &__header {
+        font-size: $font-header-size;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    &__button--close {
+        position: absolute;
+        width: unset;
+        top: 20px;
+        right: 20px;
+
+        button {
+            @include force-size(30px, 30px);
+            img {
+                @include force-size(20px, 20px);
+            }
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-flow: column;
+        border-radius: $border-radius-primary;
+        background-color: $bg-secondary;    
+        margin-top: 20px;
+        padding: 20px;  
+
+        &--settings {
+            flex-flow: row;
+            gap: 20px;
+    
+            img {
+                @include force-size(75px, 75px);
+            }
+
+            input {
+                max-width: 320px;
+            }
+        
+            .current-username {
+                input {
+                    flex-grow: 1;
+                }
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    }
+
+    &__controls {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__inputs {
+        display: flex;
+        flex-flow: column;
+        flex-grow: 1;
+
+        input {
+            max-width: 350px;
+            width: 100%;
+        }
+
+        input:not(:last-child) {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 242px;   
+        }
+    }
+}
+
+.settings {
+    .card {
+        margin-bottom: 20px;
+        padding: 20px;
+    }
+    &__linked-accounts {
+        flex-direction: column;
     }
 }

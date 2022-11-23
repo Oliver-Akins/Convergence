@@ -14,7 +14,7 @@ function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText =
   };
 
   return (
-    <button type="button" className={`btn ${classes}`} onClick={() => { onClickCallback && onClickCallback()}} onMouseOver={onHover} onMouseOut={onHoverOver}>
+    <button type="button" className={`btn ${classes}`} onClick={(e) => { onClickCallback && onClickCallback(e)}} onMouseOver={onHover} onMouseOut={onHoverOver}>
       { iconSrc && <img src={require(`../images/${iconSrc}`)} alt=""></img> }
       {(!hoverText || (hoverText && isHover)) ? text: hoverText }
     </button>
@@ -42,4 +42,18 @@ function DeletableButton({ text, hoverText, iconSrc=null, isGrey = false, onClic
   )
 }
 
-export { Button, PrimaryButton, UnfilledButton, DeletableButton };
+function IconButton({ onClickCallback, classes, imgSrc }) {
+  return (
+    <button type="button" className={`btn-icon ${ classes }`} onClick={() => { onClickCallback && onClickCallback()}}>
+      <img src={require(`../images/icons/${imgSrc}`)} alt="Delete"></img>
+    </button>
+  );
+}
+
+function SimpleDeleteButton({ onClickCallback, outlined, thin }) {
+  return (
+    <IconButton onClickCallback={onClickCallback} classes={outlined ? "btn-icon--outlined" : ""} imgSrc={ !thin ? "close-button.svg" : "close-button-thin.svg" } />
+  );
+}
+
+export { Button, PrimaryButton, UnfilledButton, DeletableButton, IconButton, SimpleDeleteButton };
