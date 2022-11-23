@@ -31,6 +31,12 @@ function Sidebar({ friendsList, setFriendsList, acceptedFriendsList, setAccepted
                     setOpen={ setOpenFriendsModal 
                 }/>}
             <Button text="Friends List" onClickCallback={()=> { setOpenFriendsModal(true) }} />
+            { (!acceptedFriendsList || acceptedFriendsList.length < 1) && 
+                <div className="sidebar__get-started">
+                    <img src={require("../images/icons/arrow-up.svg").default} alt=""></img>
+                    <h2>Add a friend to get started!</h2>
+                </div>
+            }
             {(friendsToCompare && friendsToCompare.length > 0) && 
             <div className="friends-list friends-list--compared">
                 {friendsToCompare.map((friend, i) => {

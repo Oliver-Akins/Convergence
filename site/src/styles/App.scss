@@ -588,6 +588,21 @@ button {
     & > * {
         width: 100%;
     }
+
+    &__get-started {
+        margin-top: 10px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        h2 {
+            font-size: $font-normal-size;
+        }
+        img {
+            @include force-size(20px, 20px);
+        }
+    }
 }
 
 .game-lists {
