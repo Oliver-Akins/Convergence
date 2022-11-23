@@ -423,12 +423,12 @@ button {
     &:active .hamburger__controls, &:focus-within .hamburger__controls, &:focus .hamburger__controls {
         display: unset;
         position: absolute;
-        background-color: $bg-tertiary;
+        background-color: $bg-primary;
         padding: 10px;
         border-radius: $border-radius-primary;
         box-shadow: $box-shadow-default;
         right: 0;
-        top: 30px;
+        top: 35px;
     }
 }
 
@@ -683,6 +683,12 @@ button {
     flex-grow: 1;
     gap: 10px;
     box-shadow: $box-shadow-default;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
     &__img {
         width: 282px;
