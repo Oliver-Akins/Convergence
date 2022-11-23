@@ -12,14 +12,19 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
         (async () => {
             try {
               const result = await getOwnFriends();
-              setAcceptedFriendsList(result);
+              if(result.length !== acceptedFriendsList.length) {
+                setAcceptedFriendsList(result);
+              }
               const aUser = await getSelf();
-              setFriendsList(aUser.relations);
+              if(aUser.relations !== friendsList) {
+                setFriendsList(aUser.relations);
+              }
+              setFriendsToCompare([]);
             } catch(error) {
               
             }
           })();
-    }, [setOpen, setAcceptedFriendsList, setFriendsList]);
+    }, [setOpen]);
     
     const handleAddComparison = (newItem) => {
         if(friendsToCompare.indexOf(newItem) === -1) {
