@@ -666,6 +666,10 @@ button {
         padding-right: 10px;
         overflow-y: auto;
         gap: 10px;
+        &::after {
+            content: "";
+            padding: 20px 0;
+        }
     }
 }
 
@@ -697,6 +701,7 @@ button {
     }
     &__info {
         margin-left: 10px;
+        width: 100%;
     }
     &__name {
         font-size: $font-header-size;
