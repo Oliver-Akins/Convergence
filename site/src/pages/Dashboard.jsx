@@ -97,7 +97,7 @@ function Dashboard() {
         <DashboardNavigation />
       </header>
       { openSettingsModal && <ModalSettings user={user} setOpen={ setOpenSettingsModal } />}
-      { openAddGameModal && <ModalAddGame setOpen={ setOpenAddGameModal } />}
+      { openAddGameModal && <ModalAddGame setOwnedGames={setOwnedGames} setOpen={ setOpenAddGameModal } />}
       <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
           <Person person={ user } classes="person--personal" buttons={ [SettingsButton] }/>

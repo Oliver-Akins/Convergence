@@ -5,13 +5,19 @@ import { Button } from "../Button";
 import Modal from "../Modal";
 import SearchList from "../SearchList";
 
-import { getGameSearch, addGames } from "../api/gameEndpoints.ts";
+import { getOwnedGames, getGameSearch, addGames } from "../api/gameEndpoints.ts";
 
-function ModalAddGame({ setOpen }) {
+function ModalAddGame({ setOwnedGames, setOpen }) {
     const handleAddGame = async (item) => {
         try {
-            await addGames(item);
-            toast.success("Game added!");
+            let response = await addGames(item);
+            if(!response || response.errors.length > 0) {
+                toast.error("Error! Game could not be added.");
+            } else if(response.successes.length > 0) {
+                toast.success("Game added!");
+                const ownedGames = await getOwnedGames();
+                setOwnedGames(ownedGames);
+            }
         } catch(e) {
             // TODO handle error
             toast.error("Error! Game could not be added.");
