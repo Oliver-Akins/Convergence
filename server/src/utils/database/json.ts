@@ -286,6 +286,16 @@ export class JSONDatabase {
 	};
 
 	/**
+	 * Rejects friend requests from users.
+	 *
+	 * @param to The user that is rejecting the friend requests
+	 * @param from The users who sent the friend requests that are being rejected
+	 */
+	public async rejectFriendRequests(to: string, from: string[]) {
+		this.data.users[to].relations.requests = this.data.users[to].relations.requests.filter(r => !from.includes(r));
+	};
+
+	/**
 	 * Removes a number of accounts from being friends with the user.
 	 *
 	 * @param account The account ID of the user deleting the friends
