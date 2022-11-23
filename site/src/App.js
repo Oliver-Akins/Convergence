@@ -9,6 +9,8 @@ import Login from './pages/Login.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import NotFound from './pages/NotFound.jsx';
 
+import { getSelf } from "./components/api/user";
+
 function App() {
   return (
     <div className="App">
@@ -18,10 +20,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
-
-        <Route element={<ProtectedRoute user={true} />}>
-          <Route path="app" element={<Dashboard />} />
-        </Route>
+        <Route path="app" element={<Dashboard />} />
       </Routes>
     </div>
   );

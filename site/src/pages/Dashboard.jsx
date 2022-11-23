@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,6 +25,8 @@ function Dashboard() {
   const [acceptedFriendsList, setAcceptedFriendsList] = useState([]);
   const [friendsToCompare, setFriendsToCompare] = useState([]);
 
+  const navigate = useNavigate();
+
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
   const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
@@ -35,6 +38,10 @@ function Dashboard() {
         setOwnedGames(ownedGames);
 
         const aUser = await getSelf();
+        if(!aUser || aUser === {}) {
+          navigate("/login");
+          return;
+        }
         setUser(aUser);
         setFriendsList(aUser.relations);
       } catch(error) {
