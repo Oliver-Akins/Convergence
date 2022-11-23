@@ -5,9 +5,22 @@ import { Button, DeletableButton, SimpleDeleteButton, SimpleCheckButton } from "
 import Modal from "../Modal";
 import Friend from "../Friend";
 
-import { getOwnFriends, addFriends, deleteFriends } from "../api/user";
+import { getOwnFriends, addFriends, deleteFriends, getSelf } from "../api/user";
 
 function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcceptedFriendsList, friendsToCompare, setFriendsToCompare, setOpen }) {
+    useEffect(() => {
+        (async () => {
+            try {
+              const result = await getOwnFriends();
+              setAcceptedFriendsList(result);
+              const aUser = await getSelf();
+              setFriendsList(aUser.relations);
+            } catch(error) {
+              
+            }
+          })();
+    }, [setOpen, setAcceptedFriendsList, setFriendsList]);
+    
     const handleAddComparison = (newItem) => {
         if(friendsToCompare.indexOf(newItem) === -1) {
             setFriendsToCompare([...friendsToCompare, newItem]);
@@ -97,7 +110,7 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
                     toast.error("Friend request failed. Try a different username combo.");
                 }
             } catch(error) {
-                toast.error("Friend request could not be sent. Try again later.");
+                toast.error("Friend request failed. Try a different username combo.");
             }
         }
 

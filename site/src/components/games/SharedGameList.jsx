@@ -2,17 +2,19 @@ import React from "react";
 import Game from "./Game";
 
 function SharedGameList({ games=null, controls=null }) {
-    if(!games || (games && games.length < 1)) {
+    if(!games) {
         return <></>;
     }
 
     return (
         <section className="game-list game-list--shared scrollable">
-            <>
             <div className="game-list__heading">
                 <div>
                     <h2>Shared Games</h2>
-                    { games && <p className="games-number">{ games.length } in common</p>}
+                    { games && games.length > 0?
+                        <p className="games-number">{ games.length } in common</p>:
+                        <p className="games-number">0</p>
+                    }
                 </div>
                 <div className="game-list__controls">
                     { controls && controls.map((Control, i) => { return <Control key={i} /> })}
@@ -27,7 +29,6 @@ function SharedGameList({ games=null, controls=null }) {
                     })
                 }
             </div>
-            </>
         </section>
     );
 }

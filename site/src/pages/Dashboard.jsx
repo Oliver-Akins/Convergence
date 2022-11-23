@@ -29,7 +29,7 @@ function Dashboard() {
   const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
 
   useEffect(() => {
-    const fetchItems = async () => {
+    (async () => {
       try {
         const ownedGames = await getOwnedGames();
         setOwnedGames(ownedGames);
@@ -40,26 +40,22 @@ function Dashboard() {
       } catch(error) {
         
       }
-    };
-
-    fetchItems();
+    })();
   }, []);
 
   useEffect(() => {
-    const fetchGames = async () => {
+    (async () => {
       try {
         const ownedGames = await getOwnedGames();
         setOwnedGames(ownedGames);
       } catch(error) {
         
       }
-    }
-
-    fetchGames();
+    })();
   }, [setOpenAddGameModal]);
 
   useEffect(() => {
-    const fetchIntersection = async () => {
+    (async () => {
       if(friendsToCompare.length > 0) {
         const parsedList = friendsToCompare.map((item) => {
           return item.id;
@@ -74,15 +70,17 @@ function Dashboard() {
       } else {
         setSharedGames([]);
       }
-    }
-
-    fetchIntersection();
+    })();
   }, [friendsToCompare]);
 
   useEffect(() => {
     (async () => {
-      let result = await getOwnFriends();
-      setAcceptedFriendsList(result);
+      try {
+        let result = await getOwnFriends();
+        setAcceptedFriendsList(result);
+      } catch(error) {
+        
+      }
     })();
   }, [friendsList]);
 
@@ -107,7 +105,9 @@ function Dashboard() {
         </div>
         <section className="dashboard__main">
           <div className="game-lists">
-            <SharedGameList games={sharedGames} />
+            { friendsToCompare.length > 0 ?<SharedGameList games={sharedGames} />
+              :<></>
+            }
             <OwnedGameList games={ownedGames} controls={[AddGameButton]} />
           </div>
         </section>
