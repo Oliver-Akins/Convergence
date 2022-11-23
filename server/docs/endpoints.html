@@ -34,6 +34,7 @@
 					<li><a href="#user-info"><code>GET /users/{user}</code></a></li>
 					<li><a href="#list-friends"><code>GET /users/{user}/friends</code></a></li>
 					<li><a href="#add-friends"><code>POST,PUT /users/@me/friends</code></a></li>
+					<li><a href="#reject-friend-request"><code>DELETE /users/@me/friends/requests</code></a></li>
 					<li><a href="#remove-friends"><code>DELETE /users/@me/friends</code></a></li>
 					<li><a href="#games-update"><code>POST,PUT,PATCH /users/@me/games</code></a></li>
 				</ul>
@@ -275,6 +276,21 @@
 				</tr>
 			</tbody>
 		</table>
+		<h2 id="reject-friend-request"><code>DELETE /users/@me/friends/requests</code></h2>
+		<p>
+			Reject a number of friend requests from people. This doesn't alert
+			the user that made the request that it was rejected.
+		</p>
+		<h3>Payload</h3>
+		<p>
+			The payload is expected to be an array of user IDs. This will not
+			accept <code>@me</code> as a value.
+		</p>
+		<h3>Response</h3>
+		<p>
+			On success this endpoint returns HTTP 204 No Content, on failure it
+			returns the respective HTTP error code.
+		</p>
 		<h2 id="remove-friends"><code>DELETE /users/@me/friends</code></h2>
 		<h3>Payload</h3>
 		<p>
