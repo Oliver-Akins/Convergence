@@ -35,7 +35,7 @@
 					<li><a href="#list-friends"><code>GET /users/{user}/friends</code></a></li>
 					<li><a href="#add-friends"><code>POST,PUT /users/@me/friends</code></a></li>
 					<li><a href="#remove-friends"><code>DELETE /users/@me/friends</code></a></li>
-					<li><a href="#games-update"><code>POST,PUT,PATCH /users/{user}/games</code></a></li>
+					<li><a href="#games-update"><code>POST,PUT,PATCH /users/@me/games</code></a></li>
 				</ul>
 			</li>
 			<li>
@@ -286,32 +286,23 @@
 			This endpoint returns an "HTTP 204 - No Content" response on success
 			and a 4XX or 5XX status code on success.
 		</p>
-		<h2 id="games-update"><code>POST,PUT,PATCH /users/{user}/games</code></h2>
+		<h2 id="games-update"><code>POST,PUT,PATCH /users/@me/games</code></h2>
 		<p>
 			All three HTTP verbs operate the same, so there is no difference in
 			using <code>PATCH</code> compared to <code>PUT</code> or <code>POST</code>.
 		</p>
-		<h3>Path Params</h3>
-		<table>
-			<thead>
-				<tr>
-					<td>Parameter</td>
-					<td>Type</td>
-					<td>Description</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><code>user</code></td>
-					<td>User ID</td>
-					<td>
-						What ID of the user to update the game ownership info about.
-						This can be used to modify the currently authenticated
-						user by setting the parameter to <code>@me</code>.
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<h3>Payload</h3>
+		<p>
+			The payload is expected to be an object with keys representing game
+			slugs, and the values be one of the following:
+		</p>
+		<ul>
+			<li>A list of platforms the user owns the game on</li>
+			<li>
+				<code>null</code>, indicating to removing the game from the user's
+				owned games list
+			</li>
+		</ul>
 		<h3>Response</h3>
 		<p>
 			This returns an object with the following properties:
