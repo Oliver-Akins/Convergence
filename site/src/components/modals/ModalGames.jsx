@@ -10,7 +10,7 @@ import { getGameSearch, addGames } from "../api/gameEndpoints.ts";
 function ModalAddGame({ setOpen }) {
     const handleAddGame = async (item) => {
         try {
-            await addGames("@me", item);
+            await addGames(item);
             toast.success("Game added!");
         } catch(e) {
             // TODO handle error

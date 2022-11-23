@@ -1,4 +1,3 @@
-// TODO
 function getGameSearch(searchQuery : string): Promise<any> { 
     const url = `games/search?` + new URLSearchParams({
         "query": `${searchQuery}`,
@@ -15,9 +14,8 @@ function getGameSearch(searchQuery : string): Promise<any> {
         });
 }
 
-// TODO figure this out, also has a route for PATCH and POST which all operate the same
-function addGames(aUsername: string, games: object): Promise<any> {      
-    return fetch(`users/${aUsername}/games`, {
+function addGames(games: object): Promise<any> {      
+    return fetch(`users/@me/games`, {
         method: "PATCH",
         body: JSON.stringify(games),
         headers: {
@@ -60,7 +58,6 @@ function getOwnedGames(): Promise<any> {
         });
 }
 
-// TODO
 function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {         
     return fetch(`intersection?` + new URLSearchParams({
         "@me": `${includeAuthenticatedUser}`,
