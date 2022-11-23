@@ -85,6 +85,12 @@ function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpe
                     return;
                 }
                 let response = await addFriends([friendInput]);
+                
+                if(response.sent && response.accepted.length > 0) {
+                    alert("Friend request successfully sent!");
+                } else if(response.errored && response.errored.length > 0) {
+                    alert("Failed to send friend request.");
+                }
             } catch(error) {
                 alert("Could not add friend");
             }
