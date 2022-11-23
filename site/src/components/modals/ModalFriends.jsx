@@ -7,7 +7,7 @@ import Friend from "../Friend";
 
 import { getOwnFriends, addFriends, deleteFriends } from "../api/user";
 
-function ModalFriends({ friendsList, acceptedFriendsList, setFriendsList, setOpen, friendsToCompare, setFriendsToCompare }) {
+function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcceptedFriendsList, friendsToCompare, setFriendsToCompare, setOpen }) {
     const handleAddComparison = (newItem) => {
         if(friendsToCompare.indexOf(newItem) === -1) {
             setFriendsToCompare([...friendsToCompare, newItem]);

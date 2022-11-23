@@ -3,14 +3,24 @@ import { Button, SimpleDeleteButton } from "./Button";
 import ModalFriends from "./modals/ModalFriends";
 import Friend from "./Friend";
 
-function Sidebar({ friendsList, acceptedFriendsList, friendsToCompare, setFriendsToCompare }) {
+function Sidebar({ friendsList, setFriendsList, acceptedFriendsList, setAcceptedFriendsList, friendsToCompare, setFriendsToCompare }) {
     const [openFriendsModal, setOpenFriendsModal] = useState(false);
 
     const RemoveButton = ({friend}) => <SimpleDeleteButton outlined={true} onClickCallback={() => { setFriendsToCompare(friendsToCompare.filter(function(e) { return e !== friend })) }} />;
 
     return (
         <section className="sidebar">
-            { openFriendsModal && <ModalFriends friendsList={friendsList} acceptedFriendsList={acceptedFriendsList} friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} setOpen={ setOpenFriendsModal }/>}
+            {/* TODO refactor this intense prop drilling with a singular state */}
+            { openFriendsModal && 
+                <ModalFriends   
+                    friendsList={friendsList}
+                    setFriendsList={setFriendsList}
+                    acceptedFriendsList={acceptedFriendsList}
+                    setAcceptedFriendsList={setAcceptedFriendsList}
+                    friendsToCompare={friendsToCompare} 
+                    setFriendsToCompare={setFriendsToCompare} 
+                    setOpen={ setOpenFriendsModal 
+                }/>}
             <Button text="Friends List" onClickCallback={()=> { setOpenFriendsModal(true) }} />
             <div className="friends-list">
             {friendsToCompare && friendsToCompare.map((friend, i) => {

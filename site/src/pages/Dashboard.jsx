@@ -96,7 +96,14 @@ function Dashboard() {
       <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
           <Person person={ user } classes="person--personal" buttons={ [SettingsButton] }/>
-          <Sidebar friendsList={friendsList} acceptedFriendsList={acceptedFriendsList} setFriendsList={setFriendsList} friendsToCompare={friendsToCompare} setFriendsToCompare={setFriendsToCompare} ></Sidebar>
+          <Sidebar 
+            friendsList={friendsList}
+            setFriendsList={setFriendsList}
+            acceptedFriendsList={acceptedFriendsList}
+            setAcceptedFriendsList={setAcceptedFriendsList}
+            friendsToCompare={friendsToCompare}
+            setFriendsToCompare={setFriendsToCompare}
+           />
         </div>
         <section className="dashboard__main">
           <div className="game-lists">
