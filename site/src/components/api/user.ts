@@ -30,7 +30,6 @@ function getOwnFriends(): Promise<any> {
     return getFriends("@me");
 }
 
-// TODO
 function addFriends(usernames: string[]): Promise<any> {    
     return fetch(`users/@me/friends`, {
         method: "POST",
@@ -45,7 +44,20 @@ function addFriends(usernames: string[]): Promise<any> {
         .catch((err) => console.error(err));
 }
 
-// TODO
+function rejectFriendRequests(usernames: string[]): Promise<any> {    
+    return fetch(`users/@me/friends/requests`, {
+        method: "DELETE",
+        body: JSON.stringify(usernames),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then((response) => {
+            if(response.status === 204) return JSON.stringify(usernames);
+        })
+        .catch((err) => console.error(err));
+}
+
 function deleteFriends(usernames: string[]): Promise<any> {     
     return fetch(`users/@me/friends`, {
         method: "DELETE",
@@ -63,4 +75,4 @@ function deleteFriends(usernames: string[]): Promise<any> {
         .catch((err) => console.error(err));
 }
 
-export { getUser, getSelf, getFriends, getOwnFriends, addFriends, deleteFriends };
+export { getUser, getSelf, getFriends, getOwnFriends, addFriends, rejectFriendRequests, deleteFriends };

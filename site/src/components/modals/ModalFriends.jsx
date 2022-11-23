@@ -5,7 +5,7 @@ import { Button, DeletableButton, SimpleDeleteButton, SimpleCheckButton } from "
 import Modal from "../Modal";
 import Friend from "../Friend";
 
-import { getOwnFriends, addFriends, deleteFriends, getSelf } from "../api/user";
+import { getOwnFriends, addFriends, rejectFriendRequests, deleteFriends, getSelf } from "../api/user";
 
 function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcceptedFriendsList, friendsToCompare, setFriendsToCompare, setOpen }) {
     useEffect(() => {
@@ -51,6 +51,19 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
         }
     };
 
+    const handleReject = async (friend) => {
+        try {
+            console.log(friend);
+            await rejectFriendRequests([friend]);
+            const aUser = await getSelf();
+            localStorage.setItem("user", JSON.stringify(aUser));
+            const friendsListUpdated = await getOwnFriends();
+            setFriendsList(friendsListUpdated);
+        } catch(error) {
+        }
+    };
+
+
     const handleDelete = async (friend) => {
         try {
             const result = await deleteFriends([friend]);
@@ -85,6 +98,7 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
                 {friendsList.requests && friendsList.requests.map((friend, i) => {
                     return (
                         <Friend person={friend} classes="person--manage person--requested" key={i}>
+                            <SimpleDeleteButton outlined={true} onClickCallback={(e) => {handleReject(friend)}} />
                             <SimpleCheckButton outlined={true} onClickCallback={(e) => {handleAccept(friend)}} />
                         </Friend>
                     );
