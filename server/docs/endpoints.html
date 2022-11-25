@@ -42,6 +42,7 @@
 			<li>
 				<a href="#games">Game Endpoints</a>
 				<ul>
+					<li><a href="#game-info"><code>GET /games/{game}</code></a></li>
 					<li><a href="#search-games"><code>GET /games/search</code></a></li>
 					<li><a href="#compare-games"><code>GET /intersection</code></a></li>
 				</ul>
@@ -362,6 +363,32 @@
 			These endpoints are specifically for interacting with
 			<a href="/docs/models.html#game">Game</a> objects, that are not
 			associated with a user.
+		</p>
+		<h2 id="game-info"><code>GET /games/{game}</code></h2>
+		<p>
+			Allows retrieving information for a single game
+		</p>
+		<h3>Path Params</h3>
+		<table>
+			<thead>
+				<tr>
+					<td>Parameter</td>
+					<td>Type</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>game</code></td>
+					<td>String</td>
+					<td>The slug of the game to get the info for.</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Response</h3>
+		<p>
+			This returns a <a href="/docs/models.html#Game">Game</a> object upon
+			success.
 		</p>
 		<h2 id="search-games"><code>GET /games/search</code></h2>
 		<p>
