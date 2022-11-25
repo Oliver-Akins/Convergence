@@ -6,9 +6,21 @@ import HamburgerMenu from "../HamburgerMenu";
 import Modal from "../Modal";
 import Friend from "../Friend";
 
-import { getOwnFriends, addFriends, rejectFriendRequests, deleteFriends, getSelf } from "../api/user";
+import { getUser, getOwnFriends, addFriends, rejectFriendRequests, deleteFriends, getSelf } from "../api/user";
 
 function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcceptedFriendsList, friendsToCompare, setFriendsToCompare, setOpen }) {
+    const parseUser = async (aUser) => {
+        let userParsed = aUser;
+        if(aUser.relations && aUser.relations.requests.length > 0) {
+          for (let i = 0; i < aUser.relations.requests.length; i++) {
+            const element = aUser.relations.requests[i];
+            userParsed.relations.requests[i] = await getUser(element);
+          }
+        }
+    
+        return userParsed;
+    };
+    
     useEffect(() => {
         (async () => {
             try {
@@ -16,9 +28,20 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
               if(result.length !== acceptedFriendsList.length) {
                 setAcceptedFriendsList(result);
               }
+
+              let userChanged = false;
               const aUser = await getSelf();
-              if(aUser.relations !== friendsList) {
-                setFriendsList(aUser.relations);
+              for (let i = 0; i < aUser.relations.requests.length; i++) {
+                const element = aUser.relations.requests[i];
+                if(element !== friendsList.requests[i]) {
+                    userChanged = true;
+                    break;
+                }
+              }
+
+              if(userChanged) {
+                const userParsed = await parseUser(aUser);
+                setFriendsList(userParsed.relations);
               }
               setFriendsToCompare([]);
             } catch(error) {
@@ -54,7 +77,6 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
 
     const handleReject = async (friend) => {
         try {
-            console.log(friend);
             await rejectFriendRequests([friend]);
             const aUser = await getSelf();
             localStorage.setItem("user", JSON.stringify(aUser));
@@ -90,8 +112,8 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
                 {friendsList.requests && friendsList.requests.map((friend, i) => {
                     return (
                         <Friend person={friend} classes="person--manage person--requested" key={i}>
-                            <SimpleDeleteButton outlined={true} onClickCallback={(e) => {handleReject(friend)}} />
-                            <SimpleCheckButton outlined={true} onClickCallback={(e) => {handleAccept(friend)}} />
+                            <SimpleDeleteButton outlined={true} onClickCallback={(e) => {handleReject(friend.id)}} />
+                            <SimpleCheckButton outlined={true} onClickCallback={(e) => {handleAccept(friend.id)}} />
                         </Friend>
                     );
                 })}

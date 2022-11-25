@@ -29,6 +29,18 @@ function Dashboard() {
 
   const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
 
+  const parseUser = async (aUser) => {
+    let userParsed = aUser;
+    if(aUser.relations && aUser.relations.requests.length > 0) {
+      for (let i = 0; i < aUser.relations.requests.length; i++) {
+        const element = aUser.relations.requests[i];
+        userParsed.relations.requests[i] = await getUser(element);
+      }
+    }
+
+    return userParsed;
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -44,8 +56,9 @@ function Dashboard() {
         }
         const ownedGames = await getOwnedGames();
         setOwnedGames(ownedGames);
-        setUser(aUser);
-        setFriendsList(aUser.relations);
+        const userParsed = await parseUser(aUser);
+        setUser(userParsed);
+        setFriendsList(userParsed.relations);
       } catch(error) {
         
       }
