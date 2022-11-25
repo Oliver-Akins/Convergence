@@ -4,7 +4,7 @@ import boom from "@hapi/boom";
 import Joi from "joi";
 
 const route: ServerRoute = {
-	method: `GET`, path: `/game/{game}`,
+	method: `GET`, path: `/games/{game}`,
 	options: {
 		validate: {
 			params: Joi.object({
