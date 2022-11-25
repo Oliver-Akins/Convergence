@@ -695,8 +695,10 @@ button {
     }
 
     &__img {
-        width: 282px;
+        min-width: 250px;
+        width: 250px;
         height: 132px;
+        object-fit: cover;
         border-radius: $border-radius-primary;
     }
     &__info {
