@@ -32,6 +32,21 @@ function deleteGames(games: object): Promise<any> {
     return addGames(games);
 }
 
+function getGame(slug: string): Promise<any> {      
+    return fetch(`games/${slug}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then((response) => {            
+            if(response.ok) return response.json();
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
 function getGames(aUsername: string): Promise<any> {      
     return fetch(`users/${aUsername}/games`, {
         method: "GET",
@@ -75,4 +90,4 @@ function getIntersection(users: string, includeAuthenticatedUser: boolean = fals
         .catch((err) => console.error(err));
 }
 
-export { getGameSearch, addGames, deleteGames, getGames, getOwnedGames, getIntersection };
+export { getGameSearch, addGames, deleteGames, getGame, getGames, getOwnedGames, getIntersection };
