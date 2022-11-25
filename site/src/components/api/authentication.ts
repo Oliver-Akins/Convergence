@@ -37,8 +37,13 @@ function login(username: string, password: string): Promise<any> {
         .catch((err) => console.error(err));
 }
 
+function logout(): void {
+    localStorage.clear();
+    document.cookie = 'sid=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 function getAccount(): any {
     return localStorage.getItem("user");
 }
 
-export { register, login, getAccount };
+export { register, login, getAccount, logout };
