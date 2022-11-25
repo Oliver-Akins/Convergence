@@ -5,18 +5,20 @@ import { Button } from "../Button";
 import Modal from "../Modal";
 import SearchList from "../SearchList";
 
-import { getOwnedGames, getGameSearch, addGames } from "../api/gameEndpoints.ts";
+import { getOwnedGames, getGameSearch, addGames, getGame } from "../api/gameEndpoints.ts";
 
-function ModalAddGame({ setOwnedGames, setOpen }) {
+function ModalAddGame({ ownedGames, setOwnedGames, setOwnedGamesSimple, setOpen }) {
     const handleAddGame = async (item) => {
         try {
-            let response = await addGames(item);
+            let itemSent = {[item.slug]: item.platforms};
+            let response = await addGames(itemSent);
             if(!response || response.errors.length > 0) {
                 toast.error("Error! Game could not be added.");
             } else if(response.successes.length > 0) {
                 toast.success("Game added!");
-                const ownedGames = await getOwnedGames();
-                setOwnedGames(ownedGames);
+                const ownedGamesResponse = await getOwnedGames();
+                setOwnedGamesSimple(ownedGamesResponse);
+                setOwnedGames([ ...ownedGames, item]);
             }
         } catch(e) {
             // TODO handle error
@@ -25,7 +27,7 @@ function ModalAddGame({ setOwnedGames, setOpen }) {
     };
 
     function AddGameButton({item}) {
-        return <Button text="Add Game" classes="btn--add-result" onClickCallback={() => {handleAddGame({[item.slug]: item.platforms})}} />;
+        return <Button text="Add Game" classes="btn--add-result" onClickCallback={() => {handleAddGame(item)}} />;
     }
 
     function ModalContent() {

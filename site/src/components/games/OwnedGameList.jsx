@@ -6,14 +6,19 @@ import HamburgerMenu from "../HamburgerMenu";
 
 import { deleteGames } from "../api/gameEndpoints";
 
-function OwnedGameList({ ownedGames, setOwnedGames, children }) {
-    const handleDeleteGame = async (gameTitle) => {
+function OwnedGameList({ ownedGames, ownedGamesSimple, setOwnedGames, setOwnedGamesSimple, children }) {
+    const handleDeleteGame = async (game) => {
         try {
-            let gamesParsed = ownedGames;
-            gamesParsed[gameTitle] = null;
-            const response = await deleteGames(ownedGames);
-            delete gamesParsed[gameTitle];
-            setOwnedGames({...gamesParsed});
+            let gamesParsed = ownedGamesSimple;
+            gamesParsed[game.slug] = null;
+            console.log(gamesParsed);
+            const response = await deleteGames(ownedGamesSimple);
+            delete gamesParsed[game.slug];
+            setOwnedGamesSimple({...gamesParsed});
+
+            // parse displayed list
+            const newDisplayedGames = ownedGames.filter((item) => { return item !== game });
+            setOwnedGames(newDisplayedGames);
         } catch(e) {
 
         }
@@ -31,11 +36,11 @@ function OwnedGameList({ ownedGames, setOwnedGames, children }) {
             </div>
             <div className="game-list__games">
                 {ownedGames &&
-                    Object.keys(ownedGames).map((gameTitle, i) => {
+                    ownedGames.map((game, i) => {
                         return (
-                            <OwnedGame gameTitle={gameTitle} platforms={ownedGames[gameTitle]} key={gameTitle} >
+                            <OwnedGame game={game} key={game.name} >
                                 <HamburgerMenu>
-                                    <DeletableButton classes="btn--small btn--grey" text="Remove Game" onClickCallback={()=>{handleDeleteGame(gameTitle)}}/>
+                                    <DeletableButton classes="btn--small btn--grey" text="Remove Game" onClickCallback={()=>{handleDeleteGame(game)}}/>
                                 </HamburgerMenu>
                             </OwnedGame>
                         );
