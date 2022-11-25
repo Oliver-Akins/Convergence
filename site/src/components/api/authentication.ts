@@ -13,6 +13,7 @@ function register(aUsername: string, aPassword: string): Promise<any> {
         })
         .then((json) => {
             localStorage.setItem("user", JSON.stringify(json));
+            return json;
         })
         .catch((err) => console.error(err));
 }
@@ -31,6 +32,7 @@ function login(username: string, password: string): Promise<any> {
         })
         .then((json) => {
             localStorage.setItem("user", JSON.stringify(json));
+            return json;
         })
         .catch((err) => console.error(err));
 }

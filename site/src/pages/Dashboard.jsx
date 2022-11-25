@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
@@ -13,7 +11,7 @@ import { DashboardNavigation } from "../components/Navigation";
 import { ModalAddGame } from "../components/modals/ModalGames";
 
 import { getOwnedGames, getIntersection } from "../components/api/gameEndpoints";
-import { getSelf, getOwnFriends } from "../components/api/user";
+import { getUser, getOwnFriends } from "../components/api/user";
 
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
@@ -34,14 +32,18 @@ function Dashboard() {
   useEffect(() => {
     (async () => {
       try {
-        const ownedGames = await getOwnedGames();
-        setOwnedGames(ownedGames);
+        if(localStorage.getItem("user") === null || localStorage.getItem("user") === "{}") {
+          navigate("/login");
+          return;
+        }
 
-        const aUser = await getSelf();
+        const aUser = await getUser("@me");
         if(!aUser || aUser === {}) {
           navigate("/login");
           return;
         }
+        const ownedGames = await getOwnedGames();
+        setOwnedGames(ownedGames);
         setUser(aUser);
         setFriendsList(aUser.relations);
       } catch(error) {
@@ -120,11 +122,6 @@ function Dashboard() {
             </OwnedGameList>
           </div>
         </section>
-        <ToastContainer 
-          position="top-center"
-          hideProgressBar={true}
-          theme="dark"
-        />
       </main>
     </>
   );

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText = null}) {
+function Button({ text, classes="", onClickCallback, type=null, triggerOnEnter = false, iconSrc = null, hoverText = null}) {
   const [isHover, setHover] = useState(false);
 
   const onHover = (e) => {
@@ -13,8 +13,21 @@ function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText =
     setHover(false);
   };
 
+  useEffect(() => {
+    const listener = event => {
+      if (triggerOnEnter && (event.code === "Enter" || event.code === "NumpadEnter")) {
+        event.preventDefault();
+        onClickCallback(event);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [onClickCallback, triggerOnEnter]);
+
   return (
-    <button type="button" className={`btn ${classes}`} onClick={async (e) => { onClickCallback && onClickCallback(e)}} onMouseOver={onHover} onMouseOut={onHoverOver}>
+    <button type={type? type: "button"} className={`btn ${classes}`} onClick={async (e) => { onClickCallback && onClickCallback(e)}} onMouseOver={onHover} onMouseOut={onHoverOver}>
       { iconSrc && <img src={require(`../images/${iconSrc}`)} alt=""></img> }
       {(!hoverText || (hoverText && isHover)) ? text: hoverText }
     </button>
