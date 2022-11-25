@@ -5,10 +5,10 @@ function HamburgerMenu({ classes, children }) {
         <div className={`hamburger ${classes}`}>
             <button className="btn-icon btn-icon--hamburger">
                 <img src={require("../images/icons/hamburger.svg").default} alt="Menu"></img>
-                <div className="hamburger__controls">
-                    { children }
-                </div>
             </button>
+            <div className="hamburger__controls">
+                { children }
+            </div>
         </div>
     );
 };
