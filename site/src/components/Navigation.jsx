@@ -8,7 +8,7 @@ function Navigation() {
     return(
         <nav className="navigation">
             <div className="container--navigation container">
-                <Link className="navigation__home" to="/"><img alt="" src={require("../images/logo-small.svg")}></img>Convergence</Link>
+                <Link className="navigation__home" to="/"><img alt="" src={require("../images/logo-small.svg").default}></img>Convergence</Link>
                 <Link className="navigation__login" to="/login">Login</Link>
                 <Link className="btn btn--unfilled" to="/register">Sign Up</Link>
             </div>
