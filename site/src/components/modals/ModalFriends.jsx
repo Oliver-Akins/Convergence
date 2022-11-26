@@ -126,6 +126,10 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
 
         const addFriendFetch = async () => {
             try {
+                if(friendInput.length < 1) {
+                    return;
+                }
+
                 const ownInfo = JSON.parse(localStorage.getItem("user"));
                 let parsedInput = friendInput.split("#");
                 if(parsedInput.length < 2) {
@@ -153,7 +157,7 @@ function ModalFriends({ friendsList, setFriendsList, acceptedFriendsList, setAcc
                 <div className="modal__inputs">
                     <div className="input-combined">
                         <input type="text" id="username" placeholder="Username#0001" onChange={(e) => {setFriendInput(e.target.value)}}></input>
-                        <Button text="Send Friend Request" classes="btn--small" onClickCallback={addFriendFetch} />
+                        <Button text="Send Friend Request" classes="btn--small" triggerOnEnter={true} onClickCallback={addFriendFetch} />
                     </div>
                 </div>
             </div>

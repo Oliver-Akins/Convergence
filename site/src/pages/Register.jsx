@@ -65,7 +65,7 @@ function Register() {
           <span className="divider">
             <p className="small-caps">Or</p>
           </span>
-          <div className="register__form">
+          <form className="register__form">
             <label className="small-caps" htmlFor="username">Username</label>
             <input type="text" id="username" placeholder="Username" onChange={handleChange}></input>
             <label className="small-caps" htmlFor="password">Password</label>
@@ -73,7 +73,7 @@ function Register() {
             <label className="small-caps" htmlFor="confirmPassword">Confirm Password</label>
             <input type="password" className={isPasswordSame ? "": "invalid"} id="confirmPassword" onChange={handleChange}></input>
             <Button text="Register" classes="btn btn--form" triggerOnEnter={true} onClickCallback={(e) => { handleFormSubmit(e) }}/>
-          </div>
+          </form>
           <p>Already have an account? <Link to="/login">Login</Link></p>
         </section>
       </main>

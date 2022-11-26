@@ -77,7 +77,7 @@ function getOwnedGames(): Promise<any> {
         });
 }
 
-function getIntersection(users: string, includeAuthenticatedUser: boolean = false): Promise<any> {         
+function getIntersection(users: string, includeAuthenticatedUser: boolean = true): Promise<any> {         
     return fetch(`intersection?` + new URLSearchParams({
         "@me": `${includeAuthenticatedUser}`,
         "users": `${users}`
@@ -85,6 +85,8 @@ function getIntersection(users: string, includeAuthenticatedUser: boolean = fals
         method: "GET",
     })
         .then((response) => {
+            if(response.status === 204) return {};
+
             if(response.ok) return response.json();
         })
         .catch((err) => console.error(err));

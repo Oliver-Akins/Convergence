@@ -12,8 +12,8 @@ function Home() {
       <header>
         <Navigation />
       </header>
-      <main className="home">
-          <div className="home-section grid-container">
+      <main className="main--home">
+          <div className="home-section">
             <div className="grid-container">
               <div className="grid-item grid-item1">
                 <h2>
@@ -22,16 +22,14 @@ function Home() {
                 <p className="p-home">Convergence allows you to see what games you and your friends
                   all own to make finding games to play together easier!
                 </p>
-                <Link to="/register">
-                  <button className="btn get-started-button">Get Started</button>
-                </Link>
+                <Link to="/login" className="btn btn--primary get-started-button">Get Started</Link>
               </div>
               <div className="grid-item">
                 <img src={logo} alt="logo" width="200"></img>
               </div>
             </div>
           </div>
-          <div className="home-section-dark grid-container">
+          <div className="home-section home-section--dark">
             <div className="grid-container">
               <div className="grid-item grid-item1">
                 <h3>
@@ -47,7 +45,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="home-section grid-container">
+          <div className="home-section">
             <div className="grid-container">
               <div className="grid-item grid-item1">
                 <img src={friends} alt="friends"></img>
@@ -64,9 +62,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <Link to="/register">
-            <button className="btn get-started-button btn-center">Get Started</button>
-          </Link>
+          <Link to="/login" className="btn btn--primary get-started-button btn-center">Get Started</Link>
       </main>
     </>
   );

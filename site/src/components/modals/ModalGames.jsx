@@ -37,6 +37,10 @@ function ModalAddGame({ ownedGames, setOwnedGames, setOwnedGamesSimple, setOpen 
         const handleSearchSubmit = async (e) => {
             e.preventDefault();
 
+            if(searchState.length < 1) {
+                return;
+            }
+
             try {
                 let searchResults = await getGameSearch(searchState);
                 setSearchResults(searchResults)
@@ -54,7 +58,7 @@ function ModalAddGame({ ownedGames, setOwnedGames, setOwnedGamesSimple, setOpen 
                         <label className="small-caps" htmlFor="game-search">Game Title</label>
                         <div className="input-combined">
                             <input type="text" id="game-search" className="input--game-search" onChange={(e) => { setSearchState(e.target.value) }}></input>
-                            <Button classes="btn--game-search" text="Search Games" onClickCallback={async (e) => { handleSearchSubmit(e) }}></Button>
+                            <Button classes="btn--game-search" text="Search Games" triggerOnEnter={true} onClickCallback={async (e) => { handleSearchSubmit(e) }}></Button>
                         </div>
                     </div>
                     <SearchList results={searchResults} controls={[AddGameButton]}></SearchList>

@@ -115,25 +115,25 @@ input {
     font-size: $font-header-size;
 }
 
-
 .home-section {
     min-height: 250px;
-    
-}
-
-.home-section-dark{
-    min-height: 200px;
-    background-color: #1B2838;
+    &--dark {
+        min-height: 200px;
+        background-color: #1B2838;
+    }
 }
 
 .grid-container {
+    max-width: 1170px;
+    width: 100%;
+    margin: 0 auto;
     display: grid;
-    padding: 10px;
+    padding: 20px 10px;
     grid-template-columns: auto auto;
 }
 
 .grid-item {
-    width: 400px; 
+    width: 500px; 
     align-self: center; 
     grid-column-start: 15; 
 }
@@ -152,9 +152,8 @@ input {
 }
 
 .get-started-button {
-    margin-top: 10px;
+    margin-top: 30px;
 }
-
 
 .small-caps {
     letter-spacing: 2px;
@@ -304,9 +303,10 @@ button {
     }
 
     &--primary {
-        padding: 32px 95px;
-        font-size: $font-header-size;
+        padding: 15px 55px;
+        font-size: 22px;
         font-weight: $font-weight-header;
+        border-radius: $border-radius-primary;
     }
     
     &--grey {
@@ -447,7 +447,8 @@ button {
 // Navigation Bar
 .navigation {
     background-color: $bg-secondary;
-    padding: 20px 30px;
+    padding: 15px 30px;
+    height: 80px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -460,6 +461,10 @@ button {
         font-family: $font-family-brand;
         font-size: $font-header-size;
         color: white;
+    }
+
+    img {
+        @include force-size(40px, 40px);
     }
     
     a {
@@ -543,6 +548,20 @@ button {
 }
 
 .main {
+    &--home {
+        margin: 0 auto;
+        padding-bottom: 40px;
+
+        .container {
+            margin: 0 auto;
+        }
+
+        a {
+            max-width: -moz-fit-content;
+            max-width: fit-content;
+        }
+    }
+
     &--register {
         margin-top: 30px;
     }
