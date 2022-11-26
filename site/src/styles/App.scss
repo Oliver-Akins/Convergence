@@ -667,6 +667,10 @@ button {
             & + .game-list {
                 max-height: unset;
                 flex-grow: 1;
+
+                & .game-list__games {
+                    max-height: 50vh;
+                }
             }
         }
     }
