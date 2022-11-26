@@ -152,7 +152,7 @@ input {
 }
 
 .get-started-button {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .small-caps {
@@ -303,9 +303,10 @@ button {
     }
 
     &--primary {
-        padding: 32px 95px;
-        font-size: $font-header-size;
+        padding: 15px 55px;
+        font-size: 22px;
         font-weight: $font-weight-header;
+        border-radius: $border-radius-primary;
     }
     
     &--grey {
@@ -549,6 +550,7 @@ button {
 .main {
     &--home {
         margin: 0 auto;
+        padding-bottom: 40px;
 
         .container {
             margin: 0 auto;

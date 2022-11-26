@@ -23,7 +23,7 @@ function Home() {
                   all own to make finding games to play together easier!
                 </p>
                 <Link to="/register">
-                  <button className="btn get-started-button">Get Started</button>
+                  <button className="btn btn--primary get-started-button">Get Started</button>
                 </Link>
               </div>
               <div className="grid-item">
@@ -65,7 +65,7 @@ function Home() {
             </div>
           </div>
           <Link to="/register">
-            <button className="btn get-started-button btn-center">Get Started</button>
+            <button className="btn btn--primary get-started-button btn-center">Get Started</button>
           </Link>
       </main>
     </>
