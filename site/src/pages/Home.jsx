@@ -12,8 +12,8 @@ function Home() {
       <header>
         <Navigation />
       </header>
-      <main className="home">
-          <div className="home-section grid-container">
+      <main className="main--home">
+          <div className="home-section">
             <div className="grid-container">
               <div className="grid-item grid-item1">
                 <h2>
@@ -31,7 +31,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="home-section-dark grid-container">
+          <div className="home-section home-section--dark">
             <div className="grid-container">
               <div className="grid-item grid-item1">
                 <h3>
@@ -47,7 +47,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="home-section grid-container">
+          <div className="home-section">
             <div className="grid-container">
               <div className="grid-item grid-item1">
                 <img src={friends} alt="friends"></img>

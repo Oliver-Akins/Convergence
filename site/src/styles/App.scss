@@ -115,25 +115,25 @@ input {
     font-size: $font-header-size;
 }
 
-
 .home-section {
     min-height: 250px;
-    
-}
-
-.home-section-dark{
-    min-height: 200px;
-    background-color: #1B2838;
+    &--dark {
+        min-height: 200px;
+        background-color: #1B2838;
+    }
 }
 
 .grid-container {
+    max-width: 1170px;
+    width: 100%;
+    margin: 0 auto;
     display: grid;
-    padding: 10px;
+    padding: 20px 10px;
     grid-template-columns: auto auto;
 }
 
 .grid-item {
-    width: 400px; 
+    width: 500px; 
     align-self: center; 
     grid-column-start: 15; 
 }
@@ -154,7 +154,6 @@ input {
 .get-started-button {
     margin-top: 10px;
 }
-
 
 .small-caps {
     letter-spacing: 2px;
@@ -548,6 +547,14 @@ button {
 }
 
 .main {
+    &--home {
+        margin: 0 auto;
+
+        .container {
+            margin: 0 auto;
+        }
+    }
+
     &--register {
         margin-top: 30px;
     }
