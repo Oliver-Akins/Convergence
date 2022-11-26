@@ -42,7 +42,7 @@ function ModalSettings({ user, setOpen }) {
     }
 
     return (
-        <Modal setOpen={ setOpen } classes="settings" children={[<ModalContent />]}/>
+        <Modal setOpen={ setOpen } triggerOnEscape={false} classes="settings" children={[<ModalContent />]}/>
     )
 }
 

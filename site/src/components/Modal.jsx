@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { SimpleDeleteButton } from "./Button";
 
-function Modal({ setOpen, children, classes }) {
+function Modal({ setOpen, children, classes, triggerOnEscape = true }) {
     const closeOnOverlay = (e) => {
         e.preventDefault();
         if(e.target === e.currentTarget) {
@@ -11,7 +11,7 @@ function Modal({ setOpen, children, classes }) {
 
     useEffect(() => {
         const listener = event => {
-          if (event.code === "Escape") {
+          if(triggerOnEscape && event.code === "Escape") {
             event.preventDefault();
             setOpen(false);
           }
@@ -20,7 +20,7 @@ function Modal({ setOpen, children, classes }) {
         return () => {
           document.removeEventListener("keydown", listener);
         };
-      }, [setOpen]);
+      }, [setOpen, triggerOnEscape]);
     
 
     return (
