@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SimpleDeleteButton } from "./Button";
 
 function Modal({ setOpen, children, classes }) {
@@ -8,6 +8,20 @@ function Modal({ setOpen, children, classes }) {
             setOpen(false);
         }
     }
+
+    useEffect(() => {
+        const listener = event => {
+          if (event.code === "Escape") {
+            event.preventDefault();
+            setOpen(false);
+          }
+        };
+        document.addEventListener("keydown", listener);
+        return () => {
+          document.removeEventListener("keydown", listener);
+        };
+      }, [setOpen]);
+    
 
     return (
         <div className="overlay scrollable--light" onClick={closeOnOverlay}>
