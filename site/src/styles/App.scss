@@ -461,6 +461,10 @@ button {
         font-size: $font-header-size;
         color: white;
     }
+
+    img {
+        @include force-size(40px, 40px);
+    }
     
     a {
         color: white;
