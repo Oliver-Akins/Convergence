@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Navigation } from "../components/Navigation";
 import logo from "../images/logo.svg";
-import friends from "../images/friends.png";
+import gameLibraryImage from "../images/game-library.png";
 import sharedgames from "../images/sharedgames.png";
 
 function Home() {
@@ -36,8 +36,8 @@ function Home() {
                   Large Game Group? No Problem! 
                 </h3>
                 <p className="p-home">Convergence allows you to easily see what games you and your multiple friends
-                  all own. Only playing games with one person? you got it! playing games with 10 
-                  other people? Easily see what games everyone owns
+                  all own. Only playing games with one person? You got it! Playing games with 10 
+                  other people? Easily see what games everyone owns.
                 </p>
               </div>
               <div className="grid-item">
@@ -48,15 +48,15 @@ function Home() {
           <div className="home-section">
             <div className="grid-container">
               <div className="grid-item grid-item1">
-                <img src={friends} alt="friends"></img>
+                <img src={gameLibraryImage} alt="friends"></img>
               </div>
               <div className="grid-item">
                   <h3>
                     Automatically Add Games From Your Favourite Platforms!
                   </h3>
                   <p className="p-home">No one likes adding things manually whenever they dont have to, 
-                    which is why convergence allows you to link some of your Favourite
-                    platforms to the site. so that you can have large parts of your game 
+                    which is why convergence allows you to link some of your favourite
+                    platforms to the site. So that you can have large parts of your game 
                     library automatically added to the site!
                   </p>
               </div>
