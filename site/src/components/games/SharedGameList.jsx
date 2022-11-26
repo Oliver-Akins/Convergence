@@ -3,7 +3,7 @@ import Game from "./Game";
 
 function SharedGameList({ games=null, controls=null }) {
     return (
-        <section className="game-list game-list--shared scrollable">
+        <section className={`game-list game-list--shared scrollable ${!games ? "empty": ""}`}>
             <div className="game-list__heading">
                 <div>
                     <h2>Shared Games</h2>

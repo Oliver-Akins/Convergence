@@ -648,6 +648,7 @@ button {
     &--shared {
         flex-grow: 1;
         margin-bottom: 30px;
+
         & .game-list__games {
             max-height: 40vh;
         }
@@ -657,6 +658,15 @@ button {
 
             & .game-list__games {
                 max-height: 17vh;
+            }
+        }
+
+        &.empty {
+            flex-grow: unset;
+
+            & + .game-list {
+                max-height: unset;
+                flex-grow: 1;
             }
         }
     }
