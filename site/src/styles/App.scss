@@ -481,10 +481,17 @@ button {
     flex-direction: column;
     gap: 20px;
 
+    &:first-of-type {
+        margin-top: 10px;
+    }
     &--compared {
         h2 {
             text-align: center;
             font-size: $font-normal-size;
+        }
+
+        .person {
+            border: 1px solid rgba($brand-primary, 0.5);
         }
 
         &+.friends-list::before {
