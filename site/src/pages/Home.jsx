@@ -22,9 +22,7 @@ function Home() {
                 <p className="p-home">Convergence allows you to see what games you and your friends
                   all own to make finding games to play together easier!
                 </p>
-                <Link to="/register">
-                  <button className="btn btn--primary get-started-button">Get Started</button>
-                </Link>
+                <Link to="/login" className="btn btn--primary get-started-button">Get Started</Link>
               </div>
               <div className="grid-item">
                 <img src={logo} alt="logo" width="200"></img>
@@ -64,9 +62,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <Link to="/register">
-            <button className="btn btn--primary get-started-button btn-center">Get Started</button>
-          </Link>
+          <Link to="/login" className="btn btn--primary get-started-button btn-center">Get Started</Link>
       </main>
     </>
   );

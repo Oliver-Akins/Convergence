@@ -555,6 +555,11 @@ button {
         .container {
             margin: 0 auto;
         }
+
+        a {
+            max-width: -moz-fit-content;
+            max-width: fit-content;
+        }
     }
 
     &--register {
