@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { Button } from "./Button";
+
+import { logout } from "./api/authentication";
 
 function Navigation() {
     return(
@@ -23,11 +27,17 @@ function SimpleNavigation() {
 }
 
 function DashboardNavigation() {
+    let navigate = useNavigate();
+
+    const handleLogout = (e) => {
+        logout();
+        navigate("/");
+    }
+
     return(
         <nav className="navigation navigation--dashboard">
-            <div className="container">
-                <p className="navigation__home" to="#"><img alt="" src={require("../images/logo-small.svg").default}></img>Convergence</p>
-            </div>
+            <p className="navigation__home" to="#"><img alt="" src={require("../images/logo-small.svg").default}></img>Convergence</p>
+            <Button text="Logout" classes="btn--unfilled" onClickCallback={handleLogout}></Button>
         </nav>
     );
 }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, DeletableButton } from "../Button";
+import { Button, DeletableButton, SimpleCheckButton, SimpleDeleteButton } from "../Button";
 import Modal from "../Modal";
 
-function ModalSettings({ setOpen }) {
+function ModalSettings({ user, setOpen }) {
     function ModalContent() {
         // TODO Component-ize this
         return (
@@ -15,8 +15,8 @@ function ModalSettings({ setOpen }) {
                     <div className="modal__inputs">
                         <label className="small-caps" htmlFor="username">Username</label>
                         <div className="current-username">
-                            <input type="text" id="username"></input>
-                            <p>#0001</p>
+                            <input type="text" id="username" value={ user.username }></input>
+                            <p>#{ user.discriminator}</p>
                         </div>
                         <label className="small-caps" htmlFor="password">Password</label>
                         <input type="password" id="password"></input>
@@ -24,11 +24,16 @@ function ModalSettings({ setOpen }) {
                         <input type="password" id="confirm-password"></input>
                     </div>
                 </div>
-                <div className="card incoming-requests">
+                <div className="card card--incoming-requests">
                     <p>Allow Incoming Friend Requests</p>
+                    <div className="card__controls">
+                        <SimpleDeleteButton outlined={true}/>
+                        <SimpleCheckButton outlined={true} />
+
+                    </div>
                 </div>
                 <div className="card settings__linked-accounts">
-                    <DeletableButton text="Unlink from Discord" isGrey={true} hoverText="Linked with Discord" iconSrc={"icons/discord.svg"}></DeletableButton>
+                    <DeletableButton text="Unlink from Discord" classes="btn--grey" hoverText="Linked with Discord" iconSrc={"icons/discord.svg"}></DeletableButton>
                     <Button text="Link with Steam" iconSrc="icons/steam.svg"></Button>
                     <Button text="Link with Itch.io" iconSrc="icons/itch-io.svg"></Button>
                 </div>

@@ -1,7 +1,7 @@
-// Contains the async calls to authenticate: register, login, logout, etc.
+// Contains the calls to authenticate: register, login, logout, etc.
 
-async function register(aUsername: string, aPassword: string): Promise<any> {     
-    await fetch("register/username", {
+function register(aUsername: string, aPassword: string): Promise<any> {     
+    return fetch("register/username", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -13,16 +13,18 @@ async function register(aUsername: string, aPassword: string): Promise<any> {
         })
         .then((json) => {
             localStorage.setItem("user", JSON.stringify(json));
+            return json;
         })
         .catch((err) => console.error(err));
 }
 
-async function login(username: string, password: string): Promise<any> {    
-    await fetch("/login/username", {
+function login(username: string, password: string): Promise<any> {    
+    return fetch("/login/username", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: "same-origin",
         body: JSON.stringify({ username: username, password: password}),
     })
         .then((response) => {
@@ -30,8 +32,18 @@ async function login(username: string, password: string): Promise<any> {
         })
         .then((json) => {
             localStorage.setItem("user", JSON.stringify(json));
+            return json;
         })
         .catch((err) => console.error(err));
 }
 
-export { register, login };
+function logout(): void {
+    localStorage.clear();
+    document.cookie = 'sid=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+function getAccount(): any {
+    return localStorage.getItem("user");
+}
+
+export { register, login, getAccount, logout };

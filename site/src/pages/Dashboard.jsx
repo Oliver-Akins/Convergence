@@ -1,67 +1,161 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Sidebar from "components/Sidebar";
 import Person from "components/Person";
-import GameList from "../components/GameList";
+import SharedGameList from "../components/games/SharedGameList";
+import OwnedGameList from "../components/games/OwnedGameList";
 import { Button, IconButton } from "../components/Button"
 import ModalSettings from "../components/modals/ModalSettings";
 import { DashboardNavigation } from "../components/Navigation";
 import { ModalAddGame } from "../components/modals/ModalGames";
 
-let personalProfileFake = {
-  "username": "Me", 
-  "id": "0001",
-};
-
-let friendsListFake = [
-  {
-    "username": "User1",
-    "id": "0001",
-  }
-];
-
-let gamesFake = [
-  {
-      "name": "Untitled Goose Game",
-      "platforms": ["switch", "steam"],
-  },
-  {
-    "name": "Xenoblade Chronicles",
-    "platforms": ["switch"],
-  },
-  {
-    "name": "It Takes Two",
-    "platforms": ["switch", "steam"],
-  },
-  {
-    "name": "Minish Cap",
-    "platforms": ["steam"],
-  },
-];
+import { getGame, getOwnedGames, getIntersection } from "../components/api/gameEndpoints";
+import { getUser, getOwnFriends } from "../components/api/user";
 
 function Dashboard() {
   const [openSettingsModal, setOpenSettingsModal] = useState(false);
   const [openAddGameModal, setOpenAddGameModal] = useState(false);
+  const [user, setUser] = useState(null);
+  const [ownedGames, setOwnedGames] = useState(null);
+  const [ownedGamesSimple, setOwnedGamesSimple] = useState(null);
+  const [sharedGames, setSharedGames] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
+  const [acceptedFriendsList, setAcceptedFriendsList] = useState([]);
+  const [friendsToCompare, setFriendsToCompare] = useState([]);
+
+  const navigate = useNavigate();
 
   const SettingsButton = () => <IconButton imgSrc="settings.svg" onClickCallback={() => { setOpenSettingsModal(true) }} />;
 
   const AddGameButton = () => <Button text="Add Game" classes="btn--add-game" onClickCallback={() => { setOpenAddGameModal(true) }} />;
+
+  const parseUser = async (aUser) => {
+    let userParsed = aUser;
+    if(aUser.relations && aUser.relations.requests.length > 0) {
+      for (let i = 0; i < aUser.relations.requests.length; i++) {
+        const element = aUser.relations.requests[i];
+        userParsed.relations.requests[i] = await getUser(element);
+      }
+    }
+
+    return userParsed;
+  };
+
+  const parseOwnedGames = async (games) => {
+    let gamesParsed = [];
+    const gameTitles = Object.keys(games);
+    if(gameTitles && gameTitles.length > 0) {
+      for(let i = 0; i < gameTitles.length; i++) {
+        const element = gameTitles[i];
+        const response = await getGame(element);
+        gamesParsed.push(response);
+      }
+    }
+
+    return gamesParsed;
+  }
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if(localStorage.getItem("user") === null || localStorage.getItem("user") === "{}") {
+          navigate("/login");
+          return;
+        }
+
+        const aUser = await getUser("@me");
+        if(!aUser || aUser === {}) {
+          navigate("/login");
+          return;
+        }
+        const userParsed = await parseUser(aUser);
+        setUser(userParsed);
+        setFriendsList(userParsed.relations);
+        const ownedGames = await getOwnedGames();
+        setOwnedGamesSimple(ownedGames);
+        const gamesParsed = await parseOwnedGames(ownedGames);
+        setOwnedGames(gamesParsed);
+      } catch(error) {
+        
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const ownedGames = await getOwnedGames();
+        setOwnedGamesSimple(ownedGames);
+        const gamesParsed = await parseOwnedGames(ownedGames);
+        setOwnedGames(gamesParsed);
+      } catch(error) {
+        
+      }
+    })();
+  }, [setOpenAddGameModal, setOwnedGamesSimple]);
+
+  useEffect(() => {
+    (async () => {
+      if(friendsToCompare.length > 0) {
+        const parsedList = friendsToCompare.map((item) => {
+          return item.id;
+        }).join();
+  
+        try {
+          const sharedGames = await getIntersection(parsedList, true);
+          setSharedGames(sharedGames.games);
+        } catch(error) {
+          
+        }
+      } else {
+        setSharedGames([]);
+      }
+    })();
+  }, [friendsToCompare]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let result = await getOwnFriends();
+        setAcceptedFriendsList(result);
+      } catch(error) {
+        
+      }
+    })();
+  }, [friendsList]);
 
   return (
     <>
       <header>
         <DashboardNavigation />
       </header>
-      { openSettingsModal && <ModalSettings setOpen={ setOpenSettingsModal } />}
-      { openAddGameModal && <ModalAddGame setOpen={ setOpenAddGameModal } />}
+      { openSettingsModal && <ModalSettings user={user} setOpen={ setOpenSettingsModal } />}
+      { openAddGameModal && <ModalAddGame ownedGames={ownedGames} setOwnedGames={setOwnedGames} setOwnedGamesSimple={setOwnedGamesSimple} setOpen={ setOpenAddGameModal } />}
       <main className="main--dashboard dashboard">
         <div className="dashboard__sidebar">
-          <Person person={personalProfileFake} classes="person--personal" buttons={ [SettingsButton] }/>
-          <Sidebar friendsList={ friendsListFake }></Sidebar>
+          <Person person={ user } classes="person--personal" buttons={ [SettingsButton] }/>
+          <Sidebar 
+            friendsList={friendsList}
+            setFriendsList={setFriendsList}
+            acceptedFriendsList={acceptedFriendsList}
+            setAcceptedFriendsList={setAcceptedFriendsList}
+            friendsToCompare={friendsToCompare}
+            setFriendsToCompare={setFriendsToCompare}
+           />
         </div>
         <section className="dashboard__main">
           <div className="game-lists">
-            { <GameList shared={true} games={gamesFake} /> }
-            <GameList games={gamesFake} controls={[AddGameButton]} />
+            { friendsToCompare.length > 0 ?<SharedGameList games={sharedGames} />
+              :<></>
+            }
+            <OwnedGameList 
+              ownedGames={ownedGames} 
+              ownedGamesSimple={ownedGamesSimple} 
+              setOwnedGames={setOwnedGames} 
+              setOwnedGamesSimple={setOwnedGamesSimple}>
+              <AddGameButton />
+            </OwnedGameList>
           </div>
         </section>
       </main>

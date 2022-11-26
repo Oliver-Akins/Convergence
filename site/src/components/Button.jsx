@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText = null}) {
+function Button({ text, classes="", onClickCallback, type=null, triggerOnEnter = false, iconSrc = null, hoverText = null}) {
   const [isHover, setHover] = useState(false);
 
   const onHover = (e) => {
@@ -13,47 +13,55 @@ function Button({ text, classes="", onClickCallback, iconSrc = null, hoverText =
     setHover(false);
   };
 
+  useEffect(() => {
+    const listener = event => {
+      if (triggerOnEnter && (event.code === "Enter" || event.code === "NumpadEnter")) {
+        event.preventDefault();
+        onClickCallback(event);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [onClickCallback, triggerOnEnter]);
+
   return (
-    <button type="button" className={`btn ${classes}`} onClick={(e) => { onClickCallback && onClickCallback(e)}} onMouseOver={onHover} onMouseOut={onHoverOver}>
+    <button type={type? type: "button"} className={`btn ${classes}`} onClick={async (e) => { onClickCallback && onClickCallback(e)}} onMouseOver={onHover} onMouseOut={onHoverOver}>
       { iconSrc && <img src={require(`../images/${iconSrc}`)} alt=""></img> }
       {(!hoverText || (hoverText && isHover)) ? text: hoverText }
     </button>
   );
 }
 
-function PrimaryButton({ text, onClickCallback }) {
-  return (
-    <Button classes={"btn--primary"} text={text} onClickCallback={onClickCallback} />
-  )
-}
-
-function UnfilledButton({ text, onClickCallback }) {
-  return (
-    <Button classes={"btn--unfilled"} text={text} onClickCallback={onClickCallback} />
-  )
-}
-
 /** 
  * Button changes to red on hover
 */
-function DeletableButton({ text, hoverText, iconSrc=null, isGrey = false, onClickCallback }) {
+function DeletableButton({ text, hoverText, iconSrc=null, classes, onClickCallback }) {
   return (
-    <Button classes={ isGrey ? "btn--grey btn--delete" : "btn--delete"} text={text} iconSrc={iconSrc} onClickCallback={onClickCallback} hoverText={hoverText} />
+    <Button classes={`btn--delete ${classes}`} text={text} iconSrc={iconSrc} onClickCallback={onClickCallback} hoverText={hoverText} />
   )
 }
 
-function IconButton({ onClickCallback, classes, imgSrc }) {
+function IconButton({ onClickCallback, classes, imgSrc, children}) {
   return (
-    <button type="button" className={`btn-icon ${ classes }`} onClick={() => { onClickCallback && onClickCallback()}}>
+    <button type="button" className={`btn-icon ${ classes }`} onClick={ async (e) => { onClickCallback && onClickCallback(e)}}>
+      { children }
       <img src={require(`../images/icons/${imgSrc}`)} alt="Delete"></img>
     </button>
   );
 }
 
-function SimpleDeleteButton({ onClickCallback, outlined, thin }) {
+function SimpleDeleteButton({ onClickCallback, outlined, thin, children }) {
   return (
-    <IconButton onClickCallback={onClickCallback} classes={outlined ? "btn-icon--outlined" : ""} imgSrc={ !thin ? "close-button.svg" : "close-button-thin.svg" } />
+    <IconButton onClickCallback={onClickCallback} children={children} classes={outlined ? "btn-icon--outlined" : ""} imgSrc={ !thin ? "close-button.svg" : "close-button-thin.svg" } />
   );
 }
 
-export { Button, PrimaryButton, UnfilledButton, DeletableButton, IconButton, SimpleDeleteButton };
+function SimpleCheckButton({ onClickCallback, outlined, children }) {
+  return (
+    <IconButton onClickCallback={onClickCallback} children={children} classes={outlined ? "btn-icon--check btn-icon--outlined" : "btn-icon--check"} imgSrc="check-button.svg" />
+  );
+}
+
+export { Button, DeletableButton, IconButton, SimpleDeleteButton, SimpleCheckButton };

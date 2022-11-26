@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
-import { login } from "../components/authentication";
 import { SimpleNavigation } from "../components/Navigation";
 
+import { getAccount, login } from "../components/api/authentication";
 
-function Home() {
+function Login() {
+  let navigate = useNavigate();
+
   const [inputState, setInputState] = useState({
     username: "",
     password: ""
@@ -19,11 +23,27 @@ function Home() {
     }));        
   }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     // TODO validation and error messages
+    if(inputState.username.indexOf('#') <= -1) {
+      toast.error("Enter a username in the format 'username#123'.");
+      return;
+    }
+
+    if(inputState.password.length < 6) {
+      toast.error("Enter a password at 6 characters long.");
+      return;
+    }
+
     // for discriminator and password
-    login(inputState.username, inputState.password);
+    await login(inputState.username, inputState.password);
+    if(getAccount() !== "undefined") {
+      navigate("/app");
+    } else {
+      // TODO show validation errors
+      toast.error("Login failed. Try a different username or password.")
+    }
   }
   
   return (
@@ -42,10 +62,10 @@ function Home() {
           </span>
           <div className="login__form">
             <label className="small-caps" htmlFor="username">Username</label>
-            <input type="text" id="username" onChange={handleChange}></input>
+            <input type="text" id="username" placeholder="Username#123" onChange={handleChange}></input>
             <label className="small-caps" htmlFor="password">Password</label>
             <input type="password" id="password" onChange={handleChange}></input>
-            <Button text="Login" classes="btn btn--form" onClickCallback={(e) => { handleFormSubmit(e); }}/>
+            <Button text="Login" classes="btn btn--form" triggerOnEnter={true} onClickCallback={(e) => { handleFormSubmit(e); }}/>
           </div>
           <div>
             <p>Don't have an account? <Link to="/register">Register</Link></p>
@@ -56,4 +76,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Login;

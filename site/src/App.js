@@ -1,5 +1,9 @@
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import './styles/App.scss';
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from './pages/Home.jsx';
 import Register from './pages/Register.jsx';
@@ -15,9 +19,14 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route path="app" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="app" element={<Dashboard />} />
       </Routes>
+      <ToastContainer 
+          position="top-center"
+          hideProgressBar={true}
+          theme="dark"
+      />
     </div>
   );
 }
