@@ -60,13 +60,13 @@ function Login() {
           <span className="divider">
             <p className="small-caps">Or</p>
           </span>
-          <div className="login__form">
+          <form className="login__form">
             <label className="small-caps" htmlFor="username">Username</label>
             <input type="text" id="username" placeholder="Username#123" onChange={handleChange}></input>
             <label className="small-caps" htmlFor="password">Password</label>
             <input type="password" id="password" onChange={handleChange}></input>
             <Button text="Login" classes="btn btn--form" triggerOnEnter={true} onClickCallback={(e) => { handleFormSubmit(e); }}/>
-          </div>
+          </form>
           <div>
             <p>Don't have an account? <Link to="/register">Register</Link></p>
           </div>
